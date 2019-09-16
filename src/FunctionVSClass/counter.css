@@ -1,0 +1,8 @@
+.counterdiv {
+    flex: 1
+}
+
+.countercomparison {
+    display: flex;
+    flex-direction: row;
+}

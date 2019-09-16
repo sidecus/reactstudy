@@ -1146,6 +1146,45 @@
   dependencies:
     "@babel/types" "^7.3.0"
 
+"@types/d3-array@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@types/d3-array/-/d3-array-2.0.0.tgz#a0d63a296a2d8435a9ec59393dcac746c6174a96"
+  integrity sha512-rGqfPVowNDTszSFvwoZIXvrPG7s/qKzm9piCRIH6xwTTRu7pPZ3ootULFnPkTt74B6i5lN0FpLQL24qGOw1uZA==
+
+"@types/d3-cloud@^1.2.2":
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/@types/d3-cloud/-/d3-cloud-1.2.2.tgz#681d7776c2b8e4e4b00cb425ae890351850a91a5"
+  integrity sha512-WRjJBcCy2Xwrso/jqP6db+GALsgZX87LibBuh3iAMsv/XekrSerCzIeOIf5Hcr1U6lYKZ91/sijuW24eIOd8tQ==
+  dependencies:
+    "@types/d3" "^3"
+
+"@types/d3-scale-chromatic@^1.3.1":
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/@types/d3-scale-chromatic/-/d3-scale-chromatic-1.3.1.tgz#a294ae688634027870f0307bf8802f863aa2ddb3"
+  integrity sha512-Ny3rLbV5tnmqgW7w/poCcef4kXP8mHPo/p8EjTS5d9OUk8MlqAeRaM8eF7Vyv7QMLiIXNE94Pa1cMLSPkXQBoQ==
+
+"@types/d3-scale@^2.1.1":
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/@types/d3-scale/-/d3-scale-2.1.1.tgz#405e58771ec6ae7b8f7b4178ee1887620759e8f7"
+  integrity sha512-kNTkbZQ+N/Ip8oX9PByXfDLoCSaZYm+VUOasbmsa6KD850/ziMdYepg/8kLg2plHzoLANdMqPoYQbvExevLUHg==
+  dependencies:
+    "@types/d3-time" "*"
+
+"@types/d3-selection@^1.4.1":
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/@types/d3-selection/-/d3-selection-1.4.1.tgz#fa1f8710a6b5d7cfe5c6caa61d161be7cae4a022"
+  integrity sha512-bv8IfFYo/xG6dxri9OwDnK3yCagYPeRIjTlrcdYJSx+FDWlCeBDepIHUpqROmhPtZ53jyna0aUajZRk0I3rXNA==
+
+"@types/d3-time@*":
+  version "1.0.10"
+  resolved "https://registry.yarnpkg.com/@types/d3-time/-/d3-time-1.0.10.tgz#d338c7feac93a98a32aac875d1100f92c7b61f4f"
+  integrity sha512-aKf62rRQafDQmSiv1NylKhIMmznsjRN+MnXRXTqHoqm0U/UZzVpdrtRnSIfdiLS616OuC1soYeX1dBg2n1u8Xw==
+
+"@types/d3@^3":
+  version "3.5.43"
+  resolved "https://registry.yarnpkg.com/@types/d3/-/d3-3.5.43.tgz#e9b4992817e0b6c5efaa7d6e5bb2cee4d73eab58"
+  integrity sha512-t9ZmXOcpVxywRw86YtIC54g7M9puRh8hFedRvVfHKf5YyOP6pSxA0TvpXpfseXSCInoW4P7bggTrSDiUOs4g5w==
+
 "@types/eslint-visitor-keys@^1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@types/eslint-visitor-keys/-/eslint-visitor-keys-1.0.0.tgz#1ee30d79544ca84d68d4b3cdb0af4f205663dd2d"
@@ -1207,6 +1246,13 @@
   version "16.9.0"
   resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-16.9.0.tgz#ba6ddb00bf5de700b0eb91daa452081ffccbfdea"
   integrity sha512-OL2lk7LYGjxn4b0efW3Pvf2KBVP0y1v3wip1Bp7nA79NkOpElH98q3WdCEdDj93b2b0zaeBG9DvriuKjIK5xDA==
+  dependencies:
+    "@types/react" "*"
+
+"@types/react-tabs@^2.3.1":
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/@types/react-tabs/-/react-tabs-2.3.1.tgz#62d3322667ac228c4d0f9f36ac9f86988c0b3971"
+  integrity sha512-4SZXSF8ibQAtHUqqfoYLO+8Rn4F7Hj/IX3CJf1712dWeFvRxYY1HjjwSoN4MgUB0SB0dY4GrdlZwNhhIKuRoNQ==
   dependencies:
     "@types/react" "*"
 
@@ -2377,6 +2423,11 @@ class-utils@^0.3.5:
     isobject "^3.0.0"
     static-extend "^0.1.1"
 
+classnames@^2.2.0:
+  version "2.2.6"
+  resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.2.6.tgz#43935bffdd291f326dad0a205309b38d00f650ce"
+  integrity sha512-JR/iSQOSt+LQIWwrwEzJ9uk0xfN3mTVYMwt1Ir5mUcSN6pU+V4zQFFaJsclJbPuAUQH+yfWef6tm7l1quW3C8Q==
+
 clean-css@4.2.x:
   version "4.2.1"
   resolved "https://registry.yarnpkg.com/clean-css/-/clean-css-4.2.1.tgz#2d411ef76b8569b6d0c84068dabe85b0aa5e5c17"
@@ -2970,6 +3021,76 @@ cyclist@~0.2.2:
   version "0.2.2"
   resolved "https://registry.yarnpkg.com/cyclist/-/cyclist-0.2.2.tgz#1b33792e11e914a2fd6d6ed6447464444e5fa640"
   integrity sha1-GzN5LhHpFKL9bW7WRHRkRE5fpkA=
+
+"d3-array@1.2.0 - 2", d3-array@^2.3.1:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/d3-array/-/d3-array-2.3.1.tgz#145cb03967578e675db8c62e41f3c406fa7acc73"
+  integrity sha512-YlOh8kwqIz0pDECEdCeqVNelaLQXznD0g6yidhhklMgKxKqbNDrYfoudLMkk9THlqvFll+pXMmXYAyN49yWsmg==
+
+d3-cloud@^1.2.5:
+  version "1.2.5"
+  resolved "https://registry.yarnpkg.com/d3-cloud/-/d3-cloud-1.2.5.tgz#3e91564f2d27fba47fcc7d812eb5081ea24c603d"
+  integrity sha512-4s2hXZgvs0CoUIw31oBAGrHt9Kt/7P9Ik5HIVzISFiWkD0Ga2VLAuO/emO/z1tYIpE7KG2smB4PhMPfFMJpahw==
+  dependencies:
+    d3-dispatch "^1.0.3"
+
+d3-color@1:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/d3-color/-/d3-color-1.3.0.tgz#675818359074215b020dc1d41d518136dcb18fa9"
+  integrity sha512-NHODMBlj59xPAwl2BDiO2Mog6V+PrGRtBfWKqKRrs9MCqlSkIEb0Z/SfY7jW29ReHTDC/j+vwXhnZcXI3+3fbg==
+
+d3-dispatch@^1.0.3:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/d3-dispatch/-/d3-dispatch-1.0.5.tgz#e25c10a186517cd6c82dd19ea018f07e01e39015"
+  integrity sha512-vwKx+lAqB1UuCeklr6Jh1bvC4SZgbSqbkGBLClItFBIYH4vqDJCA7qfoy14lXmJdnBOdxndAMxjCbImJYW7e6g==
+
+d3-format@1:
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/d3-format/-/d3-format-1.4.1.tgz#c45f74b17c5a290c072a4ba7039dd19662cd5ce6"
+  integrity sha512-TUswGe6hfguUX1CtKxyG2nymO+1lyThbkS1ifLX0Sr+dOQtAD5gkrffpHnx+yHNKUZ0Bmg5T4AjUQwugPDrm0g==
+
+d3-interpolate@1:
+  version "1.3.2"
+  resolved "https://registry.yarnpkg.com/d3-interpolate/-/d3-interpolate-1.3.2.tgz#417d3ebdeb4bc4efcc8fd4361c55e4040211fd68"
+  integrity sha512-NlNKGopqaz9qM1PXh9gBF1KSCVh+jSFErrSlD/4hybwoNX/gt1d8CDbDW+3i+5UOHhjC6s6nMvRxcuoMVNgL2w==
+  dependencies:
+    d3-color "1"
+
+d3-scale-chromatic@^1.5.0:
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/d3-scale-chromatic/-/d3-scale-chromatic-1.5.0.tgz#54e333fc78212f439b14641fb55801dd81135a98"
+  integrity sha512-ACcL46DYImpRFMBcpk9HhtIyC7bTBR4fNOPxwVSl0LfulDAwyiHyPOTqcDG1+t5d4P9W7t/2NAuWu59aKko/cg==
+  dependencies:
+    d3-color "1"
+    d3-interpolate "1"
+
+d3-scale@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/d3-scale/-/d3-scale-3.1.0.tgz#e8af005101502dbf26c505d9f40cf88bcb75b2e1"
+  integrity sha512-3edyEBwbwQG400VbgaepQC9ZYFX3h92flLHIUa1+nvZp/mqCYdxNM9zGTjKtPcSAuBCyPePdMQOapsD0qNALrg==
+  dependencies:
+    d3-array "1.2.0 - 2"
+    d3-format "1"
+    d3-interpolate "1"
+    d3-time "1"
+    d3-time-format "2"
+
+d3-selection@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/d3-selection/-/d3-selection-1.4.0.tgz#ab9ac1e664cf967ebf1b479cc07e28ce9908c474"
+  integrity sha512-EYVwBxQGEjLCKF2pJ4+yrErskDnz5v403qvAid96cNdCMr8rmCYfY5RGzWz24mdIbxmDf6/4EAH+K9xperD5jg==
+
+d3-time-format@2:
+  version "2.1.3"
+  resolved "https://registry.yarnpkg.com/d3-time-format/-/d3-time-format-2.1.3.tgz#ae06f8e0126a9d60d6364eac5b1533ae1bac826b"
+  integrity sha512-6k0a2rZryzGm5Ihx+aFMuO1GgelgIz+7HhB4PH4OEndD5q2zGn1mDfRdNrulspOfR6JXkb2sThhDK41CSK85QA==
+  dependencies:
+    d3-time "1"
+
+d3-time@1:
+  version "1.0.11"
+  resolved "https://registry.yarnpkg.com/d3-time/-/d3-time-1.0.11.tgz#1d831a3e25cd189eb256c17770a666368762bbce"
+  integrity sha512-Z3wpvhPLW4vEScGeIMUckDW7+3hWKOQfAWg/U7PlWBnQmeKQ00gCUsTtWSYulrKNA7ta8hJ+xXc6MHrMuITwEw==
 
 d@1:
   version "1.0.1"
@@ -7715,7 +7836,7 @@ prompts@^2.0.1:
     kleur "^3.0.3"
     sisteransi "^1.0.3"
 
-prop-types@^15.6.2, prop-types@^15.7.2:
+prop-types@^15.5.0, prop-types@^15.6.2, prop-types@^15.7.2:
   version "15.7.2"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.7.2.tgz#52c41e75b8c87e72b9d9360e0206b99dcbffa6c5"
   integrity sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ==
@@ -7914,7 +8035,7 @@ react-dev-utils@^9.0.3:
     strip-ansi "5.2.0"
     text-table "0.2.0"
 
-react-dom@16.9.0:
+react-dom@^16.9.0:
   version "16.9.0"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.9.0.tgz#5e65527a5e26f22ae3701131bcccaee9fb0d3962"
   integrity sha512-YFT2rxO9hM70ewk9jq0y6sQk8cL02xm4+IzYBz75CQGlClQQ1Bxq0nhHF6OtSbit+AIahujJgb/CPRibFkMNJQ==
@@ -7995,7 +8116,15 @@ react-scripts@3.1.1:
   optionalDependencies:
     fsevents "2.0.7"
 
-react@16.9.0:
+react-tabs@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/react-tabs/-/react-tabs-3.0.0.tgz#60311a17c755eb6aa9b3310123e67db421605127"
+  integrity sha512-z90cDIb+5V7MzjXFHq1VLxYiMH7dDQWan7mXSw6BWQtw+9pYAnq/fEDvsPaXNyevYitvLetdW87C61uu27JVMA==
+  dependencies:
+    classnames "^2.2.0"
+    prop-types "^15.5.0"
+
+react@^16.9.0:
   version "16.9.0"
   resolved "https://registry.yarnpkg.com/react/-/react-16.9.0.tgz#40ba2f9af13bc1a38d75dbf2f4359a5185c4f7aa"
   integrity sha512-+7LQnFBwkiw+BobzOF6N//BdoNw0ouwmSJTEm9cglOOmsg/TMiFHZLe2sEoN5M7LgJTj9oHH0gxklfnQe66S1w==

@@ -4,7 +4,7 @@ import { scaleOrdinal, scaleSqrt } from 'd3-scale';
 import { schemeCategory10 } from 'd3-scale-chromatic';
 import { select, Selection } from 'd3-selection';
 import * as React from 'react';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useMemo } from 'react';
 
 const MIN_WIDTH = 80;
 const MIN_HEIGHT = 80;
@@ -114,7 +114,13 @@ export const QueryCloud = (props: IQueryCloudProps) => {
     const containerDivRef = useRef<HTMLDivElement>(null);
     const [size, setSize] = useState<[number, number]>([0, 0]);
     const [d3SvgG, setd3SvgG] = useState<d3SvgGSelection>();
-    const [words, setWords] = useState<d3Word[]>();
+
+    // Use useMemo hooks to avoid recomputing the words during each render
+    const words = useMemo(() => {
+        const iWords = getWords(mergedProps.queries);
+        return processWords(iWords, mergedProps.wordCount!, mergedProps.minFontSize!, mergedProps.maxFontSize!);
+    },
+    [mergedProps.queries, mergedProps.wordCount, mergedProps.minFontSize, mergedProps.maxFontSize]);
 
     // Effect to initialize the D3 SVG g selection used to draw the chart.
     // This has no dependency so this will only be run once.
@@ -141,19 +147,8 @@ export const QueryCloud = (props: IQueryCloudProps) => {
         return (): void => {
             select(element).selectAll('*').remove();
         };
-    }, []);
-
-    // Effect to compute the words.
-    // This will only rerun when some props changes.
-    useEffect(() => {
-        if (!mergedProps.queries || mergedProps.queries.length <= 1) {
-            return;
-        }
-
-        // process the words and conver to d3 Words. This will only rerun when queries change.
-        const d3Words = processWords(getWords(mergedProps.queries), mergedProps.wordCount!, mergedProps.minFontSize!, mergedProps.maxFontSize!);
-        setWords(d3Words);
-    }, [mergedProps.queries, mergedProps.wordCount, mergedProps.minFontSize, mergedProps.maxFontSize]);
+    },
+    []);
 
     // Effect to render the chart after d3 initialization.
     // This will rerun when rendering container changes or words change.
@@ -173,7 +168,8 @@ export const QueryCloud = (props: IQueryCloudProps) => {
             .fontSize((d: d3Word) => d.size!)
             .on('end', (tags: d3Word[]) => renderd3Cloud(tags, d3SvgG))
             .start();
-    }, [d3SvgG, size, words]);
+    },
+    [d3SvgG, size, words]);
 
     // the container div
     return <div ref={ containerDivRef } />;

@@ -25,9 +25,6 @@ const useLoggingEffect = (
     shouldRun: boolean,
     deps?: readonly any[]
 ): void => {
-    // queue the render message.
-    queueMessage(messageBufferRef, value, `${name} rendering`);
-
     // Use effect hooks to change the text area dom element directly.
     // We cannot use state to do this - it'll cause infinite rendering.
     useEffect(() => {
@@ -71,6 +68,8 @@ export const HooksSeq = () => {
     useOneTimeEffect(value, textAreaRef, messageBufferRef);
     useConstantEffect(value, textAreaRef, messageBufferRef);
     useRandomEffect(value, textAreaRef, messageBufferRef);
+
+    queueMessage(messageBufferRef, value, "rendering");
 
     return (
         <div className='hooksseqcontainer'>

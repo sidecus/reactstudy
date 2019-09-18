@@ -100,8 +100,7 @@ export interface IQueryCloudProps {
     maxFontSize?: number;
 }
 
-const defaultProps : IQueryCloudProps = {
-    queries: [],
+const defaultProps : Partial<IQueryCloudProps> = {
     wordCount: DEFAULT_WORD_COUNT,
     minFontSize: DEFAULT_MIN_FONT_SIZE,
     maxFontSize: DEFAULT_MAX_FONT_SIZE

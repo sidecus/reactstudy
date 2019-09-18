@@ -1,20 +1,12 @@
 import * as React from 'react';
 import { useSelector } from 'react-redux';
-import { createSelector } from 'reselect';
-/*
-import { createStore } from 'redux';
-
-interface IStore {
-    tweets: string[];
-}
-*/
-
-const baseSelector = () => 1;
-const childSelector = createSelector([baseSelector], (x: number) => x + 1);
+// import { createSelector } from 'reselect';
+import { ITodoAppStore } from './store.redux'
 
 export const ReduxHooks = () => {
-    const child = useSelector(() => childSelector);
+    const todosSelector = useSelector((store: ITodoAppStore) => store.getState());
+
     return  (
-        <div>{child}</div>
+        <div>{todosSelector}</div>
     );
 };

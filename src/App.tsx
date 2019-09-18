@@ -6,7 +6,7 @@ import { TabList, TabPanel, Tabs, Tab } from 'react-tabs';
 import { CounterComparison } from './FunctionVSClass/countercomparison';
 import { TrumpTweets } from './QueryCloud/trumptweets';
 import { HooksSeq } from './HooksEvents/hooksseq';
-import { ReduxHooks } from './ReduxHooks/reduxhooks';
+import { ReduxHooksContainer } from './ReduxHooks/reduxhookscontainer';
 
 const App: React.FC = () => {
   return (
@@ -31,7 +31,7 @@ const App: React.FC = () => {
                 <HooksSeq />
               </TabPanel>
               <TabPanel className="tabpanel">
-                <ReduxHooks />
+                <ReduxHooksContainer />
               </TabPanel>
             </div>
         </Tabs>

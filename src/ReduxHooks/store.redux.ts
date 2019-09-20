@@ -18,10 +18,7 @@ interface ITodo {
     Due: Date;
 }
 
-interface ITodoStore {
-    todos: ITodo[];
-}
-
+// dispatchers
 export const dispatchAddTodo = (todo: ITodo) => {
     return (dispatch: Dispatch<IAction>) => {
         const action = { type: Actions.AddTodo, payload: todo } as IAction<ITodo>;
@@ -36,34 +33,35 @@ export const dispatchRemoveTodo = (id: number) => {
     }
 }
 
-const todoReducer = (store: ITodoStore = {todos: []}, action: IAction) => {
-    let newStore: ITodoStore = {...store};
+// reducers
+const todoReducer = (store: ITodo[] = [], action: IAction) => {
+    let newStore: ITodo[] = [...store];
     switch (action.type) {
         case Actions.AddTodo:
-            const newId = Math.max(...newStore.todos.map(t => t.id));
+            const newId = Math.max(...newStore.map(t => t.id));
             const newTodo = {...action.payload as ITodo, id: newId};
-            newStore.todos.push(newTodo);
+            newStore.push(newTodo);
             break;
         case Actions.RemoveTodo:
             const id = action.payload as number;
-            newStore.todos.splice(newStore.todos.findIndex(t => t.id === id), 1);
+            newStore.splice(newStore.findIndex(t => t.id === id), 1);
             break;
     }
 
     return newStore;
 }
 
-const mydayReducer = (store: ITodoStore = {todos: []}, action: IAction) => {
-    let newStore: ITodoStore = {...store};
+const mydayReducer = (store: ITodo[] = [], action: IAction) => {
+    let newStore: ITodo[] = [...store];
     switch (action.type) {
         case Actions.AddToMyDay:
-            const newId = Math.max(...newStore.todos.map(t => t.id));
+            const newId = Math.max(...newStore.map(t => t.id));
             const newTodo = {...action.payload as ITodo, id: newId};
-            newStore.todos.push(newTodo);
+            newStore.push(newTodo);
             break;
         case Actions.RemoveTodo:
             const id = action.payload as number;
-            newStore.todos.splice(newStore.todos.findIndex(t => t.id === id), 1);
+            newStore.splice(newStore.findIndex(t => t.id === id), 1);
             break;
     }
 
@@ -71,5 +69,11 @@ const mydayReducer = (store: ITodoStore = {todos: []}, action: IAction) => {
 }
 
 const rootReducer = combineReducers({todo: todoReducer, myday: mydayReducer});
-export const todoStore = createStore(rootReducer);
-export type ITodoAppStore = typeof todoStore; 
+
+// store
+export const todoStore = createStore(rootReducer, {});
+export type ITodoAppStore = typeof todoStore;
+
+// selectors
+export const todoSelector = (store: ITodoAppStore) => store.getState().todo;
+export const myDaySelector = (store: ITodoAppStore) => store.getState().myday;

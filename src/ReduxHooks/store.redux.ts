@@ -12,25 +12,19 @@ interface IAction<T = any> {
     payload?: T;
 }
 
-interface ITodo {
+export interface ITodo {
     id: number;
     title: string;
-    Due: Date;
+    due: Date;
 }
 
 // dispatchers
-export const dispatchAddTodo = (todo: ITodo) => {
-    return (dispatch: Dispatch<IAction>) => {
-        const action = { type: Actions.AddTodo, payload: todo } as IAction<ITodo>;
-        dispatch(action);
-    }
+export const createAddTodoAction = (todo: ITodo) => {
+    return { type: Actions.AddTodo, payload: todo } as IAction<ITodo>;
 }
 
-export const dispatchRemoveTodo = (id: number) => {
-    return (dispatch: Dispatch<IAction>) => {
-        const action = { type: Actions.AddTodo, payload: id } as IAction<number>;
-        dispatch(action);
-    }
+export const createRemoveTodoAction = (id: number) => {
+    return { type: Actions.AddTodo, payload: id } as IAction<number>;
 }
 
 // reducers
@@ -38,7 +32,10 @@ const todoReducer = (store: ITodo[] = [], action: IAction) => {
     let newStore: ITodo[] = [...store];
     switch (action.type) {
         case Actions.AddTodo:
-            const newId = Math.max(...newStore.map(t => t.id));
+            let newId = 0;
+            if (newStore.length > 0) {
+                newId = Math.max(...newStore.map(t => t.id)) + 1;
+            }
             const newTodo = {...action.payload as ITodo, id: newId};
             newStore.push(newTodo);
             break;
@@ -72,8 +69,4 @@ const rootReducer = combineReducers({todo: todoReducer, myday: mydayReducer});
 
 // store
 export const todoStore = createStore(rootReducer, {});
-export type ITodoAppStore = typeof todoStore;
-
-// selectors
-export const todoSelector = (store: ITodoAppStore) => store.getState().todo;
-export const myDaySelector = (store: ITodoAppStore) => store.getState().myday;
+export type ITodoAppStore = ReturnType<typeof rootReducer>;

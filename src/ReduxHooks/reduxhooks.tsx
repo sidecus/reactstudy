@@ -1,12 +1,20 @@
 import * as React from 'react';
-import { useSelector } from 'react-redux';
-// import { createSelector } from 'reselect';
-import { todoSelector, myDaySelector } from './store.redux'
+import { useSelector, useDispatch } from 'react-redux';
+import { ITodo, createAddTodoAction } from './store.redux';
+import { todoSelector } from './selectors.redux';
 
 export const ReduxHooks = () => {
     const todos = useSelector(todoSelector);
+    const dispatch = useDispatch();
+
+    const addTodo = () => {
+        dispatch(createAddTodoAction({title: "todo1", due: new Date()} as ITodo));
+    }
 
     return  (
-        <div>{todos}</div>
+        <>
+            <div>Number of ToDos: {todos.length}</div>
+            <button onClick={() => addTodo()}>Add Todo</button>
+        </>
     );
 };

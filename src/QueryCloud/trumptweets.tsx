@@ -23,7 +23,7 @@ export const TrumpTweets = () => {
 
         getTrumpTweets();
     
-    }, [setQueries]);
+    }, []);
 
     return (
         <div className="clouddiv">

@@ -1,10 +1,11 @@
-import { createStore, combineReducers, Dispatch } from 'redux';
+import { createStore, combineReducers } from 'redux';
 
 enum Actions {
     AddTodo = "AddTodo",
     RemoveTodo = "RemoveTodo",
     AddToMyDay = "AddToMyDay",
     RemoveFromMyDay = "RemoveFromMyDay",
+    ToggleMyDay = "ToggleMyDay",
 }
 
 interface IAction<T = any> {
@@ -16,6 +17,7 @@ export interface ITodo {
     id: number;
     title: string;
     due: Date;
+    inMyDay: boolean;
 }
 
 // dispatchers
@@ -28,45 +30,56 @@ export const createRemoveTodoAction = (id: number) => {
 }
 
 // reducers
-const todoReducer = (store: ITodo[] = [], action: IAction) => {
-    let newStore: ITodo[] = [...store];
+const todoReducer = (state: ITodo[] = [], action: IAction) => {
+    let newState: ITodo[] = [...state];
     switch (action.type) {
         case Actions.AddTodo:
             let newId = 0;
-            if (newStore.length > 0) {
-                newId = Math.max(...newStore.map(t => t.id)) + 1;
+            if (newState.length > 0) {
+                newId = Math.max(...newState.map(t => t.id)) + 1;
             }
             const newTodo = {...action.payload as ITodo, id: newId};
-            newStore.push(newTodo);
+            newState.push(newTodo);
             break;
         case Actions.RemoveTodo:
-            const id = action.payload as number;
-            newStore.splice(newStore.findIndex(t => t.id === id), 1);
+            const idToRemove = action.payload as number;
+            newState.splice(newState.findIndex(t => t.id === idToRemove), 1);
             break;
-    }
-
-    return newStore;
-}
-
-const mydayReducer = (store: ITodo[] = [], action: IAction) => {
-    let newStore: ITodo[] = [...store];
-    switch (action.type) {
         case Actions.AddToMyDay:
-            const newId = Math.max(...newStore.map(t => t.id));
-            const newTodo = {...action.payload as ITodo, id: newId};
-            newStore.push(newTodo);
+            const idToAddToMyDay = action.payload as number;
+            const todoIndexToAddToMyDay = newState.findIndex(t => t.id === idToAddToMyDay);
+            if (todoIndexToAddToMyDay > 0) {
+                newState[todoIndexToAddToMyDay].inMyDay = true;
+            }
             break;
-        case Actions.RemoveTodo:
-            const id = action.payload as number;
-            newStore.splice(newStore.findIndex(t => t.id === id), 1);
+        }
+
+    return newState;
+}
+
+// Settings state
+export interface ITodoAppSettings {
+    enableMyDay: boolean;
+}
+
+const defaultSettings = {
+    enableMyDay: true,
+} as ITodoAppSettings;
+
+const settingsReducer = (state: ITodoAppSettings = defaultSettings, action: IAction) => {
+    let newState: ITodoAppSettings = {...state};
+    switch (action.type) {
+        case Actions.ToggleMyDay:
+            const flag = action.payload as boolean;
+            newState.enableMyDay = flag;
             break;
     }
 
-    return newStore;
+    return newState;
 }
 
-const rootReducer = combineReducers({todo: todoReducer, myday: mydayReducer});
 
-// store
+// root reducer and store
+const rootReducer = combineReducers({todo: todoReducer, settings: settingsReducer});
 export const todoStore = createStore(rootReducer, {});
 export type ITodoAppStore = ReturnType<typeof rootReducer>;

@@ -28,11 +28,13 @@ const useLoggingEffect = (
     // Use effect hooks to change the text area dom element directly.
     // We cannot use state to do this - it'll cause infinite rendering.
     useEffect(() => {
-        shouldRun && queueMessage(messageBufferRef, value, `${name} running`);
-        shouldRun && showMessages(textAreaRef.current!, messageBufferRef.current);
+        if (shouldRun) {
+            queueMessage(messageBufferRef, value, `${name} running`);
+            showMessages(textAreaRef.current!, messageBufferRef.current);
 
-        return () => {
-            shouldRun && queueMessage(messageBufferRef, value, `${name} cleanup`);
+            return () => {
+                queueMessage(messageBufferRef, value, `${name} cleanup`);
+            }
         }
     },
     // Use the given dependency list (blindly). eslint gives warning so we mute it.

@@ -1,41 +1,50 @@
 import React from 'react';
 import logo from './logo.svg';
-import './App.css';
-import "react-tabs/style/react-tabs.css";
-import { TabList, TabPanel, Tabs, Tab } from 'react-tabs';
-import { CounterComparison } from './FunctionVSClass/countercomparison';
-import { TrumpTweets } from './QueryCloud/trumptweets';
-import { HooksSeq } from './HooksEvents/hooksseq';
-import { ReduxHooksContainer } from './ReduxHooks/reduxhookscontainer';
+import { makeStyles, Theme } from '@material-ui/core/styles';
+import { AppBar, Typography, Toolbar, Link } from '@material-ui/core';
+import { AppTabs } from './AppTabs';
 
-const App: React.FC = () => {
+const useStyles = makeStyles((theme: Theme) => ({
+  root: {
+    flexGrow: 1,
+    width: '100%',
+    height: '100vh',
+    backgroundColor: theme.palette.background.paper,
+  },
+  '@keyframes App-logo-spin': {
+    'from': {
+      transform: 'rotate(0deg)',
+    },
+    'to': {
+      transform: 'rotate(360deg)',
+    },
+  },
+  appLogo: {
+    animation: '$App-logo-spin infinite 20s linear',
+    height: '64px',
+  },
+  link: {
+    margin: theme.spacing(2),
+  },
+}));
+
+const gitHubUrl = 'https://github.com/sidecus/reactstudy';
+
+const App = () => {
+  const classes = useStyles();
+
   return (
-    <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <Tabs className="tabs">
-            <TabList>
-              <Tab>Function&amp;Class</Tab>
-              <Tab>TrumpTweets</Tab>
-              <Tab>HooksEvents</Tab>
-              <Tab>ReduxHooks</Tab>
-            </TabList>
-            <div className="tabpanelcontainer">
-              <TabPanel className="tabpanel">
-                <CounterComparison />
-              </TabPanel>
-              <TabPanel className="tabpanel">
-                <TrumpTweets />
-              </TabPanel>
-              <TabPanel className="tabpanel">
-                <HooksSeq />
-              </TabPanel>
-              <TabPanel className="tabpanel">
-                <ReduxHooksContainer />
-              </TabPanel>
-            </div>
-        </Tabs>
-      </header>
+    <div className={classes.root}>
+      <AppBar position='static'>
+        <Toolbar>
+          <img src={logo} className={classes.appLogo} alt="logo" />
+          <Typography variant="h6">
+            React Study
+            <Link href={gitHubUrl} color='inherit' className={classes.link}>sidecus</Link>
+          </Typography>
+        </Toolbar>
+      </AppBar>
+      <AppTabs />
     </div>
   );
 }

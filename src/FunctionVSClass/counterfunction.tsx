@@ -1,8 +1,8 @@
 import * as React from 'react';
-import './counter.css';
+import { Typography, Button, CardContent } from '@material-ui/core';
 
 // React function component uses hooks providing "counter" capability
-const Counter = () => {
+export const Counter = () => {
     const [count, setCount] = React.useState(0);
 
     React.useEffect(() => {
@@ -11,12 +11,12 @@ const Counter = () => {
     }, [count]);
 
     return (
-        <div className="counterdiv">
-            <h3>FunctionComponent</h3>
-            <h6>You clicked {count} times</h6>
-            <button onClick = {() => setCount(count + 1)}>Click me</button>
-        </div>
+        <CardContent>
+            <Typography variant='h4'>Function Component</Typography>
+            <br></br>
+            <Typography variant='body1' component='p'>You clicked {count} times</Typography>
+            <br></br>
+            <Button variant='contained' color='primary' onClick = {() => setCount(count + 1)}>Click me</Button>
+        </CardContent>
     );
 };
-
-export default Counter;

@@ -1,5 +1,6 @@
-import { IWord, getWords, processWords } from './querycloud';
 import { scaleSqrt } from 'd3-scale';
+import { IWord, getWords } from './wordsplitter';
+import { processWords } from './used3words';
 
 it('getWords handles empty array', () => {
     const queries = [] as string[];

@@ -1,6 +1,30 @@
 import * as React from 'react';
 import { useState, useRef, useEffect } from 'react';
-import './hooks.css';
+import { Theme, createStyles, makeStyles, Grid, Card, CardContent, Typography, Button } from '@material-ui/core';
+
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        griditem: {
+            height: '80vh',
+        },
+        card: {
+            height: '80vh',
+        },
+        cardcontent: {
+            height: '100%',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+        },
+        logarea: {
+            minHeight: '60vh',
+            minWidth: '50vw',
+            backgroundColor: theme.palette.background.paper,
+            color: theme.palette.text.secondary,
+            border: 'none',
+        },
+    }),
+);
 
 const getTimedMessage = (message: string) => {
     const now = new Date();
@@ -73,12 +97,20 @@ export const HooksSeq = () => {
 
     queueMessage(messageBufferRef, value, "rendering");
 
+    const classes = useStyles();
+
     return (
-        <div className='hooksseqcontainer'>
-            <h3>Hooks all in one</h3>
-            <textarea readOnly className='logarea' ref={textAreaRef}/>
-            <br/>
-            <button className='rerenderbutton' onClick={() => setValue(value + 1)}>reRender</button>
-        </div>
+        <Grid container direction='column' justify='flex-start' alignItems='center'>
+            <Grid item xs={10} className={classes.griditem}>
+                <Card className={classes.card}>
+                    <CardContent className={classes.cardcontent}>
+                        <Typography variant='h4'>Hooks events</Typography>
+                        <Typography variant='h6' className={classes.logarea} component='textarea' ref={textAreaRef}></Typography>
+                        <br></br>
+                        <Button variant='contained' color='primary' onClick={() => setValue(value + 1)}>Rerender</Button>
+                    </CardContent>
+                </Card>
+            </Grid>
+        </Grid>
     );
 };

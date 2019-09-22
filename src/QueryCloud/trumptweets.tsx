@@ -12,10 +12,11 @@ const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         card: {
             height: '80vh',
+            width: '80vw',
         },
         cardcontent: {
             height: '70vh',
-        }
+        },
     }),
 );
 
@@ -40,7 +41,7 @@ export const TrumpTweets = () => {
     }, []);
 
     return (
-        <Grid container direction='row' justify='space-around' alignItems='center'>
+        <Grid container direction='column' justify='flex-start' alignItems='center'>
             <Grid item xs={10}>
                 <Card className={classes.card}>
                     <CardContent className={classes.cardcontent}>

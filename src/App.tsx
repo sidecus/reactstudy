@@ -1,8 +1,14 @@
 import React from 'react';
 import logo from './logo.svg';
-import { makeStyles, Theme } from '@material-ui/core/styles';
-import { AppBar, Typography, Toolbar, Link } from '@material-ui/core';
+import { makeStyles, Theme, MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { AppBar, Typography, Toolbar, Link, Paper } from '@material-ui/core';
 import { AppTabs } from './AppTabs';
+
+const theme = createMuiTheme({
+  palette: {
+    type: 'dark',
+  },
+});
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -34,18 +40,20 @@ const App = () => {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
-      <AppBar position='static'>
-        <Toolbar>
-          <img src={logo} className={classes.appLogo} alt="logo" />
-          <Typography variant="h6">
-            React Study
-            <Link href={gitHubUrl} color='inherit' className={classes.link}>sidecus</Link>
-          </Typography>
-        </Toolbar>
-      </AppBar>
-      <AppTabs />
-    </div>
+    <MuiThemeProvider theme={theme}>
+      <Paper className={classes.root}>
+        <AppBar position='static'>
+          <Toolbar>
+            <img src={logo} className={classes.appLogo} alt="logo" />
+            <Typography variant="h6">
+              React Study
+              <Link href={gitHubUrl} color='inherit' className={classes.link}>sidecus</Link>
+            </Typography>
+          </Toolbar>
+        </AppBar>
+        <AppTabs />
+      </Paper>
+    </MuiThemeProvider>
   );
 }
 

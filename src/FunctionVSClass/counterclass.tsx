@@ -1,5 +1,5 @@
 import * as React from 'react';
-import './counter.css';
+import { Button, Typography, CardContent } from '@material-ui/core';
 
 interface IComponentCounterState {
     count: number;
@@ -16,11 +16,13 @@ export class ComponentCounter extends React.PureComponent<{}, IComponentCounterS
 
     public render(): JSX.Element {
         return (
-            <div className="counterdiv">
-                <h3>ClassComponent</h3>
-                <h6>You clicked {this.state.count} times</h6>
-                <button onClick = {() => this.setCount(this.state.count + 1)}>Click me</button>
-            </div>
+            <CardContent>
+                <Typography variant='h4'>ClassComponent</Typography>
+                <br></br>
+                <Typography variant='body1' component='p'>You clicked {this.state.count} times</Typography>
+                <br></br>
+                <Button variant='contained' color='primary' onClick = {() => this.setCount(this.state.count + 1)}>Click me</Button>
+            </CardContent>
         );
     }
 

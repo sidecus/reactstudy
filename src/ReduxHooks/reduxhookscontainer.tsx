@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { Provider } from 'react-redux';
 import { todoStore } from './store.redux';
-import { ReduxHooks } from './reduxhooks';
+import { TodoWithRedux } from './todowithredux';
 
 export const ReduxHooksContainer = () => {
     return  (
         <Provider store={todoStore}>
-            <ReduxHooks />
+            <TodoWithRedux />
         </Provider>
     );
 };

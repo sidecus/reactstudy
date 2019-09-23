@@ -5,6 +5,7 @@ export interface ITodo {
     title: string;
     due: Date;
     myDay: boolean;
+    complete: boolean;
 }
 
 // Actions and action creators
@@ -12,6 +13,8 @@ enum Actions {
     AddTodo = "AddTodo",
     RemoveTodo = "RemoveTodo",
     ToggleMyDay = "ToggleMyDay",
+    ToggleComplete = "ToggleComplete",
+    SetShowCompleted = "SetShowCompleted",
 }
 
 interface IAction<T = any> {
@@ -27,8 +30,12 @@ export const createRemoveTodoAction = (id: number) => {
     return { type: Actions.AddTodo, payload: id } as IAction<number>;
 }
 
-export const toggleMyDay = (id: number) => {
+export const createToggleMyDayAction = (id: number) => {
     return { type: Actions.ToggleMyDay, payload: id } as IAction<number>;
+}
+
+export const createToggleCompleteAction = (id: number) => {
+    return { type: Actions.ToggleComplete, payload: id } as IAction<number>;
 }
 
 // todo list reducer
@@ -49,10 +56,18 @@ const todoReducer = (state: ITodo[] = [], action: IAction) => {
             break;
         case Actions.ToggleMyDay:
             // toggle the myday status for the given todo
-            const idToToggle = action.payload as number;
-            const indexToToggle = newState.findIndex(t => t.id === idToToggle);
-            if (indexToToggle > 0) {
-                newState[indexToToggle].myDay = !newState[indexToToggle].myDay;
+            const indexToToggleMyDay = newState.findIndex(t => t.id === action.payload as number);
+            if (indexToToggleMyDay >= 0) {
+                const todoToggleMyDay = newState[indexToToggleMyDay];
+                newState[indexToToggleMyDay] = {...todoToggleMyDay, myDay: !todoToggleMyDay.myDay};
+            }
+            break;
+        case Actions.ToggleComplete:
+            // toggle the complete status for the given todo
+            const toggleCompleteIndex = newState.findIndex(t => t.id === action.payload as number);
+            if (toggleCompleteIndex >= 0) {
+                const todoToggleComplete = newState[toggleCompleteIndex];
+                newState[toggleCompleteIndex] = {...todoToggleComplete, complete: !todoToggleComplete.complete};
             }
             break;
         }
@@ -62,19 +77,19 @@ const todoReducer = (state: ITodo[] = [], action: IAction) => {
 
 // Settings reducer
 export interface ITodoAppSettings {
-    enableMyDay: boolean;
+    showCompleted: boolean;
 }
 
 const defaultSettings = {
-    enableMyDay: true,
+    showCompleted: true,
 } as ITodoAppSettings;
 
 const settingsReducer = (state: ITodoAppSettings = defaultSettings, action: IAction) => {
     let newState: ITodoAppSettings = {...state};
     switch (action.type) {
-        case Actions.ToggleMyDay:
+        case Actions.SetShowCompleted:
             const flag = action.payload as boolean;
-            newState.enableMyDay = flag;
+            newState.showCompleted = flag;
             break;
     }
 

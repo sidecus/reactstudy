@@ -13,6 +13,18 @@ export const todoSelector = createSelector(
     (todos, settings) => todos.filter(x => settings.showCompleted || !x.complete)
 );
 
+// active todo selector
+export const activeTodoSelector = createSelector(
+    [todoSelector],
+    (todos) => todos.filter(x => !x.complete)
+);
+
+// completed todo selector
+export const completedTodoSelector = createSelector(
+    [todoSelector],
+    (todos) => todos.filter(x => x.complete)
+);
+
 // my day todo selector
 export const myDaySelector = createSelector(
     [todoSelector],

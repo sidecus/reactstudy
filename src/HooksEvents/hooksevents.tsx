@@ -83,7 +83,7 @@ const useRandomEffect = (value: number, textAreaRef: React.RefObject<HTMLTextAre
 }
 
 // function component
-export const HooksSeq = () => {
+export const HooksEvents = () => {
     // state to hold value which is used to trigger rerender
     const [value, setValue] = useState(0);
     // we use a string array ref as a in memory cache to hold messages to show
@@ -105,7 +105,7 @@ export const HooksSeq = () => {
                 <Card className={classes.card}>
                     <CardContent className={classes.cardcontent}>
                         <Typography variant='h4'>Hooks events</Typography>
-                        <Typography variant='body1' className={classes.logarea} component='textarea' ref={textAreaRef}></Typography>
+                        <Typography variant='body2' className={classes.logarea} component='textarea' ref={textAreaRef}></Typography>
                         <br></br>
                         <Button variant='contained' color='primary' onClick={() => setValue(value + 1)}>Rerender</Button>
                     </CardContent>

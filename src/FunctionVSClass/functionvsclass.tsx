@@ -8,31 +8,31 @@ import { ComponentCounter } from './counterclass';
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
-            flexGrow: 1,
+            height: '100%',
+            flexWrap: 'wrap',
         },
         card: {
-            minWidth: 300,
+            width: '25vw',
+            minWidth: '300',
+            Height: 400,
         },
     }),
 );
 
-export const FunctionVsClass = () =>
-{
+export const FunctionVsClass = () => {
     const classes = useStyles();
 
     return (
-        <Grid container direction='column' justify='center' alignItems='center' className={classes.root}>
-            <Grid container direction='row' justify='space-around' alignItems='center'>
-                <Grid item xs={5}>
-                    <Card className={classes.card}>
-                        <Counter />
-                    </Card>
-                </Grid>
-                <Grid item xs={5}>
-                    <Card className={classes.card}>
-                        <ComponentCounter />
-                    </Card>
-                </Grid>
+        <Grid container direction='row' justify='space-around' alignItems='center' className={classes.root}>
+            <Grid item>
+                <Card className={classes.card}>
+                    <Counter />
+                </Card>
+            </Grid>
+            <Grid item>
+                <Card className={classes.card}>
+                    <ComponentCounter />
+                </Card>
             </Grid>
         </Grid>
     );

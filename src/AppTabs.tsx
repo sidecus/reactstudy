@@ -1,23 +1,23 @@
 import React from 'react';
 import { AppBar, Tabs, Tab, Paper, createStyles, makeStyles, Theme } from '@material-ui/core';
-import { TabPanel } from './TabPanel/tabpanel';
+import { AppTabPanel } from './AppTabPanel';
 
 import { FunctionVsClass } from './FunctionVSClass/functionvsclass';
 import { TrumpTweets } from './QueryCloud/trumptweets';
-import { HooksSeq } from './HooksEvents/hooksseq';
+import { HooksEvents } from './HooksEvents/hooksevents';
 import { ReduxHooksContainer } from './ReduxHooks/reduxhookscontainer';
 
 export const AppTabs = () => {
-    const [value, setValue] = React.useState(0);
+    const [tabIndex, setTabIndex] = React.useState(0);
     const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
-        setValue(newValue);
+        setTabIndex(newValue);
     }
   
     return (
         <>
             <AppBar position="static" color="default">
                 <Tabs
-                    value={value}
+                    value={tabIndex}
                     onChange={handleChange}
                     indicatorColor="primary"
                     textColor="primary"
@@ -31,18 +31,18 @@ export const AppTabs = () => {
                     <Tab label='Redux Hooks' />
                 </Tabs>
             </AppBar>
-            <TabPanel value={value} index={0}>
+            <AppTabPanel value={tabIndex} index={0}>
                 <FunctionVsClass />
-            </TabPanel>
-            <TabPanel value={value} index={1}>
+            </AppTabPanel>
+            <AppTabPanel value={tabIndex} index={1}>
                 <TrumpTweets />
-            </TabPanel>
-                <TabPanel value={value} index={2}>
-            <HooksSeq />
-                </TabPanel>
-            <TabPanel value={value} index={3}>
+            </AppTabPanel>
+            <AppTabPanel value={tabIndex} index={2}>
+                <HooksEvents />
+            </AppTabPanel>
+            <AppTabPanel value={tabIndex} index={3}>
                 <ReduxHooksContainer />
-            </TabPanel>
+            </AppTabPanel>
         </>
     );
 }

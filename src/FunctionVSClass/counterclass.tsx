@@ -17,7 +17,7 @@ export class ComponentCounter extends React.PureComponent<{}, IComponentCounterS
     public render(): JSX.Element {
         return (
             <CardContent>
-                <Typography variant='h4'>ClassComponent</Typography>
+                <Typography variant='h4'>Class Component</Typography>
                 <br></br>
                 <Typography variant='body1' component='p'>You clicked {this.state.count} times</Typography>
                 <br></br>

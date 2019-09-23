@@ -27,7 +27,7 @@ export const createAddTodoAction = (todo: ITodo) => {
 }
 
 export const createRemoveTodoAction = (id: number) => {
-    return { type: Actions.AddTodo, payload: id } as IAction<number>;
+    return { type: Actions.RemoveTodo, payload: id } as IAction<number>;
 }
 
 export const createToggleMyDayAction = (id: number) => {

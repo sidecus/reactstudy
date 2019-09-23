@@ -1,10 +1,11 @@
 import * as React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Theme, createStyles, makeStyles, Grid, Button, Checkbox, Avatar, Switch } from '@material-ui/core';
+import { Theme, createStyles, makeStyles, Grid, Button, IconButton, Checkbox, Avatar, Switch } from '@material-ui/core';
 import { List, ListItem, ListSubheader, ListItemText, ListItemAvatar, ListItemSecondaryAction } from '@material-ui/core';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
-import { ITodo, createAddTodoAction, createToggleCompleteAction, createToggleMyDayAction } from './store.redux';
+import DeleteIcon from '@material-ui/icons/Delete';
+import { ITodo, createAddTodoAction, createToggleCompleteAction, createToggleMyDayAction, createRemoveTodoAction } from './store.redux';
 import { activeTodoSelector, completedTodoSelector } from './selectors.redux';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -12,10 +13,11 @@ const useStyles = makeStyles((theme: Theme) =>
         list: {
             width: '50vw',
             maxWidth: '480',
-            height: '60vh',
-            maxHeight: '60vh',
+            height: '100%',
+            maxHeight: '70vh',
             position: 'relative',
-            overflow: 'auto'
+            overflow: 'auto',
+            backgroundColor: theme.palette.background.paper,
         },
         listSection: {
             backgroundColor: 'inherit',
@@ -49,6 +51,10 @@ export const TodoWithRedux = () => {
         } as ITodo));
     };
 
+    const deleteTodo = (id: number) => {
+        dispatch(createRemoveTodoAction(id));
+    };
+
     const toggleComplete = (id: number) => {
         dispatch(createToggleCompleteAction(id));
     }
@@ -57,6 +63,7 @@ export const TodoWithRedux = () => {
         dispatch(createToggleMyDayAction(id));
     }
 
+    // todo list component
     const todoList = (subheader: string, todos: ITodo[]) => {
         return (
             <li key={`section-${subheader}`} className={classes.listSection}>
@@ -80,13 +87,16 @@ export const TodoWithRedux = () => {
                                 </ListItemAvatar>
                                 <ListItemText id={labelId} primary={`${todo.title}${todo.id}`} />
                                 <ListItemSecondaryAction>
-                                <Switch
+                                    <Switch
                                         checked={todo.myDay}
                                         tabIndex={-1}
-                                        disableRipple
+                                        color='secondary'
                                         inputProps={{ 'aria-labelledby': labelId }}
                                         onChange={() => toggleMyDay(todo.id)}
                                     />
+                                    <IconButton edge="end" aria-label="delete" onClick={() => deleteTodo(todo.id)}>
+                                        <DeleteIcon />
+                                    </IconButton>
                                 </ListItemSecondaryAction>
                             </ListItem>
                         );

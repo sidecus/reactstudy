@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import logo from './logo.svg';
 import { makeStyles, Theme, MuiThemeProvider } from '@material-ui/core/styles';
-import { AppBar, Typography, Toolbar, Link, Paper, Checkbox, FormControlLabel } from '@material-ui/core';
+import { AppBar, Typography, Toolbar, Link, Paper, FormControlLabel, Switch } from '@material-ui/core';
 import { AppTabs } from './AppTabs';
 import { darkTheme, lightTheme } from './theme';
 
@@ -55,7 +55,7 @@ export const App = () => {
                         </Typography>
                         <FormControlLabel
                             control={
-                                <Checkbox checked={theme === darkTheme} onChange={toggleTheme} color='secondary'/>
+                                <Switch checked={theme === darkTheme} onChange={toggleTheme} color='primary'/>
                             }
                             label='Dark Theme'
                         />

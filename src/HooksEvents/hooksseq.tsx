@@ -105,7 +105,7 @@ export const HooksSeq = () => {
                 <Card className={classes.card}>
                     <CardContent className={classes.cardcontent}>
                         <Typography variant='h4'>Hooks events</Typography>
-                        <Typography variant='h6' className={classes.logarea} component='textarea' ref={textAreaRef}></Typography>
+                        <Typography variant='body1' className={classes.logarea} component='textarea' ref={textAreaRef}></Typography>
                         <br></br>
                         <Button variant='contained' color='primary' onClick={() => setValue(value + 1)}>Rerender</Button>
                     </CardContent>

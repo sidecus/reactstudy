@@ -5,7 +5,7 @@ This is a sample project capturing my React learnings and experiments.
 * Different kind of ```Hooks``` (```useRef```, ```useMemo```, ```useEffect``` etc.) and simple effect hook lifecycle event logging
 * Custom hooks
 * ```Redux```
-* ```Reselect selectors```
+* Using ```Reselect``` selectors
 * Using d3 for simple charts
 * And so on.
 

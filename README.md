@@ -3,9 +3,9 @@ This is a sample project capturing my React learnings and experiments.
 ## Covered React.js or React related features
 * All in Typescript
 * Different kind of Hooks usage samples (```useRef```, ```useMemo```, ```useEffect```, ```useCallback``` etc.)
-* Simple effect hook lifecycle event logging
-* Custom hooks for various purposes including DOM ref size and memoized redux dispatchers
-* ```Redux```
+* Simple effect hook lifecycle event viewer
+* Custom hooks for various purposes including DOM ref size etc.
+* ```Redux```, selectors, and memoized redux dispatchers callbacks
 * Using ```Reselect``` selectors
 * Using d3 for simple charts
 * And so on.

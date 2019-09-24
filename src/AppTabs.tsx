@@ -23,18 +23,18 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export const AppTabs = () => {
-    const [tabIndex, setTabIndex] = React.useState(0);
+    const [activeTabIndex, setActiveTabIndex] = React.useState(0);
     const classes = useStyles();
 
     const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
-        setTabIndex(newValue);
+        setActiveTabIndex(newValue);
     }
   
     return (
         <div className={classes.root}>
             <AppBar position="static" color="default">
                 <Tabs
-                    value={tabIndex}
+                    value={activeTabIndex}
                     onChange={handleChange}
                     indicatorColor="primary"
                     textColor="primary"
@@ -49,16 +49,16 @@ export const AppTabs = () => {
                 </Tabs>
             </AppBar>
             <Paper className={classes.panel}>
-                <AppTabPanel value={tabIndex} index={0}>
+                <AppTabPanel value={activeTabIndex} index={0}>
                     <FunctionVsClass />
                 </AppTabPanel>
-                <AppTabPanel value={tabIndex} index={1}>
+                <AppTabPanel value={activeTabIndex} index={1}>
                     <TrumpTweets />
                 </AppTabPanel>
-                <AppTabPanel value={tabIndex} index={2}>
+                <AppTabPanel value={activeTabIndex} index={2}>
                     <HooksEvents />
                 </AppTabPanel>
-                <AppTabPanel value={tabIndex} index={3}>
+                <AppTabPanel value={activeTabIndex} index={3}>
                     <ReduxHooksContainer />
                 </AppTabPanel>
             </Paper>

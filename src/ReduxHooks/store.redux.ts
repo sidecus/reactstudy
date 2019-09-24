@@ -3,18 +3,20 @@ import { createStore, combineReducers } from 'redux';
 export interface ITodo {
     id: number;
     title: string;
-    due: Date;
+    due?: Date;
     myDay: boolean;
-    complete: boolean;
+    completed: boolean;
 }
 
 // Actions and action creators
 enum Actions {
-    AddTodo = "AddTodo",
-    RemoveTodo = "RemoveTodo",
-    ToggleMyDay = "ToggleMyDay",
-    ToggleComplete = "ToggleComplete",
-    SetShowCompleted = "SetShowCompleted",
+    AddTodo = 'AddTodo',
+    AddBatchTodos = 'AddBatchTodos',
+    RemoveTodo = 'RemoveTodo',
+    RemoveAll = 'RemoveAll',
+    ToggleMyDay = 'ToggleMyDay',
+    ToggleComplete = 'ToggleComplete',
+    SetShowCompleted = 'SetShowCompleted',
 }
 
 interface IAction<T = any> {
@@ -26,8 +28,16 @@ export const createAddTodoAction = (todo: ITodo) => {
     return { type: Actions.AddTodo, payload: todo } as IAction<ITodo>;
 }
 
+export const createAddBatchTodosAction = (todos: ITodo[]) => {
+    return { type: Actions.AddBatchTodos, payload: todos } as IAction<ITodo[]>;
+}
+
 export const createRemoveTodoAction = (id: number) => {
     return { type: Actions.RemoveTodo, payload: id } as IAction<number>;
+}
+
+export const createRemoveAllAction = () => {
+    return { type: Actions.RemoveAll } as IAction;
 }
 
 export const createToggleMyDayAction = (id: number) => {
@@ -46,13 +56,20 @@ const todoReducer = (state: ITodo[] = [], action: IAction) => {
             // assign id for the new todo. if it's the first, set it to 0.
             // otherwise set it to the current max id + 1 to avoid conflicts
             const newId = newState.length > 0 ? (Math.max(...newState.map(t => t.id)) + 1) : 0;
-            const newTodo = {...action.payload as ITodo, id: newId};
+            const newTodo = {id: newId, due: new Date(), myDay: false, completed: false, ...action.payload as ITodo};
             newState.push(newTodo);
+            break;
+        case Actions.AddBatchTodos:
+            newState = [...action.payload as ITodo[]];
             break;
         case Actions.RemoveTodo:
             // remove the given todo with the id
             const idToRemove = action.payload as number;
             newState.splice(newState.findIndex(t => t.id === idToRemove), 1);
+            break;
+        case Actions.RemoveAll:
+            // remove all todos
+            newState = [];
             break;
         case Actions.ToggleMyDay:
             // toggle the myday status for the given todo
@@ -67,7 +84,7 @@ const todoReducer = (state: ITodo[] = [], action: IAction) => {
             const toggleCompleteIndex = newState.findIndex(t => t.id === action.payload as number);
             if (toggleCompleteIndex >= 0) {
                 const todoToggleComplete = newState[toggleCompleteIndex];
-                newState[toggleCompleteIndex] = {...todoToggleComplete, complete: !todoToggleComplete.complete};
+                newState[toggleCompleteIndex] = {...todoToggleComplete, completed: !todoToggleComplete.completed};
             }
             break;
         }

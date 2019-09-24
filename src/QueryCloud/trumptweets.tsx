@@ -6,7 +6,7 @@ import { Card, CardContent, Typography, Grid } from '@material-ui/core';
 
 export const numberOfTweets = 800;
 export const maxFontSize = 80;
-export const wordCount = 60;
+export const wordCount = 80;
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({

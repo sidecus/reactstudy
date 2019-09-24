@@ -7,9 +7,6 @@ import { select, Selection } from 'd3-selection';
 import { d3Word, useD3Words } from './used3words';
 import { useRefSize } from '../CustomHooks/userefsize';
 
-const MIN_WIDTH = 80;
-const MIN_HEIGHT = 80;
-
 const DEFAULT_WORD_COUNT = 100;
 const FONT_FAMILY = 'Impact';
 const DEFAULT_MIN_FONT_SIZE = 5;
@@ -57,21 +54,24 @@ export const QueryCloud = (props: IQueryCloudProps) => {
     const mergedProps = { ...defaultProps, ...props };
 
     // use React hooks - ref (dom access), state (info passing between effects) and effect (dom operation for rendering)
-    const [containerDivRef, size] = useRefSize(MIN_WIDTH, MIN_HEIGHT);
+    const [parentDivRef, size] = useRefSize();
     const [d3SvgG, setd3SvgG] = useState<d3SvgGSelection>();
-    const [d3Words] = useD3Words(mergedProps.queries, mergedProps.wordCount!, mergedProps.minFontSize!, mergedProps.maxFontSize!);
+    const [d3Words] = useD3Words(
+        mergedProps.queries,
+        mergedProps.wordCount!,
+        mergedProps.minFontSize!,
+        mergedProps.maxFontSize!);
 
     // Effect to initialize the D3 SVG g selection used to draw the chart.
     // This has no dependency so this will only be run once.
     useEffect(() => {
-        const element = containerDivRef.current;
-        const width = size[0];
-        const height = size[1];
+        const parentDiv = parentDivRef.current!;
+        const [width, height] = size;
 
         // Only create element when we have a drawing area
         if (width > 0 && height > 0) {
             // Add a svg container and set attributes
-            const svgG = select(element)
+            const svgG = select(parentDiv)
                 .append('svg')
                     .style('display', 'block')
                     .attr('width', width)
@@ -83,15 +83,15 @@ export const QueryCloud = (props: IQueryCloudProps) => {
             setd3SvgG(svgG);
 
             // cleanup callback
-            return (): void => {
-                select(element).selectAll('*').remove();
+            return () => {
+                select(parentDiv).selectAll('*').remove();
             };
         }
     },
-    [containerDivRef, size]);
+    [parentDivRef, size]);
 
     // Effect to render the chart after d3 initialization.
-    // This will rerun when rendering container changes or words change.
+    // This will rerun when d3svg g element is recreated or words change.
     useEffect(() => {
         if (!d3Words || !d3SvgG || size[0] === 0 || size[1] === 0) {
             return;
@@ -102,7 +102,7 @@ export const QueryCloud = (props: IQueryCloudProps) => {
             .size(size)
             .words(d3Words)
             .padding(2)
-            // .rotate(() => Math.random() * 120 - 60)
+            //.rotate(() => Math.random() * 120 - 60)
             .rotate(0)
             .font(FONT_FAMILY)
             .fontSize((d: d3Word) => d.size!)
@@ -112,5 +112,5 @@ export const QueryCloud = (props: IQueryCloudProps) => {
     [d3SvgG, size, d3Words]);
 
     // the container div
-    return <div id='testdiv' ref={containerDivRef} style={{width:'100%', height:'100%'}}/>;
+    return <div id='testdiv' ref={parentDivRef} style={{width:'100%', height:'100%'}}/>;
 };

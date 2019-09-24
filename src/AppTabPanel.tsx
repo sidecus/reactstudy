@@ -21,12 +21,12 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface TabPanelProps {
     children?: React.ReactNode;
-    index: any;
-    value: any;
+    index: number;
+    value: number;
 }
 
 export function AppTabPanel(props: TabPanelProps) {
-    const { children, value, index, ...other } = props;
+    const { children, value, index } = props;
     const classes = useStyles();
 
     return (

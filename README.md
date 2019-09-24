@@ -1,6 +1,6 @@
 This is a sample project capturing my React learnings and experiments.
 
-## Covered React.js or React related features
+## Covered React.js or Redux related features
 * All in Typescript
 * Different kind of Hooks usage samples (```useRef```, ```useMemo```, ```useEffect```, ```useCallback``` etc.)
 * Simple effect hook lifecycle event viewer

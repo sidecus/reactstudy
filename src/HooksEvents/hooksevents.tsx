@@ -4,17 +4,11 @@ import { Theme, createStyles, makeStyles, Grid, Card, CardContent, Typography, B
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        griditem: {
-            height: '80vh',
-        },
-        card: {
-            height: '80vh',
-        },
-        cardcontent: {
-            height: '100%',
-            flexDirection: 'column',
+        root: {
+            flexGrow: 1,
             justifyContent: 'center',
             alignItems: 'center',
+            flexDirection: 'column',
         },
         logarea: {
             minHeight: '60vh',
@@ -22,6 +16,7 @@ const useStyles = makeStyles((theme: Theme) =>
             backgroundColor: theme.palette.background.paper,
             color: theme.palette.text.secondary,
             border: 'none',
+            flexGrow: 1,
         },
     }),
 );
@@ -100,10 +95,10 @@ export const HooksEvents = () => {
     const classes = useStyles();
 
     return (
-        <Grid container direction='column' justify='flex-start' alignItems='center'>
-            <Grid item xs={10} className={classes.griditem}>
-                <Card className={classes.card}>
-                    <CardContent className={classes.cardcontent}>
+        <Grid container className={classes.root}>
+            <Grid item xs={10}>
+                <Card>
+                    <CardContent>
                         <Typography variant='h4'>Hooks events</Typography>
                         <Typography variant='body2' className={classes.logarea} component='textarea' ref={textAreaRef}></Typography>
                         <br></br>

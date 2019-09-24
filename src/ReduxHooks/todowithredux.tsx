@@ -10,12 +10,18 @@ import { activeTodoSelector, completedTodoSelector } from './selectors.redux';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
+        root: {
+            flexDirection:'column',
+            justifyContent:"flex-start",
+            alignItems:"center",
+            flexGrow: 1,
+            marginTop: '48px',
+        },
         list: {
             width: '50vw',
             maxWidth: '480',
-            height: '100%',
             maxHeight: '70vh',
-            position: 'relative',
+            flexGrow: 1,
             overflow: 'auto',
             backgroundColor: theme.palette.background.paper,
         },
@@ -107,7 +113,7 @@ export const TodoWithRedux = () => {
     };
     
     return  (
-        <Grid container direction='column' justify="flex-start" alignItems="center">
+        <Grid container className={classes.root}>
             <Grid item>
                 <Button variant='contained' color='primary' onClick={() => addTodo()}>Add Todo</Button>
             </Grid>

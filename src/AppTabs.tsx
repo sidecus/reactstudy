@@ -7,14 +7,31 @@ import { TrumpTweets } from './QueryCloud/trumptweets';
 import { HooksEvents } from './HooksEvents/hooksevents';
 import { ReduxHooksContainer } from './ReduxHooks/reduxhookscontainer';
 
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        root: {
+            display: 'flex',
+            flexDirection: 'column',
+            flexGrow: 1,
+        },
+        panel: {
+            display: 'flex',
+            flexDirection: 'column',
+            flexGrow: 1,
+        },
+    }),
+);
+
 export const AppTabs = () => {
     const [tabIndex, setTabIndex] = React.useState(0);
+    const classes = useStyles();
+
     const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
         setTabIndex(newValue);
     }
   
     return (
-        <>
+        <div className={classes.root}>
             <AppBar position="static" color="default">
                 <Tabs
                     value={tabIndex}
@@ -31,18 +48,20 @@ export const AppTabs = () => {
                     <Tab label='Redux Hooks' />
                 </Tabs>
             </AppBar>
-            <AppTabPanel value={tabIndex} index={0}>
-                <FunctionVsClass />
-            </AppTabPanel>
-            <AppTabPanel value={tabIndex} index={1}>
-                <TrumpTweets />
-            </AppTabPanel>
-            <AppTabPanel value={tabIndex} index={2}>
-                <HooksEvents />
-            </AppTabPanel>
-            <AppTabPanel value={tabIndex} index={3}>
-                <ReduxHooksContainer />
-            </AppTabPanel>
-        </>
+            <Paper className={classes.panel}>
+                <AppTabPanel value={tabIndex} index={0}>
+                    <FunctionVsClass />
+                </AppTabPanel>
+                <AppTabPanel value={tabIndex} index={1}>
+                    <TrumpTweets />
+                </AppTabPanel>
+                <AppTabPanel value={tabIndex} index={2}>
+                    <HooksEvents />
+                </AppTabPanel>
+                <AppTabPanel value={tabIndex} index={3}>
+                    <ReduxHooksContainer />
+                </AppTabPanel>
+            </Paper>
+        </div>
     );
 }

@@ -1,11 +1,11 @@
 import * as React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { Theme, createStyles, makeStyles, Grid, Button } from '@material-ui/core';
-import { ITodo, createAddTodoAction, createAddBatchTodosAction } from './store.redux';
+import { ITodo, useDispatchers } from './store.redux';
 import { activeTodoSelector, completedTodoSelector } from './selectors.redux';
 import { TodoList } from './todoList';
 import { predefinedTodos } from './predefinedTodos';
-import { useEffect, useCallback } from 'react';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -22,38 +22,29 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
+const createRandomTodo = () => {
+    return {
+        title: "random todo",
+        myDay: Math.random() > 0.5,
+    } as ITodo;
+};
+
 export const TodoWithRedux = () => {
     const activeTodos = useSelector(activeTodoSelector);
     const completedTodos = useSelector(completedTodoSelector);
-    const dispatch = useDispatch();
+    const { populateTodos, addRandomTodo } = useDispatchers();
     const classes = useStyles();
 
-    // Populate with predefined todos. We use the useCallbacl here to follow hooks dependency rules and 
-    // avoid infinite rerenering.
-    // We need to specify this as part of the useEffect dependencies.
-    // If we don't define this as callback, then a new function is created during each render.
-    // In that case, the useEffect will be run forever.
-    const populateTodos = useCallback(() => {
-        dispatch(createAddBatchTodosAction(predefinedTodos));
-    }, [dispatch]);
-
-    // Note we are not using "useCallback" here, since this won't cause the above issue and we want a new due date.
-    const addRandomTodo = () => 
-        dispatch(createAddTodoAction({
-            title: "random todo",
-            myDay: Math.random() > 0.5,
-        } as ITodo));
-
+    // "One time" pre-populate
     useEffect(() => {
-        // One time pre-populate
-        populateTodos();
+        populateTodos(predefinedTodos);
     }, [populateTodos]);
 
     return  (
         <Grid container className={classes.root}>
             <Grid item>
-                <Button variant='contained' color='primary' className={classes.button} onClick={() => populateTodos()}>Populate</Button>
-                <Button variant='contained' color='primary' className={classes.button} onClick={() => addRandomTodo()}>Add Todo</Button>
+                <Button variant='contained' color='primary' className={classes.button} onClick={() => populateTodos(predefinedTodos)}>Populate</Button>
+                <Button variant='contained' color='primary' className={classes.button} onClick={() => addRandomTodo(createRandomTodo())}>Add Todo</Button>
             </Grid>
             <Grid item>
                 <TodoList activeTodos={activeTodos} completedTodos={completedTodos} />

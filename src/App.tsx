@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         flexGrow: 1,
     },
     appLogo: {
-        animation: '$App-logo-spin infinite 20s linear',
+        animation: '$App-logo-spin infinite 15s linear',
         height: '64px',
     },
     link: {

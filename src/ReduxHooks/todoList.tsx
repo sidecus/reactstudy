@@ -1,11 +1,10 @@
 import * as React from 'react';
-import { useDispatch } from 'react-redux';
 import { List, ListItem, ListSubheader, ListItemText, ListItemAvatar, ListItemSecondaryAction, FormControlLabel } from '@material-ui/core';
 import { Theme, createStyles, makeStyles, IconButton, Checkbox, Avatar, Switch } from '@material-ui/core';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { ITodo, createRemoveTodoAction, createToggleCompleteAction, createToggleMyDayAction } from './store.redux';
+import { ITodo, useDispatchers } from './store.redux';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -39,22 +38,9 @@ export interface ITodoListProps {
 }
 
 export const TodoList = (props: ITodoListProps) => {
-    const dispatch = useDispatch();
+    const { toggleMyDay, toggleComplete, deleteTodo } = useDispatchers();
     const classes = useStyles();
-
     const { activeTodos, completedTodos } = props;
-
-    const deleteTodo = (id: number) => {
-        dispatch(createRemoveTodoAction(id));
-    };
-
-    const toggleComplete = (id: number) => {
-        dispatch(createToggleCompleteAction(id));
-    }
-
-    const toggleMyDay = (id: number) => {
-        dispatch(createToggleMyDayAction(id));
-    }
 
     // todo sub list component
     const todoSubList = (subheader: string, todos: ITodo[]) => {

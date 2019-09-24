@@ -7,8 +7,9 @@ import { darkTheme, lightTheme } from './theme';
 
 const useStyles = makeStyles((theme: Theme) => ({
     root: {
-        width: '100vw',
         height: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
     },
     title: {
         flexGrow: 1,

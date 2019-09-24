@@ -10,6 +10,9 @@ export const wordCount = 60;
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
+        root: {
+            flexGrow: 1,
+        },
         card: {
             height: '80vh',
             width: '80vw',
@@ -41,7 +44,7 @@ export const TrumpTweets = () => {
     }, []);
 
     return (
-        <Grid container direction='column' justify='flex-start' alignItems='center'>
+        <Grid container direction='column' justify='center' alignItems='center' className={classes.root}>
             <Grid item xs={10}>
                 <Card className={classes.card}>
                     <CardContent className={classes.cardcontent}>

@@ -1,12 +1,20 @@
 import React from 'react';
-import Box from '@material-ui/core/Box';
-import { makeStyles, createStyles, Theme } from '@material-ui/core';
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { Box } from '@material-ui/core';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
-            marginTop: 48,
-            margin: 0,
+            width: 'auto',
+            height: '100%',
+        },
+        container: {
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'flex-start',
+            alignItems: 'center',
+            width: 'auto',
+            height: '100%',
         },
     }),
 );
@@ -16,18 +24,16 @@ interface TabPanelProps {
     index: any;
     value: any;
 }
-  
+
 export function AppTabPanel(props: TabPanelProps) {
     const { children, value, index, ...other } = props;
     const classes = useStyles();
 
     return (
-        <Box
-            className={classes.root}
-            role="tabpanel"
-            hidden={value !== index}
-        >
-            {children}
+        <Box className={classes.root} hidden={value !== index}>
+            <div className={classes.container}>
+                {children}
+            </div>
         </Box>
     );
 }

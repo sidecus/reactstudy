@@ -112,5 +112,5 @@ export const QueryCloud = (props: IQueryCloudProps) => {
     [d3SvgG, size, d3Words]);
 
     // the container div
-    return <div id='testdiv' ref={containerDivRef} style={{width:'100%', height:'50vh'}}/>;
+    return <div id='testdiv' ref={containerDivRef} style={{width:'100%', height:'100%'}}/>;
 };

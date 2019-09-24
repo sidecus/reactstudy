@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/reactstudy/static/css/main.5ecd60fb.chunk.css",
+    "main.js": "/reactstudy/static/js/main.ae295e5c.chunk.js",
+    "main.js.map": "/reactstudy/static/js/main.ae295e5c.chunk.js.map",
+    "runtime~main.js": "/reactstudy/static/js/runtime~main.c70b4494.js",
+    "runtime~main.js.map": "/reactstudy/static/js/runtime~main.c70b4494.js.map",
+    "static/js/2.073a7c90.chunk.js": "/reactstudy/static/js/2.073a7c90.chunk.js",
+    "static/js/2.073a7c90.chunk.js.map": "/reactstudy/static/js/2.073a7c90.chunk.js.map",
+    "index.html": "/reactstudy/index.html",
+    "precache-manifest.9cdd4f6e09ad75dec52a74d57ca15d94.js": "/reactstudy/precache-manifest.9cdd4f6e09ad75dec52a74d57ca15d94.js",
+    "service-worker.js": "/reactstudy/service-worker.js",
+    "static/css/main.5ecd60fb.chunk.css.map": "/reactstudy/static/css/main.5ecd60fb.chunk.css.map",
+    "static/media/logo.svg": "/reactstudy/static/media/logo.5d5d9eef.svg"
+  }
+}

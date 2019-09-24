@@ -1,10 +1,11 @@
 import * as React from 'react';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { Theme, createStyles, makeStyles, Grid, Button } from '@material-ui/core';
-import { ITodo, useDispatchers } from './store.redux';
-import { activeTodoSelector, completedTodoSelector } from './selectors.redux';
-import { TodoList } from './todoList';
+import { Theme, createStyles, makeStyles, Grid, Button, FormControlLabel, Checkbox } from '@material-ui/core';
+import { activeTodoSelector, completedTodoSelector, showCompletedSelector, showMyDayOnlySelector } from './selectors.redux';
+import { useDispatchers } from './dispatchers.redux';
+import { ITodo } from './store.redux';
+import { TodoList } from './todolist';
 import { predefinedTodos } from './predefinedTodos';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -32,7 +33,9 @@ const createRandomTodo = () => {
 export const TodoWithRedux = () => {
     const activeTodos = useSelector(activeTodoSelector);
     const completedTodos = useSelector(completedTodoSelector);
-    const { populateTodos, addRandomTodo } = useDispatchers();
+    const showCompleted = useSelector(showCompletedSelector);
+    const showMyDayOnly = useSelector(showMyDayOnlySelector);
+    const { populateTodos, addRandomTodo, setShowCompleted, setShowMyDayOnly } = useDispatchers();
     const classes = useStyles();
 
     // "One time" pre-populate
@@ -45,6 +48,27 @@ export const TodoWithRedux = () => {
             <Grid item>
                 <Button variant='contained' color='primary' className={classes.button} onClick={() => populateTodos(predefinedTodos)}>Populate</Button>
                 <Button variant='contained' color='primary' className={classes.button} onClick={() => addRandomTodo(createRandomTodo())}>Add Todo</Button>
+                <FormControlLabel
+                    control={
+                        <Checkbox
+                            checked={showMyDayOnly}
+                            tabIndex={-1}
+                            onChange={() => setShowMyDayOnly(!showMyDayOnly)}
+                        />
+                    }
+                    label='ShowTodayOnly'
+                />
+                <FormControlLabel
+                    control={
+                        <Checkbox
+                            checked={showCompleted}
+                            tabIndex={-1}
+                            onChange={() => setShowCompleted(!showCompleted)}
+                        />
+                    }
+                    label='ShowCompleted'
+                />
+
             </Grid>
             <Grid item>
                 <TodoList activeTodos={activeTodos} completedTodos={completedTodos} />

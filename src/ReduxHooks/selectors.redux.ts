@@ -13,20 +13,26 @@ export const todoSelector = createSelector(
     (todos, settings) => todos.filter(x => settings.showCompleted || !x.completed)
 );
 
+// show completed selector
+export const showCompletedSelector = createSelector(
+    [settingsStateSelector],
+    settings => settings.showCompleted
+);
+
+// show my day only selector
+export const showMyDayOnlySelector = createSelector(
+    [settingsStateSelector],
+    settings => settings.myDayOnly
+);
+
 // active todo selector
 export const activeTodoSelector = createSelector(
-    [todoSelector],
-    (todos) => todos.filter(x => !x.completed)
+    [todoSelector, showMyDayOnlySelector],
+    (todos, showMyDayOnly) => todos.filter(x => !x.completed && (!showMyDayOnly || x.myDay))
 );
 
 // completed todo selector
 export const completedTodoSelector = createSelector(
-    [todoSelector],
-    (todos) => todos.filter(x => x.completed)
-);
-
-// my day todo selector
-export const myDaySelector = createSelector(
-    [todoSelector],
-    (todos: ITodo[]) => todos.filter(x => x.myDay)
+    [todoSelector, showCompletedSelector, showMyDayOnlySelector],
+    (todos, showCompleted, showMyDayOnly) => showCompleted ? todos.filter(x => x.completed && (!showMyDayOnly || x.myDay)) : []
 );

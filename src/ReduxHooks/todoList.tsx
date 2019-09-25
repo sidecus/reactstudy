@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { List, ListItem, ListSubheader, ListItemText, ListItemAvatar, ListItemSecondaryAction, FormControlLabel } from '@material-ui/core';
-import { Theme, createStyles, makeStyles, IconButton, Checkbox, Avatar, Switch } from '@material-ui/core';
+import { List, ListItem, ListSubheader, ListItemText, ListItemAvatar } from '@material-ui/core';
+import { Theme, createStyles, makeStyles, Avatar } from '@material-ui/core';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive';
-import DeleteIcon from '@material-ui/icons/Delete';
-import { ITodo, useDispatchers } from './store.redux';
+import { ITodo } from './store.redux';
+import { TodoActions } from './todoactions';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -38,7 +38,6 @@ export interface ITodoListProps {
 }
 
 export const TodoList = (props: ITodoListProps) => {
-    const { toggleMyDay, toggleComplete, deleteTodo } = useDispatchers();
     const classes = useStyles();
     const { activeTodos, completedTodos } = props;
 
@@ -58,34 +57,7 @@ export const TodoList = (props: ITodoListProps) => {
                                     </Avatar>
                                 </ListItemAvatar>
                                 <ListItemText id={labelId} primary={`${todo.title}`} />
-                                <ListItemSecondaryAction>
-                                    <FormControlLabel
-                                        control={
-                                            <Switch
-                                                checked={todo.myDay}
-                                                tabIndex={-1}
-                                                color='secondary'
-                                                inputProps={{ 'aria-labelledby': labelId }}
-                                                onChange={() => toggleMyDay(todo.id)}
-                                            />
-                                        }
-                                        label={todo.myDay ? 'Today' : 'Later'}
-                                    />
-                                    <FormControlLabel
-                                        control={
-                                            <Checkbox
-                                                checked={todo.completed}
-                                                tabIndex={-1}
-                                                inputProps={{ 'aria-labelledby': labelId }}
-                                                onChange={() => toggleComplete(todo.id)}
-                                            />
-                                        }
-                                        label='Completed'
-                                    />
-                                    <IconButton edge="end" aria-label="delete" onClick={() => deleteTodo(todo.id)}>
-                                        <DeleteIcon />
-                                    </IconButton>
-                                </ListItemSecondaryAction>
+                                <TodoActions todo={todo} labelId={labelId} />
                             </ListItem>
                         );
                     })}

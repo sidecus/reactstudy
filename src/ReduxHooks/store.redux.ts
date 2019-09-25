@@ -1,6 +1,4 @@
 import { createStore, combineReducers } from 'redux';
-import { useDispatch } from 'react-redux';
-import { useCallback } from 'react';
 
 export interface ITodo {
     id: number;

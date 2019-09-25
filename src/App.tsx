@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import logo from './logo.svg';
+import githubdark from './github.png';
+import githublight from './githublight.png';
 import { makeStyles, Theme, MuiThemeProvider } from '@material-ui/core/styles';
 import { AppBar, Typography, Toolbar, Link, Paper, FormControlLabel, Switch } from '@material-ui/core';
 import { AppTabs } from './AppTabs';
@@ -11,15 +13,20 @@ const useStyles = makeStyles((theme: Theme) => ({
         display: 'flex',
         flexDirection: 'column',
     },
-    title: {
-        flexGrow: 1,
-    },
     appLogo: {
         animation: '$App-logo-spin infinite 15s linear',
         height: '64px',
     },
+    title: {
+        flexGrow: 1,
+    },
+    githublogo: {
+        width: 24,
+        height: 24,
+        marginLeft: theme.spacing(2),
+    },
     link: {
-        margin: theme.spacing(2),
+        margin: theme.spacing(.5),
     },
     '@keyframes App-logo-spin': {
         'from': {
@@ -48,10 +55,13 @@ export const App = () => {
                 <AppBar position='static' color='inherit'>
                     <Toolbar>
                         <img src={logo} className={classes.appLogo} alt="logo" />
-                        <Typography variant="h6" className={classes.title}>
+                        <Typography variant="h5" className={classes.title}>
                             React Study
-                            <Link href={gitHubUrl} color='inherit' className={classes.link}>sidecus</Link>
                         </Typography>
+                        <img src={theme === darkTheme ? githublight : githubdark} alt='githublogo' className={classes.githublogo}/>
+                        <Link variant='body2' href={gitHubUrl} color='inherit' className={classes.link}>
+                            sidecus
+                        </Link>
                         <FormControlLabel
                             control={
                                 <Switch checked={theme === darkTheme} onChange={toggleTheme} color='primary'/>

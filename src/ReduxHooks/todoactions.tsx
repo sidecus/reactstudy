@@ -1,7 +1,10 @@
 import * as React from 'react';
-import { ListItemSecondaryAction, FormControlLabel } from '@material-ui/core';
-import { IconButton, Checkbox, Switch } from '@material-ui/core';
+import { ListItemSecondaryAction, FormControlLabel, Checkbox } from '@material-ui/core';
+import { IconButton } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
+import StarBorderRoundedIcon from '@material-ui/icons/StarBorderRounded';
+import StarRoundedIcon from '@material-ui/icons/StarRounded';
+import { GreenCheckbox } from './greencheckbox';
 import { ITodo } from './store.redux';
 import { useDispatchers } from './dispatchers.redux';
 
@@ -19,11 +22,9 @@ export const TodoActions = (props: ITodoActionsProps) => {
         <ListItemSecondaryAction>
             <FormControlLabel
                 control={
-                    <Switch
-                        checked={todo.myDay}
-                        tabIndex={-1}
-                        color='secondary'
+                    <Checkbox icon={<StarBorderRoundedIcon />} checkedIcon={<StarRoundedIcon />} tabIndex={-1}
                         inputProps={{ 'aria-labelledby': labelId }}
+                        checked={todo.myDay}
                         onChange={() => toggleMyDay(todo.id)}
                     />
                 }
@@ -31,14 +32,14 @@ export const TodoActions = (props: ITodoActionsProps) => {
             />
             <FormControlLabel
                 control={
-                    <Checkbox
+                    <GreenCheckbox
                         checked={todo.completed}
                         tabIndex={-1}
                         inputProps={{ 'aria-labelledby': labelId }}
                         onChange={() => toggleComplete(todo.id)}
                     />
                 }
-                label='Completed'
+                label='Complete'
             />
             <IconButton edge="end" aria-label="delete" onClick={() => deleteTodo(todo.id)}>
                 <DeleteIcon />

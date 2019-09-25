@@ -8,7 +8,7 @@ const useStyles = makeStyles((theme: Theme) =>
             width: 'auto',
             height: '100%',
         },
-        container: {
+        panelcontainer: {
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'flex-start',
@@ -31,7 +31,7 @@ export function AppTabPanel(props: TabPanelProps) {
 
     return (
         <Box className={classes.root} hidden={value !== index}>
-            <div className={classes.container}>
+            <div className={classes.panelcontainer}>
                 {children}
             </div>
         </Box>

@@ -8,13 +8,22 @@ import { TodoActions } from './todoactions';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        list: {
+        todolistcontainer: {
             width: '50vw',
-            minWidth: '480',
-            maxHeight: '70vh',
+            minWidth: 520,
             flexGrow: 1,
             overflow: 'auto',
-            backgroundColor: theme.palette.background.paper,
+            position: 'relative',   // helps with child todolist absolute positioning
+        },
+        todolist: {
+            // This will limit the list to not grow out of the parent.
+            // https://stackoverflow.com/questions/21515042/scrolling-a-flexbox-with-overflowing-content
+            position: 'absolute',
+            top: 0,
+            bottom: 0,
+            left: 0,
+            right: 0,
+            backgroundColor: theme.palette.background.paper, // avoid sticky subheader to be transparent
         },
         listSection: {
             backgroundColor: 'inherit',
@@ -23,12 +32,9 @@ const useStyles = makeStyles((theme: Theme) =>
             backgroundColor: 'inherit',
             padding: 0,
         },
-        avatar: {
-            margin: 10,
+        listitemavatar: {
+            margin: 8,
         },
-        todaylabel: {
-            width: 45,
-        }
     }),
 );
 
@@ -52,7 +58,7 @@ export const TodoList = (props: ITodoListProps) => {
                         return (
                             <ListItem key={todo.id} role="listitem">
                                 <ListItemAvatar>
-                                    <Avatar className={classes.avatar}>
+                                    <Avatar className={classes.listitemavatar}>
                                         {todo.myDay ? <NotificationsActiveIcon/> : <AssignmentIcon/>}
                                     </Avatar>
                                 </ListItemAvatar>
@@ -67,9 +73,11 @@ export const TodoList = (props: ITodoListProps) => {
     };
 
     return (
-        <List role="list" className={classes.list} subheader={<li />}>
-            {activeTodos.length > 0 && todoSubList('Active Todos', activeTodos)}
-            {completedTodos.length > 0 && todoSubList('Completed Todos', completedTodos)}
-        </List>
+        <div className={classes.todolistcontainer}>
+            <List role="list" className={classes.todolist} subheader={<li />}>
+                {activeTodos.length > 0 && todoSubList('Active Todos', activeTodos)}
+                {completedTodos.length > 0 && todoSubList('Completed Todos', completedTodos)}
+            </List>
+        </div>
     );
 }

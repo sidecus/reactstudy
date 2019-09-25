@@ -1,4 +1,4 @@
-import { ITodoAppStore, ITodo } from "./store.redux";
+import { ITodoAppStore } from "./store.redux";
 import { createSelector } from 'reselect';
 
 // top todo selector

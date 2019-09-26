@@ -1,4 +1,4 @@
-This is a sample project capturing my React learnings and experiments.
+This is a sample project capturing my React learnings and experiments. [Demo Site](https://sidecus.github.io/reactstudy/)
 
 ## Covered React.js or Redux related features
 * All in Typescript

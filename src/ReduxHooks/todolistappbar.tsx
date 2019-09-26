@@ -12,10 +12,11 @@ import { GreenCheckbox } from './greencheckbox';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        TodoListAppBar: {
+        todoactionappbar: {
             display: 'flex',
             flexDirection: 'row',
             justifyContent: 'center',
+            alignItems: 'center',
         },
         todoactioncontrol: {
             margin: theme.spacing(1),
@@ -37,33 +38,37 @@ export const TodoListAppBar = () => {
     const classes = useStyles();
 
     return (
-        <div>
-            <Button variant='contained' color='primary' className={classes.todoactioncontrol}
-                onClick={() => populateTodos(predefinedTodos)}>
-                Populate
-            </Button>
-            <Button variant='contained' color='primary' className={classes.todoactioncontrol}
-                onClick={() => addRandomTodo(createRandomTodo())}>
-                Add Todo
-            </Button>
-            <FormControlLabel
-                control={
-                    <Checkbox icon={<StarBorderRoundedIcon />} checkedIcon={<StarRoundedIcon />} tabIndex={-1}
-                        checked={showMyDayOnly}
-                        onChange={() => setShowMyDayOnly(!showMyDayOnly)}
-                    />
-                }
-                label='TodayOnly'
-            />
-            <FormControlLabel className={classes.todoactioncontrol}
-                control={
-                    <GreenCheckbox tabIndex={-1}
-                        checked={showCompleted}
-                        onChange={() => setShowCompleted(!showCompleted)}
-                    />
-                }
-                label='ShowCompleted'
-            />
-        </div>
+        <>
+            <div className={classes.todoactionappbar}>
+                <Button variant='contained' color='primary' className={classes.todoactioncontrol}
+                    onClick={() => populateTodos(predefinedTodos)}>
+                    Populate
+                </Button>
+                <Button variant='contained' color='primary' className={classes.todoactioncontrol}
+                    onClick={() => addRandomTodo(createRandomTodo())}>
+                    Add Todo
+                </Button>
+            </div>
+            <div className={classes.todoactionappbar}>
+                <FormControlLabel className={classes.todoactioncontrol}
+                    control={
+                        <Checkbox icon={<StarBorderRoundedIcon />} checkedIcon={<StarRoundedIcon />} tabIndex={-1}
+                            checked={showMyDayOnly}
+                            onChange={() => setShowMyDayOnly(!showMyDayOnly)}
+                        />
+                    }
+                    label='TodayOnly'
+                />
+                <FormControlLabel className={classes.todoactioncontrol}
+                    control={
+                        <GreenCheckbox tabIndex={-1}
+                            checked={showCompleted}
+                            onChange={() => setShowCompleted(!showCompleted)}
+                        />
+                    }
+                    label='ShowCompleted'
+                />
+            </div>
+        </>
     );
 }

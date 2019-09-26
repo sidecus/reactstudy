@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme: Theme) =>
             alignItems:"center",
             flexGrow: 1,
             display: 'flex',
-            margin: 48,
+            margin: 24,
         },
     }),
 );

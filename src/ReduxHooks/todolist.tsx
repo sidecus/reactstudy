@@ -3,6 +3,7 @@ import { List, ListItem, ListSubheader, ListItemText, ListItemAvatar } from '@ma
 import { Theme, createStyles, makeStyles, Avatar } from '@material-ui/core';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive';
+import { grey } from '@material-ui/core/colors';
 import { ITodo } from './store.redux';
 import { TodoActions } from './todoactions';
 
@@ -33,7 +34,10 @@ const useStyles = makeStyles((theme: Theme) =>
             padding: 0,
         },
         listitemavatar: {
-            margin: 8,
+            height: 24,
+            width: 24,
+            color: grey[200],
+            backgroundColor: 'inherit',
         },
     }),
 );

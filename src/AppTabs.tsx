@@ -45,7 +45,7 @@ export const AppTabs = () => {
                     <Tab label='Function & Class' />
                     <Tab label='Trump Tweets' />
                     <Tab label='Hook Events' />
-                    <Tab label='Redux Hooks' />
+                    <Tab label='Redux Todo App' />
                 </Tabs>
             </AppBar>
             <Paper className={classes.panel}>

@@ -6,8 +6,9 @@ export const Counter = () => {
     const [count, setCount] = React.useState(0);
 
     React.useEffect(() => {
-        const title = `Function Component: ${count}`;
-        document.title = title;
+        if (count > 0) {
+            document.title = `Function Component: ${count}`;
+        }
     }, [count]);
 
     return (

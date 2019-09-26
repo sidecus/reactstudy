@@ -43,6 +43,8 @@ export class ComponentCounter extends React.PureComponent<{}, IComponentCounterS
 
     // This kind of DOM operation have to be repeated in both cDU and cDM
     private updateTitle = () => {
-        document.title = `Class Component: ${this.state.count}`;
+        if (this.state.count > 0) {
+            document.title = `Class Component: ${this.state.count}`;
+        }
     }
 }

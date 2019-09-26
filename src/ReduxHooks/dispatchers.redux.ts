@@ -2,15 +2,23 @@ import { useDispatch } from "react-redux";
 import { createAddBatchTodosAction, createAddTodoAction, createRemoveTodoAction, createToggleCompleteAction, createToggleMyDayAction, createSetShowCompletedAction, createSetMyDayOnlyAction, ITodo } from "./store.redux";
 import { useCallback } from "react";
 
+
+
 // dispatchers
+// Use useCallback hooks for all dispatchers. This can boost up performance and avoid infinite rendering.
+// 1. Performance boost
+//   Value of these dispatches won't change unless dispatch changes. You can safely pass them to child components.
+//   If you use embed functions intead, it'll cause unnecesary rerendering since a new function object is defined in each render.
+// 2. Avoid unintentional infinite rendering:
+//   Take populateTodos as an example, it's called via useEffect to fill in a predefined list of todos.
+//   useEffect is depending on it so logically it'll be in the depencency list.
+//   If populateTodos is defined as an embeded function - you have infinite rendering.
 export const useDispatchers = () => {
     const dispatch = useDispatch();
 
-    // Populate with predefined todos. We use the useCallbacl here to follow hooks dependency rules and 
-    // avoid infinite rerenering.
-    // We usually need to specify this as part of the useEffect dependencies.
-    // If we don't define this as callback and define this in the function component directly,
-    // then a new function is created during each render.
+    // Populate with predefined todos. We use the useCallback here to follow hooks dependency rules and 
+    // avoid infinite rerenering. We usually specify this as part of the useEffect dependencies.
+    // If we don't define this as callback but instead just an embeded function, the useEffect will trigger infinite rendering.
     // In that case, the useEffect will be run forever.
     // Furthermore, this can also help improve performance.
     const populateTodos = useCallback((todos: ITodo[]) => {

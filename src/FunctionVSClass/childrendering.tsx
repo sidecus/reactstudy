@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState, useRef, useEffect, useCallback, RefObject } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import { Typography, Button, CardContent } from '@material-ui/core';
 import { useStyles } from './styles';
 
@@ -26,9 +26,9 @@ export const ChildRerendering = () => {
 
     return (
         <CardContent className={classes.cardcontent}>
-            <Typography variant='h4'>Function Child Component Rerendering</Typography>
+            <Typography variant='h4'>Child Function Component Rerendering</Typography>
             <Typography variant='subtitle2' color='textSecondary' component='span'>
-                ButtonA and ButtonB are childrens of the same parent element.
+                ButtonA and ButtonB are childrens of the same parent component.
             </Typography>
             <Typography variant='subtitle2' color='textSecondary' component='span'>
                 Both of them will cause parent component to rerender. Click to see the differences.

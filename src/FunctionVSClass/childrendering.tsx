@@ -17,6 +17,7 @@ export const ChildRerendering = () => {
     const embededFunctionClickCallback = () => setCount(count => count + 1);
 
     // For the same purpose as above, we use useCallback instead. This won't cause unexpected rerender.
+    // *Simple rule* - all functions defined in a functional component scope and are passed to child component should be wrapped in useCallback.
     const memoizedClickCallback = useCallback(() => setCount(count => count + 1), [setCount]);
 
     useEffect(() => {

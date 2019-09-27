@@ -59,7 +59,7 @@ export const App = () => {
                             React Study
                         </Typography>
                         <img src={theme === darkTheme ? githublight : githubdark} alt='githublogo' className={classes.githublogo}/>
-                        <Link variant='body2' href={gitHubUrl} color='inherit' className={classes.link}>
+                        <Link variant='body2' href={gitHubUrl} color='inherit' target='_blank' className={classes.link}>
                             sidecus
                         </Link>
                         <FormControlLabel

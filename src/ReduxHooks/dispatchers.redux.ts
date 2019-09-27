@@ -6,13 +6,14 @@ import { useCallback } from "react";
 
 // dispatchers
 // Use useCallback hooks for all dispatchers. This can boost up performance and avoid infinite rendering.
-// 1. Performance boost
+// 1. Help with Performance
 //   Value of these dispatches won't change unless dispatch changes. You can safely pass them to child components.
-//   If you use embed functions intead, it'll cause unnecesary rerendering since a new function object is defined in each render.
+//   If you use embed functions intead, it might cause unnecesary rerendering since a new function object is defined in each render.
+//   Check the examples in FunctionVSClass for more details.
 // 2. Avoid unintentional infinite rendering:
 //   Take populateTodos as an example, it's called via useEffect to fill in a predefined list of todos.
-//   useEffect is depending on it so logically it'll be in the depencency list.
-//   If populateTodos is defined as an embeded function - you have infinite rendering.
+//   useEffect is depending on it so you add the dispatcher into its dependency list. And it just works.
+//   If populateTodos is defined as a function scoped in the parent component and injected as a dependency to useEffect - good luck - you have infinite rendering.
 export const useDispatchers = () => {
     const dispatch = useDispatch();
 

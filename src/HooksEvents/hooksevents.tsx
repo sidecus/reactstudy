@@ -102,7 +102,7 @@ export const HooksEvents = () => {
                         <Typography variant='h4'>Hooks events</Typography>
                         <Typography variant='body2' className={classes.logarea} component='textarea' ref={textAreaRef}></Typography>
                         <br></br>
-                        <Button variant='contained' color='primary' onClick={() => setValue(value + 1)}>Rerender</Button>
+                        <Button variant='contained' color='primary' onClick={() => setValue(value => value + 1)}>Rerender</Button>
                     </CardContent>
                 </Card>
             </Grid>

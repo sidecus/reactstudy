@@ -1,20 +1,30 @@
 import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import { Card, Grid } from '@material-ui/core';
+import { Card } from '@material-ui/core';
 
-import { Counter } from './counterfunction';
-import { ComponentCounter } from './counterclass';
+import { FunctionCounter } from './counterfunction';
+import { ClassCounterWithStyles } from './counterclass';
+import { ChildRerendering } from './childrendering';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
-            height: '100%',
+            flexGrow: 1,
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-around',
+            alignItems: 'center',
             flexWrap: 'wrap',
         },
         card: {
-            width: '25vw',
+            margin: 48,
+            width: '30vw',
             minWidth: '300',
-            Height: 400,
+        },
+        bigcard: {
+            margin: 48,
+            width: '50vw',
+            minWidth: '300',
         },
     }),
 );
@@ -23,17 +33,16 @@ export const FunctionVsClass = () => {
     const classes = useStyles();
 
     return (
-        <Grid container direction='row' justify='space-around' alignItems='center' className={classes.root}>
-            <Grid item>
-                <Card className={classes.card}>
-                    <Counter />
-                </Card>
-            </Grid>
-            <Grid item>
-                <Card className={classes.card}>
-                    <ComponentCounter />
-                </Card>
-            </Grid>
-        </Grid>
+        <div className={classes.root}>
+            <Card className={classes.card}>
+                <ClassCounterWithStyles />
+            </Card>
+            <Card className={classes.card}>
+                <FunctionCounter />
+            </Card>
+            <Card className={classes.bigcard}>
+                <ChildRerendering />
+            </Card>
+        </div>
     );
 }

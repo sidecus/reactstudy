@@ -1,13 +1,20 @@
 import * as React from 'react';
-import { Button, Typography, CardContent } from '@material-ui/core';
+import { Button, Typography, CardContent, WithStyles } from '@material-ui/core';
+import { withStyles } from "@material-ui/core/styles";
+import { styles } from './styles';
 
 interface IComponentCounterState {
     count: number;
 }
 
+interface IClassCounterProps extends WithStyles<typeof styles, true> {
+}
+
 // React function component uses hooks providing "counter" capability
-export class ComponentCounter extends React.PureComponent<{}, IComponentCounterState> {
-    constructor(props: {}) {
+export class ClassCounter extends React.PureComponent<IClassCounterProps, IComponentCounterState> {
+    private readonly classes = this.props.classes;
+
+    constructor(props: IClassCounterProps) {
         super(props);
         this.state = {
             count: 0,
@@ -16,8 +23,14 @@ export class ComponentCounter extends React.PureComponent<{}, IComponentCounterS
 
     public render(): JSX.Element {
         return (
-            <CardContent>
+            <CardContent className={this.classes.cardcontent}>
                 <Typography variant='h4'>Class Component</Typography>
+                <Typography variant='subtitle2' color='textSecondary' component='span'>
+                    Class component with a counter state.
+                </Typography>
+                <Typography variant='subtitle2' color='textSecondary' component='span'>
+                    It uses React lifecycle events to update window title.
+                </Typography>
                 <br></br>
                 <Typography variant='body1' component='p'>You clicked {this.state.count} times</Typography>
                 <br></br>
@@ -48,3 +61,5 @@ export class ComponentCounter extends React.PureComponent<{}, IComponentCounterS
         }
     }
 }
+
+export const ClassCounterWithStyles = withStyles(styles, {withTheme: true})(ClassCounter);

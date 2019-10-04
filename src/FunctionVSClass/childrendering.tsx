@@ -55,10 +55,7 @@ interface ISetCountButtonProps {
     onClick: () => void;
 }
 
-// Runction components are rerendered (called) whenever parent component rerenders - regardless of whether props change or not.
-// to avoid unnecessary rerendering when props are the same, we use React.memo.
-// React.memo is similar concept as PureComponent, but it's intended for function components.
-// https://headway.io/blog/react-optimize-components-memo-usememo-usecallback/
+// The "button" component which renders a button and update a ref with the number of rerenderings of the button
 const SetCountButtonFunctionComponent = (props: ISetCountButtonProps) => {
     const classes = useStyles();
 
@@ -71,5 +68,9 @@ const SetCountButtonFunctionComponent = (props: ISetCountButtonProps) => {
     );
 }
 
-// This is how we wrap the function component into React.memo. React will make sure the component is not rerendered 
+// Function components are rerendered (called) whenever parent component rerenders - regardless of whether props change or not.
+// This is different from a PureComponent in the class component world.
+// To avoid unnecessary rerendering when props are the same, we use React.memo.
+// React.memo can wrap a function component into something like a PureComponent which only rerenders when props change.
+// https://headway.io/blog/react-optimize-components-memo-usememo-usecallback/
 const SetCountButton = React.memo(SetCountButtonFunctionComponent);

@@ -2,7 +2,8 @@ import * as React from 'react';
 import { Typography, Button, CardContent } from '@material-ui/core';
 import { useStyles } from './styles';
 
-// React function component uses hooks providing "counter" capability
+// React function component uses hooks providing "counter" capability.
+// Compare this with counterclass.tsx.
 export const FunctionCounter = () => {
     const classes = useStyles();
     const [count, setCount] = React.useState(0);

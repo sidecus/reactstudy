@@ -2,8 +2,6 @@ import { useDispatch } from "react-redux";
 import { createAddBatchTodosAction, createAddTodoAction, createRemoveTodoAction, createToggleCompleteAction, createToggleMyDayAction, createSetShowCompletedAction, createSetMyDayOnlyAction, ITodo } from "./store.redux";
 import { useCallback } from "react";
 
-
-
 // dispatchers
 // Use useCallback hooks for all dispatchers. This can boost up performance and avoid infinite rendering.
 // 1. Help with Performance

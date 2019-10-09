@@ -39,14 +39,14 @@ export const TodoListAppBar = () => {
 
     // "One time" pre-populate
     useEffect(() => {
-        populateTodos();
-    }, []);
+        populateTodos(Math.random());
+    }, [populateTodos]);
 
     return (
         <>
             <div className={classes.todoactionappbar}>
                 <Button variant='contained' color='primary' className={classes.todoactioncontrol}
-                    onClick={() => populateTodos()}>
+                    onClick={() => populateTodos(Math.random())}>
                     Populate
                 </Button>
                 <Button variant='contained' color='primary' className={classes.todoactioncontrol}

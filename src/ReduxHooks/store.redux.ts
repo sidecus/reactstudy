@@ -1,6 +1,8 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 import { IAction, createAction } from '../Common/redux';
+import { loadTodos } from './todoapi';
 
 export interface ITodo {
     id: number;
@@ -30,6 +32,12 @@ export const createToggleMyDayAction = createAction<number>(TodoAppActions.Toggl
 export const createToggleCompleteAction = createAction<number>(TodoAppActions.ToggleComplete);
 export const createSetShowCompletedAction = createAction<boolean>(TodoAppActions.SetShowCompleted);
 export const createSetMyDayOnlyAction = createAction<boolean>(TodoAppActions.SetMyDayOnly);
+
+// This is the thunk to dispatch to load predefined todos
+export const createLoadTodoAction = async (param: number) => {
+    const todos = await loadTodos();
+    return createAddBatchTodosAction(todos);
+}
 
 // todo list reducer
 const todoReducer = (state: ITodo[] = [], action: IAction) => {
@@ -103,5 +111,5 @@ const settingsReducer = (state: ITodoAppSettings = defaultSettings, action: IAct
 
 // root reducer and create store with thunk middleware
 const rootReducer = combineReducers({todo: todoReducer, settings: settingsReducer});
-export const todoStore = createStore(rootReducer, applyMiddleware(thunk));
+export const todoStore = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
 export type ITodoAppStore = ReturnType<typeof rootReducer>;

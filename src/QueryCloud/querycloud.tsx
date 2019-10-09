@@ -5,7 +5,7 @@ import { scaleOrdinal } from 'd3-scale';
 import { schemeCategory10 } from 'd3-scale-chromatic';
 import { select, Selection } from 'd3-selection';
 import { d3Word, useD3Words } from './used3words';
-import { useRefSize } from '../CustomHooks/userefsize';
+import { useRefSize } from '../Common/userefsize';
 
 const DEFAULT_WORD_COUNT = 100;
 const FONT_FAMILY = 'Impact';

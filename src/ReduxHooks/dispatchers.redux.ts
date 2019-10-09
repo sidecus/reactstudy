@@ -1,5 +1,7 @@
-import { useCallbackDispatcher } from '../CustomHooks/usecallbackdispatcher';
+import { useCallbackDispatcher, useThunkDispatcher } from '../Common/usecallbackdispatcher';
+import { Dispatch } from 'redux';
 import { createAddBatchTodosAction, createAddTodoAction, createRemoveTodoAction, createToggleCompleteAction, createToggleMyDayAction, createSetShowCompletedAction, createSetMyDayOnlyAction } from './store.redux';
+import { loadTodos } from './todoapi';
 
 // dispatcher custom hooks
 // Use useCallback hooks for all dispatchers. This can boost up performance and avoid infinite rendering.
@@ -13,13 +15,21 @@ import { createAddBatchTodosAction, createAddTodoAction, createRemoveTodoAction,
 //   If populateTodos is defined as a function scoped in the parent component and injected as a dependency to useEffect however,  good luck - you have infinite rendering.
 export const useDispatchers = () => {
 
-    const populateTodos = useCallbackDispatcher(createAddBatchTodosAction);
+    const addBatchTodos = useCallbackDispatcher(createAddBatchTodosAction);
     const addRandomTodo = useCallbackDispatcher(createAddTodoAction);
     const deleteTodo = useCallbackDispatcher(createRemoveTodoAction);
     const toggleComplete = useCallbackDispatcher(createToggleCompleteAction);
     const toggleMyDay = useCallbackDispatcher(createToggleMyDayAction);
     const setShowCompleted = useCallbackDispatcher(createSetShowCompletedAction);
     const setShowMyDayOnly = useCallbackDispatcher(createSetMyDayOnlyAction);
+
+    const populateTodos = useThunkDispatcher(() => {
+        return (dispatch: Dispatch<any>) => {
+            loadTodos().then(todos => {
+                return dispatch(createAddBatchTodosAction(todos));
+            });
+        };
+    });
 
     return { populateTodos, addRandomTodo, deleteTodo, toggleComplete, toggleMyDay, setShowCompleted, setShowMyDayOnly };
 }

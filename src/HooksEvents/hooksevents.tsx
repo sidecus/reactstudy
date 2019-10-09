@@ -61,9 +61,9 @@ const useLoggingEffect = (
 }
 
 const useEffectEvents = (value: number): [React.RefObject<HTMLTextAreaElement>, React.MutableRefObject<string>] => {
-    // we use a string ref as a in memory cache to hold messages to show
+    // we use a string ref (MutableObjectRef) as a in memory cache to hold messages to show. We cannot put this into state.
     const messageBufferRef = useRef<string>('');
-    // use mutable object ref to hold messages. We cannot put this into state.
+    // use DOM RefObject for direct DOM rendering.
     const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
     // No dependency list

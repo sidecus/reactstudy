@@ -10,7 +10,9 @@ export const settingsStateSelector = (store: ITodoAppStore) => store.settings;
 // todo selector
 export const todoSelector = createSelector(
     [todoStateSelector, settingsStateSelector],
-    (todos, settings) => todos.filter(x => settings.showCompleted || !x.completed)
+    (todos, settings) => {
+        return todos.filter(x => settings.showCompleted || !x.completed);
+    }
 );
 
 // show completed selector

@@ -5,10 +5,10 @@ import { Theme, createStyles, makeStyles } from '@material-ui/core';
 import StarBorderRoundedIcon from '@material-ui/icons/StarBorderRounded';
 import StarRoundedIcon from '@material-ui/icons/StarRounded';
 import { ITodo } from './store.redux';
-import { predefinedTodos } from './predefinedTodos';
 import { showCompletedSelector, showMyDayOnlySelector } from './selectors.redux';
 import { useDispatchers } from './dispatchers.redux';
 import { GreenCheckbox } from './greencheckbox';
+import { useEffect } from 'react';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -37,11 +37,16 @@ export const TodoListAppBar = () => {
     const { populateTodos, addRandomTodo, setShowCompleted, setShowMyDayOnly } = useDispatchers();
     const classes = useStyles();
 
+    // "One time" pre-populate
+    useEffect(() => {
+        populateTodos();
+    }, []);
+
     return (
         <>
             <div className={classes.todoactionappbar}>
                 <Button variant='contained' color='primary' className={classes.todoactioncontrol}
-                    onClick={() => populateTodos(predefinedTodos)}>
+                    onClick={() => populateTodos()}>
                     Populate
                 </Button>
                 <Button variant='contained' color='primary' className={classes.todoactioncontrol}

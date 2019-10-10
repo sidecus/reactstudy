@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Provider } from 'react-redux';
-import { todoStore } from './store.redux';
+import { todoStore } from './store/store.redux';
 import { TodoReduxApp } from './todoreduxapp';
 
 export const ReduxHooksContainer = () => {

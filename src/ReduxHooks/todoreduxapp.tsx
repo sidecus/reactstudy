@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useSelector } from 'react-redux';
 import { Theme, createStyles, makeStyles } from '@material-ui/core';
-import { activeTodoSelector, completedTodoSelector } from './selectors.redux';
+import { activeTodoSelector, completedTodoSelector } from './store/selectors.redux';
 import { TodoList } from './todolist';
 import { TodoListAppBar } from './todolistappbar';
 

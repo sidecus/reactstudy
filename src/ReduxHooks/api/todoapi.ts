@@ -1,4 +1,4 @@
-import { ITodo } from "./store.redux";
+import { ITodo } from "../store/store.redux";
 
 // Sample todo loading from api
 export const loadTodos = async () => {

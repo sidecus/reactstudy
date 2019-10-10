@@ -4,7 +4,7 @@ import { Theme, createStyles, makeStyles, Avatar } from '@material-ui/core';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive';
 import { grey } from '@material-ui/core/colors';
-import { ITodo } from './store.redux';
+import { ITodo } from './store/store.redux';
 import { TodoActions } from './todoactions';
 
 const useStyles = makeStyles((theme: Theme) =>

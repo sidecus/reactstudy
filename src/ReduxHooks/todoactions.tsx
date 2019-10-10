@@ -5,8 +5,8 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import StarBorderRoundedIcon from '@material-ui/icons/StarBorderRounded';
 import StarRoundedIcon from '@material-ui/icons/StarRounded';
 import { GreenCheckbox } from './greencheckbox';
-import { ITodo } from './store.redux';
-import { useDispatchers } from './dispatchers.redux';
+import { ITodo } from './store/store.redux';
+import { useDispatchers } from './store/dispatchers.redux';
 
 export interface ITodoActionsProps {
     labelId: string;

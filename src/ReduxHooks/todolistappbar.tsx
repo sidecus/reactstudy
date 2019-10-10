@@ -4,9 +4,9 @@ import { Button, FormControlLabel, Checkbox } from '@material-ui/core';
 import { Theme, createStyles, makeStyles } from '@material-ui/core';
 import StarBorderRoundedIcon from '@material-ui/icons/StarBorderRounded';
 import StarRoundedIcon from '@material-ui/icons/StarRounded';
-import { ITodo } from './store.redux';
-import { showCompletedSelector, showMyDayOnlySelector } from './selectors.redux';
-import { useDispatchers } from './dispatchers.redux';
+import { ITodo } from './store/store.redux';
+import { showCompletedSelector, showMyDayOnlySelector } from './store/selectors.redux';
+import { useDispatchers } from './store/dispatchers.redux';
 import { GreenCheckbox } from './greencheckbox';
 import { useEffect } from 'react';
 

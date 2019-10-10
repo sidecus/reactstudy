@@ -1,15 +1,18 @@
 import { useCallback } from 'react';
-import { Dispatch } from 'redux';
+import { Action, Dispatch } from 'redux';
 
+/**
+ * IAction for all actions with string as type
+ * @template TPayload payload type
+ */
 // action type
-export interface IAction<T = any> {
-    type: string;
-    payload: T;
+export interface IAction<TPayload = any> extends Action<string> {
+    payload: TPayload;
 }
 
 // action creator helper
-export const createAction = <TActionPayload = undefined>(actionType: string): ((actionPayload?: TActionPayload) => IAction<TActionPayload>) => {
-    return (actionPayload?: TActionPayload) => {
+export const createAction = <TActionPayload = undefined>(actionType: string): ((actionPayload: TActionPayload) => IAction<TActionPayload>) => {
+    return (actionPayload: TActionPayload) => {
         return { type: actionType, payload: actionPayload } as IAction<TActionPayload>;
     };
 }

@@ -6,6 +6,7 @@ This is a sample project capturing my React learnings and experiments. [Demo Sit
 * Simple effect hook lifecycle event viewer
 * Custom hooks for various purposes including DOM ref size etc.
 * ```Redux```, selectors, and memoized redux dispatchers callbacks
+* Convenient factory methods for redux action creators and reducers
 * Using ```Reselect``` selectors
 * Using d3 for simple charts
 * And so on.

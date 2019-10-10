@@ -1,16 +1,14 @@
 {
   "files": {
-    "main.css": "/reactstudy/static/css/main.5ecd60fb.chunk.css",
-    "main.js": "/reactstudy/static/js/main.0b1a848b.chunk.js",
-    "main.js.map": "/reactstudy/static/js/main.0b1a848b.chunk.js.map",
+    "main.js": "/reactstudy/static/js/main.e37c8367.chunk.js",
+    "main.js.map": "/reactstudy/static/js/main.e37c8367.chunk.js.map",
     "runtime~main.js": "/reactstudy/static/js/runtime~main.c70b4494.js",
     "runtime~main.js.map": "/reactstudy/static/js/runtime~main.c70b4494.js.map",
-    "static/js/2.e5ee9728.chunk.js": "/reactstudy/static/js/2.e5ee9728.chunk.js",
-    "static/js/2.e5ee9728.chunk.js.map": "/reactstudy/static/js/2.e5ee9728.chunk.js.map",
+    "static/js/2.63525af4.chunk.js": "/reactstudy/static/js/2.63525af4.chunk.js",
+    "static/js/2.63525af4.chunk.js.map": "/reactstudy/static/js/2.63525af4.chunk.js.map",
     "index.html": "/reactstudy/index.html",
-    "precache-manifest.127a190792cf2fdedab3fb9b3bd6b6db.js": "/reactstudy/precache-manifest.127a190792cf2fdedab3fb9b3bd6b6db.js",
+    "precache-manifest.6818baccb75380b0133e786075610256.js": "/reactstudy/precache-manifest.6818baccb75380b0133e786075610256.js",
     "service-worker.js": "/reactstudy/service-worker.js",
-    "static/css/main.5ecd60fb.chunk.css.map": "/reactstudy/static/css/main.5ecd60fb.chunk.css.map",
     "static/media/logo.svg": "/reactstudy/static/media/logo.5d5d9eef.svg"
   }
 }

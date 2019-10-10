@@ -1,9 +1,13 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
-import { IAction, createAction } from '../../Common/redux';
-import { loadTodos } from '../api/todoapi';
+import { IAction } from '../../Common/redux';
+import { TodoAppActionTypes } from './actiontypes';
+import { addTodoReducer, addBatchTodoReducer, removeTodoReducer, removeAllReducer, toggleMyDayReducer, toggleCompletedReducer, setShowCompletedReducer, setMyDayOnlyReducer } from './actionreducer.redux';
 
+/**
+ * ITodo for a todo item
+ */
 export interface ITodo {
     id: number;
     title: string;
@@ -12,96 +16,66 @@ export interface ITodo {
     completed: boolean;
 }
 
-// Actions and action creators
-enum TodoAppActionTypes {
-    AddTodo = 'AddTodo',
-    AddBatchTodos = 'AddBatchTodos',
-    RemoveTodo = 'RemoveTodo',
-    RemoveAll = 'RemoveAll',
-    ToggleMyDay = 'ToggleMyDay',
-    ToggleComplete = 'ToggleComplete',
-    SetShowCompleted = 'SetShowCompleted',
-    SetMyDayOnly = 'SetMyDayOnly',
-}
-
-export const createAddTodoAction = createAction<ITodo>(TodoAppActionTypes.AddTodo);
-export const createAddBatchTodosAction = createAction<ITodo[]>(TodoAppActionTypes.AddBatchTodos);
-export const createRemoveTodoAction = createAction<number>(TodoAppActionTypes.RemoveTodo);
-export const createRemoveAllAction = createAction(TodoAppActionTypes.RemoveAll);
-export const createToggleMyDayAction = createAction<number>(TodoAppActionTypes.ToggleMyDay);
-export const createToggleCompleteAction = createAction<number>(TodoAppActionTypes.ToggleComplete);
-export const createSetShowCompletedAction = createAction<boolean>(TodoAppActionTypes.SetShowCompleted);
-export const createSetMyDayOnlyAction = createAction<boolean>(TodoAppActionTypes.SetMyDayOnly);
-
-// This is the thunk to dispatch to load predefined todos
-export const createLoadTodoAction = async (param: number) => {
-    const todos = await loadTodos();
-    return createAddBatchTodosAction(todos);
-}
-
-// todo list reducer
-const todoReducer = (state: ITodo[] = [], action: IAction) => {
-    let newState: ITodo[] = [...state];
-    switch (action.type) {
-        case TodoAppActionTypes.AddTodo:
-            // assign id for the new todo. if it's the first, set it to 0.
-            // otherwise set it to the current max id + 1 to avoid conflicts
-            const newId = newState.length > 0 ? (Math.max(...newState.map(t => t.id)) + 1) : 0;
-            const newTodo = {id: newId, due: new Date(), myDay: false, completed: false, ...action.payload as ITodo};
-            newState.push(newTodo);
-            break;
-        case TodoAppActionTypes.AddBatchTodos:
-            newState = [...action.payload as ITodo[]];
-            break;
-        case TodoAppActionTypes.RemoveTodo:
-            // remove the given todo with the id
-            const idToRemove = action.payload as number;
-            newState.splice(newState.findIndex(t => t.id === idToRemove), 1);
-            break;
-        case TodoAppActionTypes.RemoveAll:
-            // remove all todos
-            newState = [];
-            break;
-        case TodoAppActionTypes.ToggleMyDay:
-            // toggle the myday status for the given todo
-            const indexToToggleMyDay = newState.findIndex(t => t.id === action.payload as number);
-            if (indexToToggleMyDay >= 0) {
-                const todoToggleMyDay = newState[indexToToggleMyDay];
-                newState[indexToToggleMyDay] = {...todoToggleMyDay, myDay: !todoToggleMyDay.myDay};
-            }
-            break;
-        case TodoAppActionTypes.ToggleComplete:
-            // toggle the complete status for the given todo
-            const toggleCompleteIndex = newState.findIndex(t => t.id === action.payload as number);
-            if (toggleCompleteIndex >= 0) {
-                const todoToggleComplete = newState[toggleCompleteIndex];
-                newState[toggleCompleteIndex] = {...todoToggleComplete, completed: !todoToggleComplete.completed};
-            }
-            break;
-        }
-
-    return newState;
-}
-
-// Settings reducer
+/**
+ * Interface for todo app settings
+ */
 export interface ITodoAppSettings {
     showCompleted: boolean;
     myDayOnly: boolean;
 }
 
+/**
+ * Todo items reducer
+ * @param state todo items state
+ * @param action todo action to dispatch
+ */
+const todoReducer = (state: ITodo[] = [], action: IAction) => {
+    let newState = state;
+    switch (action.type) {
+        case TodoAppActionTypes.AddTodo:
+            newState = addTodoReducer(state, action);
+            break;
+        case TodoAppActionTypes.AddBatchTodos:
+            newState = addBatchTodoReducer(state, action);
+            break;
+        case TodoAppActionTypes.RemoveTodo:
+            newState = removeTodoReducer(state, action);
+            break;
+        case TodoAppActionTypes.RemoveAll:
+            newState = removeAllReducer(state, action);
+            break;
+        case TodoAppActionTypes.ToggleMyDay:
+            newState = toggleMyDayReducer(state, action);
+            break;
+        case TodoAppActionTypes.ToggleComplete:
+            newState = toggleCompletedReducer(state, action);
+            break;
+        }
+
+    return newState;
+}
+
+/**
+ * default settings
+ */
 const defaultSettings = {
     showCompleted: true,
     myDayOnly: false,
 } as ITodoAppSettings;
 
+/**
+ * settings reducer
+ * @param state settings state
+ * @param action settings action
+ */
 const settingsReducer = (state: ITodoAppSettings = defaultSettings, action: IAction) => {
-    let newState: ITodoAppSettings = {...state};
+    let newState = state;
     switch (action.type) {
         case TodoAppActionTypes.SetShowCompleted:
-            newState.showCompleted = action.payload as boolean;
+            newState = setShowCompletedReducer(state, action);
             break;
         case TodoAppActionTypes.SetMyDayOnly:
-            newState.myDayOnly = action.payload as boolean;
+            newState = setMyDayOnlyReducer(state, action);
             break;
         }
 
@@ -109,7 +83,17 @@ const settingsReducer = (state: ITodoAppSettings = defaultSettings, action: IAct
 }
 
 
-// root reducer and create store with thunk middleware
+/**
+ * todo app root reducer
+ */
 const rootReducer = combineReducers({todo: todoReducer, settings: settingsReducer});
+
+/**
+ * todo app store, created with thunk middleware and redux dev tools
+ */
 export const todoStore = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
+
+/**
+ * Todo app store type
+ */
 export type ITodoAppStore = ReturnType<typeof rootReducer>;

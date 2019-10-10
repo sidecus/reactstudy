@@ -1,5 +1,5 @@
 import { useCallbackDispatcher, useCallbackThunkDispatcher } from '../../Common/redux';
-import { createAddTodoAction, createRemoveTodoAction, createToggleCompleteAction, createToggleMyDayAction, createSetShowCompletedAction, createSetMyDayOnlyAction, createLoadTodoAction } from './store.redux';
+import { createAddTodoAction, createRemoveTodoAction, createToggleCompletedAction, createToggleMyDayAction, createSetShowCompletedAction, createSetMyDayOnlyAction, createLoadTodoAction } from './actionreducer.redux';
 import { useDispatch } from 'react-redux';
 
 // dispatcher custom hooks
@@ -17,7 +17,7 @@ export const useDispatchers = () => {
 
     const addRandomTodo = useCallbackDispatcher(dispatch, createAddTodoAction);
     const deleteTodo = useCallbackDispatcher(dispatch, createRemoveTodoAction);
-    const toggleComplete = useCallbackDispatcher(dispatch, createToggleCompleteAction);
+    const toggleComplete = useCallbackDispatcher(dispatch, createToggleCompletedAction);
     const toggleMyDay = useCallbackDispatcher(dispatch, createToggleMyDayAction);
     const setShowCompleted = useCallbackDispatcher(dispatch, createSetShowCompletedAction);
     const setShowMyDayOnly = useCallbackDispatcher(dispatch, createSetMyDayOnlyAction);

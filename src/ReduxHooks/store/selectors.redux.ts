@@ -1,40 +1,56 @@
 import { ITodoAppStore } from "./store.redux";
 import { createSelector } from 'reselect';
 
-// top todo selector
-export const todoStateSelector = (store: ITodoAppStore) => store.todo;
+/**
+ * todo app todo items selector
+ * @param store todo app store
+ */
+const todoStateSelector = (store: ITodoAppStore) => store.todo;
 
-// top settings selector
-export const settingsStateSelector = (store: ITodoAppStore) => store.settings;
+/**
+ * todo app settings selector
+ * @param store todo app store
+ */
+const settingsStateSelector = (store: ITodoAppStore) => store.settings;
 
-// todo selector
-export const todoSelector = createSelector(
-    [todoStateSelector, settingsStateSelector],
-    (todos, settings) => {
-        return todos.filter(x => settings.showCompleted || !x.completed);
-    }
-);
-
-// show completed selector
+/**
+ * "ShowCompleted" setting selector
+ */
 export const showCompletedSelector = createSelector(
     [settingsStateSelector],
     settings => settings.showCompleted
 );
 
-// show my day only selector
+/**
+ * "ShowMyDayOnly" setting selector
+ */
 export const showMyDayOnlySelector = createSelector(
     [settingsStateSelector],
     settings => settings.myDayOnly
 );
 
-// active todo selector
-export const activeTodoSelector = createSelector(
-    [todoSelector, showMyDayOnlySelector],
-    (todos, showMyDayOnly) => todos.filter(x => !x.completed && (!showMyDayOnly || x.myDay))
+/**
+ * 'visible' todo items selector after applying filtering options from settings
+ */
+export const todoSelector = createSelector(
+    [todoStateSelector, showCompletedSelector, showMyDayOnlySelector],
+    (todos, showCompleted, showMyDayOnly) => {
+        return todos.filter(x => (showCompleted || !x.completed) && (!showMyDayOnly || x.myDay));
+    }
 );
 
-// completed todo selector
+/**
+ * active todo selector
+ */
+export const activeTodoSelector = createSelector(
+    [todoSelector],
+    todos => todos.filter(x => !x.completed)
+);
+
+/**
+ * completed todo selector
+ */
 export const completedTodoSelector = createSelector(
-    [todoSelector, showCompletedSelector, showMyDayOnlySelector],
-    (todos, showCompleted, showMyDayOnly) => showCompleted ? todos.filter(x => x.completed && (!showMyDayOnly || x.myDay)) : []
+    [todoSelector],
+    todos => todos.filter(x => x.completed)
 );

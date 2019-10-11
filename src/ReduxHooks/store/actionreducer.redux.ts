@@ -9,7 +9,7 @@ import { TodoAppActionTypes } from './actiontypes';
  * AddTodo action creator and corresponding reducer
  */
 export const [createAddTodoAction, addTodoReducer] = actionCreatorReducerFactory<ITodo[], ITodo>(
-    TodoAppActionTypes.AddTodo,
+    TodoAppActionTypes.TODO_ADD,
     (state, action) => {
         // assign id for the new todo. if it's the first, set it to 0.
         // otherwise set it to the current max id + 1 to avoid conflicts
@@ -25,9 +25,9 @@ export const [createAddTodoAction, addTodoReducer] = actionCreatorReducerFactory
  * AddBatchTodo action creator and reducer
  */
 export const [createAddBatchTodosAction, addBatchTodoReducer] = actionCreatorReducerFactory<ITodo[], ITodo[]>(
-    TodoAppActionTypes.AddBatchTodos,
+    TodoAppActionTypes.TODO_AddBatch,
     (state, action) => {
-        return [...action.payload as ITodo[]];
+        return [...action.payload];
     }
 );
 
@@ -35,7 +35,7 @@ export const [createAddBatchTodosAction, addBatchTodoReducer] = actionCreatorRed
  * RemoveTodo action creator and reducer
  */
 export const [createRemoveTodoAction, removeTodoReducer] = actionCreatorReducerFactory<ITodo[], number>(
-    TodoAppActionTypes.RemoveTodo,
+    TodoAppActionTypes.TODO_REMOVEALL,
     (state, action) => {
         // remove the given todo with the id
         const newState = [...state!];
@@ -48,7 +48,7 @@ export const [createRemoveTodoAction, removeTodoReducer] = actionCreatorReducerF
  * RemoveAll action creator and reducer
  */
 export const [createRemoveAllAction, removeAllReducer] = actionCreatorReducerFactory<ITodo[]>(
-    TodoAppActionTypes.RemoveAll,
+    TodoAppActionTypes.TODO_REMOVEALL,
     (state, action) => {
         return [];
     }
@@ -58,7 +58,7 @@ export const [createRemoveAllAction, removeAllReducer] = actionCreatorReducerFac
  * ToggleMyDay action creator and reducer
  */
 export const [createToggleMyDayAction, toggleMyDayReducer] = actionCreatorReducerFactory<ITodo[], number>(
-    TodoAppActionTypes.ToggleMyDay,
+    TodoAppActionTypes.TODO_TOGGLEMYDAY,
     (state, action) => {
         const oldState = state!;
         // toggle the myday status for the given todo if exists
@@ -77,7 +77,7 @@ export const [createToggleMyDayAction, toggleMyDayReducer] = actionCreatorReduce
  * ToggleCompleted action creator and reducer
  */
 export const [createToggleCompletedAction, toggleCompletedReducer] = actionCreatorReducerFactory<ITodo[], number>(
-    TodoAppActionTypes.ToggleComplete,
+    TodoAppActionTypes.TODO_TOGGLECOMPLETED,
     (state, action) => {
         const oldState = state!;
         // toggle the complete status for the given todo (if exists)
@@ -98,7 +98,7 @@ export const [createToggleCompletedAction, toggleCompletedReducer] = actionCreat
  * ShowCompleted settings action creator and reducer
  */
 export const [createSetShowCompletedAction, setShowCompletedReducer] = actionCreatorReducerFactory<ITodoAppSettings, boolean>(
-    TodoAppActionTypes.SetShowCompleted,
+    TodoAppActionTypes.SETTINGS_SET_SHOWCOMPLETED,
     (state, action) => {
         return {...state!, showCompleted: action.payload};
     }
@@ -108,7 +108,7 @@ export const [createSetShowCompletedAction, setShowCompletedReducer] = actionCre
  * SetMyDayOnly action creator and reducer
  */
 export const [createSetMyDayOnlyAction, setMyDayOnlyReducer] = actionCreatorReducerFactory<ITodoAppSettings, boolean>(
-    TodoAppActionTypes.SetMyDayOnly,
+    TodoAppActionTypes.SETTINGS_SET_SHOWMYDAYONLY,
     (state, action) => {
         return {...state!, myDayOnly: action.payload};
     }

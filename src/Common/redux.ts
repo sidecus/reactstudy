@@ -5,7 +5,6 @@ import { Action, Dispatch, Reducer } from 'redux';
  * IAction for all actions with string as type
  * @template TPayload payload type
  */
-// action type
 export interface IAction<TPayload = any> extends Action<string> {
     payload: TPayload;
 }
@@ -37,14 +36,36 @@ export type ActionCreatorWithReducer<S, P = undefined> = [ActionCreator<P>, Redu
 
 /**
  * Factory method to bulid action creator and corresponding reducer for an action type
- * @template S state type
- * @template P action payload type
- * @param actionType action type
- * @param reducer reducer function for this action type
+ * @template S: state type
+ * @template P: action payload type
+ * @param actionType: action type
+ * @param reducer: reducer function for this action type
  */
 export const actionCreatorReducerFactory = <S, P = undefined>(actionType: string, reducer: Reducer<S, IAction<P>>): ActionCreatorWithReducer<S, P> => {
     const actionCreator = actionCreatorFactory<P>(actionType);
     return [actionCreator, reducer];
+}
+
+export type CompositReducerWithActionCreators<S> = [Reducer<S, IAction>, ActionCreator]
+
+/**
+ * Builder to construct auto reducers and corresponding action creators
+ * TODO[sidecus]: not ready - trying to compose composite reducers automatically with Fluent Builder pattern
+ * @template S: state type
+ */
+export class ActionCreatorAndReducerBuilder<S> {
+    private readonly actionCreatorWithReducerMap: any = {};
+
+    /**
+     * @template P: action payload type
+     * @param actionType: action type
+     * @param reducer: reducer function for this action type
+     */
+    public UseActionAndReducer = <P = undefined>(actionType: string, reducer: Reducer<S, IAction<P>>): ActionCreatorAndReducerBuilder<S> => {
+        const actionCreatorReducerPair = actionCreatorReducerFactory(actionType, reducer);
+        this.actionCreatorWithReducerMap[actionType] = actionCreatorReducerPair;
+        return this;
+    }
 }
 
 /**

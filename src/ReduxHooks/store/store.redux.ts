@@ -32,22 +32,22 @@ export interface ITodoAppSettings {
 const todoReducer = (state: ITodo[] = [], action: IAction) => {
     let newState = state;
     switch (action.type) {
-        case TodoAppActionTypes.AddTodo:
+        case TodoAppActionTypes.TODO_ADD:
             newState = addTodoReducer(state, action);
             break;
-        case TodoAppActionTypes.AddBatchTodos:
+        case TodoAppActionTypes.TODO_AddBatch:
             newState = addBatchTodoReducer(state, action);
             break;
-        case TodoAppActionTypes.RemoveTodo:
+        case TodoAppActionTypes.TODO_REMOVEALL:
             newState = removeTodoReducer(state, action);
             break;
-        case TodoAppActionTypes.RemoveAll:
+        case TodoAppActionTypes.TODO_REMOVEALL:
             newState = removeAllReducer(state, action);
             break;
-        case TodoAppActionTypes.ToggleMyDay:
+        case TodoAppActionTypes.TODO_TOGGLEMYDAY:
             newState = toggleMyDayReducer(state, action);
             break;
-        case TodoAppActionTypes.ToggleComplete:
+        case TodoAppActionTypes.TODO_TOGGLECOMPLETED:
             newState = toggleCompletedReducer(state, action);
             break;
         }
@@ -71,10 +71,10 @@ const defaultSettings = {
 const settingsReducer = (state: ITodoAppSettings = defaultSettings, action: IAction) => {
     let newState = state;
     switch (action.type) {
-        case TodoAppActionTypes.SetShowCompleted:
+        case TodoAppActionTypes.SETTINGS_SET_SHOWCOMPLETED:
             newState = setShowCompletedReducer(state, action);
             break;
-        case TodoAppActionTypes.SetMyDayOnly:
+        case TodoAppActionTypes.SETTINGS_SET_SHOWMYDAYONLY:
             newState = setMyDayOnlyReducer(state, action);
             break;
         }

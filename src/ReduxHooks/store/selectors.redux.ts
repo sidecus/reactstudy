@@ -5,35 +5,35 @@ import { createSelector } from 'reselect';
  * todo app todo items selector
  * @param store todo app store
  */
-const todoStateSelector = (store: ITodoAppStore) => store.todo;
+const getTodos = (store: ITodoAppStore) => store.todo;
 
 /**
  * todo app settings selector
  * @param store todo app store
  */
-const settingsStateSelector = (store: ITodoAppStore) => store.settings;
+const getSettings = (store: ITodoAppStore) => store.settings;
 
 /**
  * "ShowCompleted" setting selector
  */
-export const showCompletedSelector = createSelector(
-    [settingsStateSelector],
+export const getShowCompleted = createSelector(
+    [getSettings],
     settings => settings.showCompleted
 );
 
 /**
  * "ShowMyDayOnly" setting selector
  */
-export const showMyDayOnlySelector = createSelector(
-    [settingsStateSelector],
+export const getShowMyDayOnly = createSelector(
+    [getSettings],
     settings => settings.myDayOnly
 );
 
 /**
  * 'visible' todo items selector after applying filtering options from settings
  */
-export const todoSelector = createSelector(
-    [todoStateSelector, showCompletedSelector, showMyDayOnlySelector],
+export const getTodosToShow = createSelector(
+    [getTodos, getShowCompleted, getShowMyDayOnly],
     (todos, showCompleted, showMyDayOnly) => {
         return todos.filter(x => (showCompleted || !x.completed) && (!showMyDayOnly || x.myDay));
     }
@@ -42,15 +42,15 @@ export const todoSelector = createSelector(
 /**
  * active todo selector
  */
-export const activeTodoSelector = createSelector(
-    [todoSelector],
+export const getActiveTodosToShow = createSelector(
+    [getTodosToShow],
     todos => todos.filter(x => !x.completed)
 );
 
 /**
  * completed todo selector
  */
-export const completedTodoSelector = createSelector(
-    [todoSelector],
+export const getCompletedTodosToShow = createSelector(
+    [getTodosToShow],
     todos => todos.filter(x => x.completed)
 );

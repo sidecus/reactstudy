@@ -2,12 +2,12 @@
  * Todo app action types
  */
 export enum TodoAppActionTypes {
-    AddTodo = 'AddTodo',
-    AddBatchTodos = 'AddBatchTodos',
-    RemoveTodo = 'RemoveTodo',
-    RemoveAll = 'RemoveAll',
-    ToggleMyDay = 'ToggleMyDay',
-    ToggleComplete = 'ToggleComplete',
-    SetShowCompleted = 'SetShowCompleted',
-    SetMyDayOnly = 'SetMyDayOnly',
+    TODO_ADD = 'AddTodo',
+    TODO_AddBatch = 'AddBatchTodos',
+    TODO_REMOVE = 'RemoveTodo',
+    TODO_REMOVEALL = 'RemoveAll',
+    TODO_TOGGLEMYDAY = 'ToggleMyDay',
+    TODO_TOGGLECOMPLETED = 'ToggleComplete',
+    SETTINGS_SET_SHOWCOMPLETED = 'SetShowCompleted',
+    SETTINGS_SET_SHOWMYDAYONLY = 'SetMyDayOnly',
 }

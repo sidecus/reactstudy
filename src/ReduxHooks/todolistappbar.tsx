@@ -5,7 +5,7 @@ import { Theme, createStyles, makeStyles } from '@material-ui/core';
 import StarBorderRoundedIcon from '@material-ui/icons/StarBorderRounded';
 import StarRoundedIcon from '@material-ui/icons/StarRounded';
 import { ITodo } from './store/store.redux';
-import { showCompletedSelector, showMyDayOnlySelector } from './store/selectors.redux';
+import { getShowCompleted, getShowMyDayOnly } from './store/selectors.redux';
 import { useDispatchers } from './store/dispatchers.redux';
 import { GreenCheckbox } from './greencheckbox';
 import { useEffect } from 'react';
@@ -32,8 +32,8 @@ const createRandomTodo = () => {
 };
 
 export const TodoListAppBar = () => {
-    const showCompleted = useSelector(showCompletedSelector);
-    const showMyDayOnly = useSelector(showMyDayOnlySelector);
+    const showCompleted = useSelector(getShowCompleted);
+    const showMyDayOnly = useSelector(getShowMyDayOnly);
     const { populateTodos, addRandomTodo, setShowCompleted, setShowMyDayOnly } = useDispatchers();
     const classes = useStyles();
 

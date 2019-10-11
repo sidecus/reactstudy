@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useSelector } from 'react-redux';
 import { Theme, createStyles, makeStyles } from '@material-ui/core';
-import { activeTodoSelector, completedTodoSelector } from './store/selectors.redux';
+import { getActiveTodosToShow, getCompletedTodosToShow } from './store/selectors.redux';
 import { TodoList } from './todolist';
 import { TodoListAppBar } from './todolistappbar';
 
@@ -19,8 +19,8 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export const TodoReduxApp = () => {
-    const activeTodos = useSelector(activeTodoSelector);
-    const completedTodos = useSelector(completedTodoSelector);
+    const activeTodos = useSelector(getActiveTodosToShow);
+    const completedTodos = useSelector(getCompletedTodosToShow);
     const classes = useStyles();
 
     return  (

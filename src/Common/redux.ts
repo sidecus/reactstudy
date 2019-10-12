@@ -46,13 +46,12 @@ export const actionCreatorReducerFactory = <S, P = undefined>(actionType: string
     return [actionCreator, reducer];
 }
 
-export type CompositReducerWithActionCreators<S> = [Reducer<S, IAction>, ActionCreator]
-
 /**
  * Builder to construct auto reducers and corresponding action creators
  * TODO[sidecus]: not ready - trying to compose composite reducers automatically with Fluent Builder pattern
  * @template S: state type
  */
+export type CompositReducerWithActionCreators<S> = [Reducer<S, IAction>, ActionCreator];
 export class ActionCreatorAndReducerBuilder<S> {
     private readonly actionCreatorWithReducerMap: any = {};
 

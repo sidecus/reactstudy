@@ -1,5 +1,5 @@
 import { useCallbackDispatcher, useCallbackThunkDispatcher } from '../../Common/redux';
-import { createAddTodoAction, createRemoveTodoAction, createToggleCompletedAction, createToggleMyDayAction, createSetShowCompletedAction, createSetMyDayOnlyAction, createLoadTodoAction } from './actionreducer.redux';
+import { addTodo, removeTodo, toggleCompleted, toggleMyDay, setShowCompletedTodos, setShowMyDayOnlyTodos, createLoadTodoAction } from './actions.redux';
 import { useDispatch } from 'react-redux';
 
 // dispatcher custom hooks
@@ -15,15 +15,15 @@ import { useDispatch } from 'react-redux';
 export const useDispatchers = () => {
     const dispatch = useDispatch();
 
-    const addRandomTodo = useCallbackDispatcher(dispatch, createAddTodoAction);
-    const deleteTodo = useCallbackDispatcher(dispatch, createRemoveTodoAction);
-    const toggleComplete = useCallbackDispatcher(dispatch, createToggleCompletedAction);
-    const toggleMyDay = useCallbackDispatcher(dispatch, createToggleMyDayAction);
-    const setShowCompleted = useCallbackDispatcher(dispatch, createSetShowCompletedAction);
-    const setShowMyDayOnly = useCallbackDispatcher(dispatch, createSetMyDayOnlyAction);
+    const dispatchAddTodo = useCallbackDispatcher(dispatch, addTodo);
+    const dispatchRemoveTodo = useCallbackDispatcher(dispatch, removeTodo);
+    const dispatchToggleCompleted = useCallbackDispatcher(dispatch, toggleCompleted);
+    const dispatchToggleMyDay = useCallbackDispatcher(dispatch, toggleMyDay);
+    const dispatchSetShowCompleted = useCallbackDispatcher(dispatch, setShowCompletedTodos);
+    const dispatchSetShowMyDayOnly = useCallbackDispatcher(dispatch, setShowMyDayOnlyTodos);
 
     // This is a thunk based dispatcher
     const populateTodos = useCallbackThunkDispatcher(dispatch, createLoadTodoAction);
 
-    return { populateTodos, addRandomTodo, deleteTodo, toggleComplete, toggleMyDay, setShowCompleted, setShowMyDayOnly };
+    return { populateTodos, addRandomTodo: dispatchAddTodo, deleteTodo: dispatchRemoveTodo, toggleComplete: dispatchToggleCompleted, toggleMyDay: dispatchToggleMyDay, setShowCompleted: dispatchSetShowCompleted, setShowMyDayOnly: dispatchSetShowMyDayOnly };
 }

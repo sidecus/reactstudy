@@ -2,8 +2,8 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 import { IAction } from '../../Common/redux';
-import { TodoAppActionTypes } from './actiontypes';
-import { addTodoReducer, addBatchTodoReducer, removeTodoReducer, removeAllReducer, toggleMyDayReducer, toggleCompletedReducer, setShowCompletedReducer, setMyDayOnlyReducer } from './actionreducer.redux';
+import { TodoAppActions } from './actions.redux';
+import { addTodoReducer, addBatchTodoReducer, removeTodoReducer, removeAllReducer, toggleMyDayReducer, toggleCompletedReducer, setShowCompletedReducer, setMyDayOnlyReducer } from './reducers.redux';
 
 /**
  * ITodo for a todo item
@@ -32,22 +32,22 @@ export interface ITodoAppSettings {
 const todoReducer = (state: ITodo[] = [], action: IAction) => {
     let newState = state;
     switch (action.type) {
-        case TodoAppActionTypes.TODO_ADD:
+        case TodoAppActions.TODO_ADD:
             newState = addTodoReducer(state, action);
             break;
-        case TodoAppActionTypes.TODO_AddBatch:
+        case TodoAppActions.TODO_AddBatch:
             newState = addBatchTodoReducer(state, action);
             break;
-        case TodoAppActionTypes.TODO_REMOVEALL:
+        case TodoAppActions.TODO_REMOVEALL:
             newState = removeTodoReducer(state, action);
             break;
-        case TodoAppActionTypes.TODO_REMOVEALL:
+        case TodoAppActions.TODO_REMOVEALL:
             newState = removeAllReducer(state, action);
             break;
-        case TodoAppActionTypes.TODO_TOGGLEMYDAY:
+        case TodoAppActions.TODO_TOGGLEMYDAY:
             newState = toggleMyDayReducer(state, action);
             break;
-        case TodoAppActionTypes.TODO_TOGGLECOMPLETED:
+        case TodoAppActions.TODO_TOGGLECOMPLETED:
             newState = toggleCompletedReducer(state, action);
             break;
         }
@@ -71,10 +71,10 @@ const defaultSettings = {
 const settingsReducer = (state: ITodoAppSettings = defaultSettings, action: IAction) => {
     let newState = state;
     switch (action.type) {
-        case TodoAppActionTypes.SETTINGS_SET_SHOWCOMPLETED:
+        case TodoAppActions.SETTINGS_SET_SHOWCOMPLETED:
             newState = setShowCompletedReducer(state, action);
             break;
-        case TodoAppActionTypes.SETTINGS_SET_SHOWMYDAYONLY:
+        case TodoAppActions.SETTINGS_SET_SHOWMYDAYONLY:
             newState = setMyDayOnlyReducer(state, action);
             break;
         }

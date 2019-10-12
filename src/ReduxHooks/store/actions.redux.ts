@@ -5,13 +5,19 @@ import { ITodo } from './store.redux';
 /**
  * Todo app action types
  */
-export enum TodoAppActions {
+export enum TodoListActions {
     TODO_ADD = 'AddTodo',
     TODO_AddBatch = 'AddBatchTodos',
     TODO_REMOVE = 'RemoveTodo',
     TODO_REMOVEALL = 'RemoveAll',
     TODO_TOGGLEMYDAY = 'ToggleMyDay',
     TODO_TOGGLECOMPLETED = 'ToggleComplete',
+}
+
+/**
+ * Todo settings action types
+ */
+export enum TodoSettingsActions {
     SETTINGS_SET_SHOWCOMPLETED = 'SetShowCompleted',
     SETTINGS_SET_SHOWMYDAYONLY = 'SetMyDayOnly',
 }
@@ -19,51 +25,42 @@ export enum TodoAppActions {
 /**
  * AddTodo action creator
  */
-export const addTodo = actionCreatorFactory<ITodo>(TodoAppActions.TODO_ADD);
+export const addTodo = actionCreatorFactory<typeof TodoListActions.TODO_ADD, ITodo>(TodoListActions.TODO_ADD);
 
 /**
  * AddBatchTodo action creator
  */
-export const addBatchTodos = actionCreatorFactory<ITodo[]>(TodoAppActions.TODO_AddBatch);
+export const addBatchTodos = actionCreatorFactory<typeof TodoListActions.TODO_AddBatch, ITodo[]>(TodoListActions.TODO_AddBatch);
 
 /**
  * RemoveTodo action creator
  */
-export const removeTodo = actionCreatorFactory<number>(TodoAppActions.TODO_REMOVEALL);
+export const removeTodo = actionCreatorFactory<typeof TodoListActions.TODO_REMOVE, number>(TodoListActions.TODO_REMOVE);
 
 /**
  * RemoveAll action creator
  */
-export const removeAllTodos = actionCreatorFactory(TodoAppActions.TODO_REMOVEALL);
+export const removeAllTodos = actionCreatorFactory<typeof TodoListActions.TODO_REMOVEALL>(TodoListActions.TODO_REMOVEALL);
 
 /**
  * ToggleMyDay action creator
  */
-export const toggleMyDay = actionCreatorFactory<number>(TodoAppActions.TODO_TOGGLEMYDAY);
+export const toggleMyDay = actionCreatorFactory<typeof TodoListActions.TODO_TOGGLEMYDAY, number>(TodoListActions.TODO_TOGGLEMYDAY);
 
 /**
  * ToggleCompleted action creator
  */
-export const toggleCompleted = actionCreatorFactory<number>(TodoAppActions.TODO_TOGGLECOMPLETED);
+export const toggleCompleted = actionCreatorFactory<typeof TodoListActions.TODO_TOGGLECOMPLETED, number>(TodoListActions.TODO_TOGGLECOMPLETED);
 
 /**
  * ShowCompleted settings action creator and reducer
  */
-export const setShowCompletedTodos = actionCreatorFactory<boolean>(TodoAppActions.SETTINGS_SET_SHOWCOMPLETED);
+export const setShowCompletedTodos = actionCreatorFactory<typeof TodoSettingsActions.SETTINGS_SET_SHOWCOMPLETED, boolean>(TodoSettingsActions.SETTINGS_SET_SHOWCOMPLETED);
 
 /**
  * SetMyDayOnly action creator and reducer
  */
-export const setShowMyDayOnlyTodos = actionCreatorFactory<boolean>(TodoAppActions.SETTINGS_SET_SHOWMYDAYONLY);
-
-/**
- * SetMyDayOnly action creator and reducer
- */
-export type TodoAppActionTypes =
-    ReturnType<typeof addTodo> | ReturnType<typeof addBatchTodos> |
-    ReturnType<typeof removeTodo> | ReturnType<typeof removeAllTodos> |
-    ReturnType<typeof toggleMyDay> | ReturnType<typeof toggleCompleted> |
-    ReturnType<typeof setShowCompletedTodos> | ReturnType<typeof setShowMyDayOnlyTodos>;
+export const setShowMyDayOnlyTodos = actionCreatorFactory<typeof TodoSettingsActions.SETTINGS_SET_SHOWMYDAYONLY, boolean>(TodoSettingsActions.SETTINGS_SET_SHOWMYDAYONLY);
 
 /**
  * This is the thunk to dispatch to load predefined todos

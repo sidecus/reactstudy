@@ -1,10 +1,12 @@
 import * as React from 'react';
+
 import { ListItemSecondaryAction, FormControlLabel, Checkbox } from '@material-ui/core';
 import { IconButton } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import StarBorderRoundedIcon from '@material-ui/icons/StarBorderRounded';
 import StarRoundedIcon from '@material-ui/icons/StarRounded';
 import { GreenCheckbox } from './greencheckbox';
+
 import { ITodo } from './store/store.redux';
 import { useDispatchers } from './store/dispatchers.redux';
 
@@ -14,8 +16,8 @@ export interface ITodoActionsProps {
 }
 
 // Todo secondary action bar
-export const TodoActions = (props: ITodoActionsProps) => {
-    const { toggleMyDay, toggleComplete, deleteTodo } = useDispatchers();
+export const TodoSecondaryActions = (props: ITodoActionsProps) => {
+    const { dispatchToggleMyDay, dispatchToggleCompleted, dispatchRemoveTodo } = useDispatchers();
     const { todo, labelId } = props;
 
     return (
@@ -25,7 +27,7 @@ export const TodoActions = (props: ITodoActionsProps) => {
                     <Checkbox icon={<StarBorderRoundedIcon />} checkedIcon={<StarRoundedIcon />} tabIndex={-1}
                         inputProps={{ 'aria-labelledby': labelId }}
                         checked={todo.myDay}
-                        onChange={() => toggleMyDay(todo.id)}
+                        onChange={() => dispatchToggleMyDay(todo.id)}
                     />
                 }
                 label={todo.myDay ? 'Today' : 'Later'}
@@ -36,12 +38,12 @@ export const TodoActions = (props: ITodoActionsProps) => {
                         checked={todo.completed}
                         tabIndex={-1}
                         inputProps={{ 'aria-labelledby': labelId }}
-                        onChange={() => toggleComplete(todo.id)}
+                        onChange={() => dispatchToggleCompleted(todo.id)}
                     />
                 }
                 label='Complete'
             />
-            <IconButton edge="end" aria-label="delete" onClick={() => deleteTodo(todo.id)}>
+            <IconButton edge="end" aria-label="delete" onClick={() => dispatchRemoveTodo(todo.id)}>
                 <DeleteIcon />
             </IconButton>
         </ListItemSecondaryAction>

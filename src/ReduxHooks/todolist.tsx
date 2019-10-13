@@ -5,7 +5,7 @@ import AssignmentIcon from '@material-ui/icons/Assignment';
 import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive';
 import { grey } from '@material-ui/core/colors';
 import { ITodo } from './store/store.redux';
-import { TodoActions } from './todoactions';
+import { TodoSecondaryActions } from './todosecondaryactions';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -67,7 +67,7 @@ export const TodoList = (props: ITodoListProps) => {
                                     </Avatar>
                                 </ListItemAvatar>
                                 <ListItemText id={labelId} primary={`${todo.title}`} />
-                                <TodoActions todo={todo} labelId={labelId} />
+                                <TodoSecondaryActions todo={todo} labelId={labelId} />
                             </ListItem>
                         );
                     })}

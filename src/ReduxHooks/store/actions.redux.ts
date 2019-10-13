@@ -1,5 +1,4 @@
 import { actionCreatorFactory } from '../../Common/redux';
-import { loadTodos } from '../api/todoapi';
 import { ITodo } from './store.redux';
 
 /**
@@ -61,14 +60,3 @@ export const setShowCompletedTodos = actionCreatorFactory<typeof TodoSettingsAct
  * SetMyDayOnly action creator and reducer
  */
 export const setShowMyDayOnlyTodos = actionCreatorFactory<typeof TodoSettingsActions.SETTINGS_SET_SHOWMYDAYONLY, boolean>(TodoSettingsActions.SETTINGS_SET_SHOWMYDAYONLY);
-
-/**
- * This is the thunk to dispatch to load predefined todos
- * TODO[sidecus] - review, convenient for simple scenarios like this but too restrictive
- * @param param unused param just to test the call back behavior.
- */
-export const createLoadTodoAction = async (param: number) => {
-    const todos = await loadTodos();
-    return addBatchTodos(todos);
-}
-

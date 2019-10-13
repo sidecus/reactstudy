@@ -25,6 +25,14 @@ export interface ITodoAppSettings {
 }
 
 /**
+ * default settings
+ */
+const defaultSettings = {
+    showCompleted: true,
+    myDayOnly: false,
+} as ITodoAppSettings;
+
+/**
  * Todo items reducer
  * @param state todo items state
  * @param action todo action to dispatch
@@ -37,14 +45,6 @@ const todoListReducer = slicedReducerFactory<ITodo[], TodoListActions>([], {
     [TodoListActions.TODO_TOGGLEMYDAY]: [toggleMyDayReducer],
     [TodoListActions.TODO_TOGGLECOMPLETED]: [toggleCompletedReducer],
 });
-
-/**
- * default settings
- */
-const defaultSettings = {
-    showCompleted: true,
-    myDayOnly: false,
-} as ITodoAppSettings;
 
 /**
  * settings reducer

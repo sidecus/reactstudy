@@ -1,5 +1,9 @@
-import { actionCreatorFactory } from '../../Common/redux';
+import { Dispatch } from 'redux';
 import { ITodo } from './store.redux';
+import { loadTodos } from '../api/todoapi';
+import { actionCreatorFactory, useNamedDispatchers, NamedDispatcherMapObject } from '../../Common/redux';
+
+/* action type string enums */
 
 /**
  * Todo app action types
@@ -20,6 +24,8 @@ export enum TodoSettingsActions {
     SETTINGS_SET_SHOWCOMPLETED = 'SetShowCompleted',
     SETTINGS_SET_SHOWMYDAYONLY = 'SetMyDayOnly',
 }
+
+/* basic action creators */
 
 /**
  * AddTodo action creator
@@ -60,3 +66,39 @@ export const setShowCompletedTodos = actionCreatorFactory<typeof TodoSettingsAct
  * SetMyDayOnly action creator and reducer
  */
 export const setShowMyDayOnlyTodos = actionCreatorFactory<typeof TodoSettingsActions.SETTINGS_SET_SHOWMYDAYONLY, boolean>(TodoSettingsActions.SETTINGS_SET_SHOWMYDAYONLY);
+
+/* thunk action creators */
+
+/**
+ * This is a thunk action creator used to dispatch to reset todos (load predefined todos from an api)
+ * @param param: dummy parameter to illustrate how to pass parameters to thunk action creator
+ */
+export const resetTodos = () => {
+    return async (dispatch: Dispatch<any>) => {
+        console.log('resetting todos');
+        const todos = await loadTodos();
+        return dispatch(addBatchTodos(todos));
+    }
+};
+
+/* named dispatchers (bound action creators) */
+
+/**
+ * Named dispatcher map.
+ * DO NOT define this within a function - it'll invalidate memoization of the memoized dispatcher.
+ */
+const TodoAppDispatcherMap: NamedDispatcherMapObject = {
+    dispatchAddTodo: addTodo,
+    dispatchRemoveTodo: removeTodo,
+    dispatchToggleCompleted: toggleCompleted,
+    dispatchToggleMyDay: toggleMyDay,
+    dispatchSetShowCompleted: setShowCompletedTodos,
+    dispatchSetShowMyDayOnly: setShowMyDayOnlyTodos,
+    dispatchResetTodos: resetTodos,
+}
+
+/**
+ * Custom hooks for dispatchers (bound action creators).
+ * You can create one of this for each domain area to logically separte the dispatchers.
+ */
+export const useTodoAppDispatchers = () => useNamedDispatchers(TodoAppDispatcherMap);

@@ -1,5 +1,6 @@
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 import { Action, Dispatch } from 'redux';
+import { useDispatch } from 'react-redux';
 
 /**
  * IAction for all actions with string as type
@@ -64,7 +65,7 @@ export const slicedReducerFactory = <TState, TActionType extends string>(
 /**
  * Type for a dispatchable action creator (action creator or thunk action creator)
  */
-type DispatchableActionCreatorType = (...args: any) => (IAction<string, any>) | ((dispatch: Dispatch<any>) => any);
+export type DispatchableActionCreator = (...args: any) => (IAction<string, any>) | ((dispatch: Dispatch<any>) => any);
 
 /**
  * Custom hooks to create a memoized dispatcher (or bound action creator) given a action creator function.
@@ -75,11 +76,54 @@ type DispatchableActionCreatorType = (...args: any) => (IAction<string, any>) | 
  * @param dispatch: dispatch object
  * @param actionCreator: action creator - normal action creator or thunk action creator
  */
-export const useCallbackDispatcher = <T extends DispatchableActionCreatorType>(dispatch: Dispatch<any>, actionCreator: T): ((...args: Parameters<T>) => any) => {
+export const useCallbackDispatcher = <T extends DispatchableActionCreator>(dispatch: Dispatch<any>, actionCreator: T): ((...args: Parameters<T>) => any) => {
     const callbackDispatcher = useCallback((...args: Parameters<T>) => {
         return dispatch(actionCreator(...args));
     },
     [dispatch, actionCreator]);
 
     return callbackDispatcher;
+}
+
+/**
+ * A map type (dispatcher name to action creator mapping).
+ * @template T: "dispatchers" object shape
+ */
+export type NamedDispatcherMapObject<T = any> = {
+    readonly [K in keyof T]: DispatchableActionCreator;
+}
+
+/**
+ * named dispatcher type used by useCallbackDispatchers as the return type
+ * @template M: DispatcherMapObject
+ */
+export type NamedDispatchers<M extends NamedDispatcherMapObject = any> = {
+    [K in keyof M]: (...args: Parameters<M[K]>) => any;
+}
+
+/**
+ * Custom hooks to create a list of named dispatchers (bound action creators) in which dispatch is handled automatically.
+ * All dispatcher is guarded with useCallback (useCallbackDispatcher above).
+ * @param map: dispatcher name to action creator map. IMPORTANT - define the map as a global const. Never pass a function
+ * scoped map otherwise it'll defeat the memoization.
+ */
+export const useNamedDispatchers = <M extends NamedDispatcherMapObject>(map: M): NamedDispatchers<M> => {
+    const dispatch = useDispatch();
+
+    // I was using 'useCallback' to memoize each named dispatcher.
+    // However it doesn't work anymore once I move the parameters into a 'map' object - we cannot call
+    // useCallbackDispatcher on properties of the map since it's not deterministic in React's view.
+    // So we are switching to useMemo to memoize the resultNamedDispatchers instead.
+    const resultNamedDispatchers = useMemo(() => {
+        const result = {} as NamedDispatchers<M>;
+        for (const key in map) {
+            result[key] = (...args: any) => {
+                return dispatch(map[key](...args));
+            };
+        }
+        return result;
+    },
+    [dispatch, map]);
+
+    return resultNamedDispatchers;
 }

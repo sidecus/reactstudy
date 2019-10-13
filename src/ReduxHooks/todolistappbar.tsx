@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 import { Button, FormControlLabel, Checkbox } from '@material-ui/core';
@@ -10,7 +9,7 @@ import StarRoundedIcon from '@material-ui/icons/StarRounded';
 import { GreenCheckbox } from './greencheckbox';
 import { ITodo } from './store/store.redux';
 import { getShowCompleted, getShowMyDayOnly } from './store/selectors.redux';
-import { useDispatchers } from './store/dispatchers.redux';
+import { useTodoAppDispatchers } from './store/actions.redux';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -36,19 +35,14 @@ const createRandomTodo = () => {
 export const TodoListAppBar = () => {
     const showCompleted = useSelector(getShowCompleted);
     const showMyDayOnly = useSelector(getShowMyDayOnly);
-    const { dispatchResetTodos, dispatchAddTodo, dispatchSetShowCompleted, dispatchSetShowMyDayOnly } = useDispatchers();
+    const { dispatchResetTodos, dispatchAddTodo, dispatchSetShowCompleted, dispatchSetShowMyDayOnly } = useTodoAppDispatchers();
     const classes = useStyles();
-
-    // "One time" pre-populate
-    useEffect(() => {
-        dispatchResetTodos(Math.random());
-    }, [dispatchResetTodos]);
 
     return (
         <>
             <div className={classes.todoactionappbar}>
                 <Button variant='contained' color='primary' className={classes.todoactioncontrol}
-                    onClick={() => dispatchResetTodos(Math.random())}>
+                    onClick={() => dispatchResetTodos()}>
                     Reset Todos
                 </Button>
                 <Button variant='contained' color='primary' className={classes.todoactioncontrol}

@@ -8,7 +8,7 @@ import StarRoundedIcon from '@material-ui/icons/StarRounded';
 import { GreenCheckbox } from './greencheckbox';
 
 import { ITodo } from './store/store.redux';
-import { useDispatchers } from './store/dispatchers.redux';
+import { useTodoAppDispatchers } from './store/actions.redux';
 
 export interface ITodoActionsProps {
     labelId: string;
@@ -17,7 +17,7 @@ export interface ITodoActionsProps {
 
 // Todo secondary action bar
 export const TodoSecondaryActions = (props: ITodoActionsProps) => {
-    const { dispatchToggleMyDay, dispatchToggleCompleted, dispatchRemoveTodo } = useDispatchers();
+    const { dispatchToggleMyDay, dispatchToggleCompleted, dispatchRemoveTodo } = useTodoAppDispatchers();
     const { todo, labelId } = props;
 
     return (

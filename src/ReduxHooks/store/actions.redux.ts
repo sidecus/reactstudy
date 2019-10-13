@@ -2,6 +2,7 @@ import { Dispatch } from 'redux';
 import { ITodo } from './store.redux';
 import { loadTodos } from '../api/todoapi';
 import { actionCreatorFactory, useNamedDispatchers, NamedDispatcherMapObject } from '../../Common/redux';
+import { batch } from 'react-redux';
 
 /* action type string enums */
 
@@ -76,8 +77,14 @@ export const setShowMyDayOnlyTodos = actionCreatorFactory<typeof TodoSettingsAct
 export const resetTodos = () => {
     return async (dispatch: Dispatch<any>) => {
         console.log('resetting todos');
-        const todos = await loadTodos();
-        return dispatch(addBatchTodos(todos));
+        const apiReturn = await loadTodos();
+
+        // use Redux batch to reduce number of rendering
+        return batch(() => {
+            dispatch(setShowCompletedTodos(apiReturn.showCompleted));
+            dispatch(setShowMyDayOnlyTodos(apiReturn.showMyDayOnly));
+            dispatch(addBatchTodos(apiReturn.todos));
+        });
     }
 };
 

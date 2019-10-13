@@ -43,7 +43,7 @@ export const TodoListAppBar = () => {
             <div className={classes.todoactionappbar}>
                 <Button variant='contained' color='primary' className={classes.todoactioncontrol}
                     onClick={() => dispatchResetTodos()}>
-                    Reset Todos
+                    Reset App
                 </Button>
                 <Button variant='contained' color='primary' className={classes.todoactioncontrol}
                     onClick={() => dispatchAddTodo(createRandomTodo())}>

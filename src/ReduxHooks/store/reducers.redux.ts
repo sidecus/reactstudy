@@ -1,4 +1,4 @@
-import { IAction } from '../../Common/redux';
+import { IAction } from '../../Common/reduxextensions';
 import { ITodo, ITodoAppSettings } from './store.redux';
 import { TodoListActions, TodoSettingsActions } from './actions.redux';
 

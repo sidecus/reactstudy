@@ -3,7 +3,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 import { TodoListActions, TodoSettingsActions } from './actions.redux';
 import { addTodoReducer, addBatchTodoReducer, removeTodoReducer, removeAllReducer, toggleMyDayReducer, toggleCompletedReducer, setShowCompletedReducer, setMyDayOnlyReducer } from './reducers.redux';
-import { slicedReducerFactory } from '../../Common/redux';
+import { slicedReducerFactory } from '../../Common/reduxextensions';
 
 /**
  * ITodo for a todo item

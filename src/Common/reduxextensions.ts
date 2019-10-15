@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from 'react';
+import { useMemo } from 'react';
 import { Action, Dispatch } from 'redux';
 import { useDispatch } from 'react-redux';
 
@@ -12,24 +12,24 @@ export interface IAction<TType extends string = string, TPayload = undefined> ex
 }
 
 /**
- * Normal action creator type.
- * @template TActionType: action type
- * @template TActionPayload action payload type
- * @param payload action payload
- */
-type ActionCreator<TActionType extends string, TActionPayload = undefined> = (payload: TActionPayload) => IAction<TActionType, TActionPayload>;
-
-/**
- * factory method to help create an action creator
+ * Factory method to help create an action creator.
+ * We use method overloads to allow proper typing on actions with or without a payload
  * @template TActionType: action type
  * @template TActionPayload action payload type
  * @param actionType action type
  */
-export const actionCreatorFactory = <TActionType extends string, TActionPayload = undefined>(actionType: TActionType): ActionCreator<TActionType, TActionPayload> => {
-    return (actionPayload: TActionPayload) => {
-        return { type: actionType, payload: actionPayload } as IAction<TActionType, TActionPayload>;
+function actionCreatorFactoryFunc<TActionType extends string, TActionPayload>(actionType: TActionType): (payload: TActionPayload) => IAction<TActionType, TActionPayload>;
+function actionCreatorFactoryFunc<TActionType extends string>(actionType: TActionType): () => IAction<TActionType>;
+function actionCreatorFactoryFunc(actionType: string): (payload?: any) => IAction<any, any> {
+    return (payload?: any) => {
+        return { type: actionType, payload: payload } as IAction<any, any>;
     };
 }
+
+/**
+ * actionCreatorFactory export
+ */
+export const actionCreatorFactory = actionCreatorFactoryFunc;
 
 /**
  * Type for action to reducer(s) mapping.
@@ -68,24 +68,6 @@ export const slicedReducerFactory = <TState, TActionType extends string>(
 export type DispatchableActionCreator = (...args: any) => (IAction<string, any>) | ((dispatch: Dispatch<any>) => any);
 
 /**
- * Custom hooks to create a memoized dispatcher (or bound action creator) given a action creator function.
- * The result dispatcher's parameters are inferred from the input action creator.
- * We use the useCallback here for slight perf gain.
- * @template T: action creator type. This can be a normal action creator, or a thunk action creator.
- * Note we are not using ActionCreator here since we want to use Rest Parameters for better type extensibility.
- * @param dispatch: dispatch object
- * @param actionCreator: action creator - normal action creator or thunk action creator
- */
-export const useCallbackDispatcher = <T extends DispatchableActionCreator>(dispatch: Dispatch<any>, actionCreator: T): ((...args: Parameters<T>) => any) => {
-    const callbackDispatcher = useCallback((...args: Parameters<T>) => {
-        return dispatch(actionCreator(...args));
-    },
-    [dispatch, actionCreator]);
-
-    return callbackDispatcher;
-}
-
-/**
  * A map type (dispatcher name to action creator mapping).
  * @template T: "dispatchers" object shape
  */
@@ -102,28 +84,36 @@ export type NamedDispatchers<M extends NamedDispatcherMapObject = any> = {
 }
 
 /**
+ * Function to create an object with named dispatcher (bound action creator) based on a name to action creator map.
+ * This function separates the logic from useDispatch for easy unit testing.
+ * @template M: type of the dispatcher map (name to primitive action creator or thunk action creator)
+ * @param map: dispatcher name to action creator map. IMPORTANT - define the map as a global const. Never pass a function
+ */
+export const namedDispatchersFactory = <M extends NamedDispatcherMapObject>(dispatch: Dispatch<any>, map: M): NamedDispatchers<M> => {
+    const result = {} as NamedDispatchers<M>;
+    for (const key in map) {
+        // For each key in the map object, create a new object which has same set of keys but with action creators replaced with bound action creators
+        result[key] = (...args: any) => {
+            return dispatch(map[key](...args));
+        };
+    }
+    return result;
+}
+
+/**
  * Custom hooks to create a list of named dispatchers (bound action creators) in which dispatch is handled automatically.
- * All dispatcher is guarded with useCallback (useCallbackDispatcher above).
+ * All dispatcher is guarded with useCallback.
+ * @template M: type of the dispatcher map (name to primitive action creator or thunk action creator)
  * @param map: dispatcher name to action creator map. IMPORTANT - define the map as a global const. Never pass a function
  * scoped map otherwise it'll defeat the memoization.
  */
-export const useNamedDispatchers = <M extends NamedDispatcherMapObject>(map: M): NamedDispatchers<M> => {
+export const useMemoNamedDispatchers = <M extends NamedDispatcherMapObject>(map: M): NamedDispatchers<M> => {
     const dispatch = useDispatch();
 
-    // I was using 'useCallback' to memoize each named dispatcher.
-    // However it doesn't work anymore once I move the parameters into a 'map' object - we cannot call
-    // useCallbackDispatcher on properties of the map since it's not deterministic in React's view.
-    // So we are switching to useMemo to memoize the resultNamedDispatchers instead.
-    const resultNamedDispatchers = useMemo(() => {
-        const result = {} as NamedDispatchers<M>;
-        for (const key in map) {
-            result[key] = (...args: any) => {
-                return dispatch(map[key](...args));
-            };
-        }
-        return result;
-    },
-    [dispatch, map]);
+    // I was using 'useCallback' to memoize each named dispatcher. However it doesn't work anymore after I moved the
+    // parameters into a 'map' object - useCallback doesn't work on map properties of the map since those useCallbacks calls
+    // are not deterministic in React's view. So I switched to useMemo to memoize the named dispatcher object instead.
+    const memoizedDispatchers = useMemo(() => namedDispatchersFactory(dispatch, map), [dispatch, map]);
 
-    return resultNamedDispatchers;
+    return memoizedDispatchers;
 }

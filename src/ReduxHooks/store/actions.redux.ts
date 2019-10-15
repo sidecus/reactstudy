@@ -1,7 +1,7 @@
 import { Dispatch } from 'redux';
 import { ITodo } from './store.redux';
 import { loadTodos } from '../api/todoapi';
-import { actionCreatorFactory, useNamedDispatchers, NamedDispatcherMapObject } from '../../Common/redux';
+import { actionCreatorFactory, useMemoNamedDispatchers, NamedDispatcherMapObject } from '../../Common/reduxextensions';
 import { batch } from 'react-redux';
 
 /* action type string enums */
@@ -108,4 +108,4 @@ const TodoAppDispatcherMap: NamedDispatcherMapObject = {
  * Custom hooks for dispatchers (bound action creators).
  * You can create one of this for each domain area to logically separte the dispatchers.
  */
-export const useTodoAppDispatchers = () => useNamedDispatchers(TodoAppDispatcherMap);
+export const useTodoAppDispatchers = () => useMemoNamedDispatchers(TodoAppDispatcherMap);

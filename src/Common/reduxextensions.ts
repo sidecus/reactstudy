@@ -87,7 +87,7 @@ export type NamedDispatchers<M extends NamedDispatcherMapObject = any> = {
  * Function to create an object with named dispatcher (bound action creator) based on a name to action creator map.
  * This function separates the logic from useDispatch for easy unit testing.
  * @template M: type of the dispatcher map (name to primitive action creator or thunk action creator)
- * @param map: dispatcher name to action creator map. IMPORTANT - define the map as a global const. Never pass a function
+ * @param map: dispatcher name to action creator map.
  */
 export const namedDispatchersFactory = <M extends NamedDispatcherMapObject>(dispatch: Dispatch<any>, map: M): NamedDispatchers<M> => {
     const result = {} as NamedDispatchers<M>;
@@ -102,7 +102,7 @@ export const namedDispatchersFactory = <M extends NamedDispatcherMapObject>(disp
 
 /**
  * Custom hooks to create a list of named dispatchers (bound action creators) in which dispatch is handled automatically.
- * All dispatcher is guarded with useCallback.
+ * All dispatcher is guarded with useMemo.
  * @template M: type of the dispatcher map (name to primitive action creator or thunk action creator)
  * @param map: dispatcher name to action creator map. IMPORTANT - define the map as a global const. Never pass a function
  * scoped map otherwise it'll defeat the memoization.

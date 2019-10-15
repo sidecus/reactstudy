@@ -1,8 +1,8 @@
 import { Dispatch } from 'redux';
+import { batch } from 'react-redux';
 import { ITodo } from './store.redux';
 import { loadTodos } from '../api/todoapi';
 import { actionCreatorFactory, useMemoNamedDispatchers, NamedDispatcherMapObject } from '../../Common/reduxextensions';
-import { batch } from 'react-redux';
 
 /* action type string enums */
 
@@ -92,7 +92,7 @@ export const resetTodos = () => {
 
 /**
  * Named dispatcher map.
- * DO NOT define this within a function - it'll invalidate memoization of the memoized dispatcher.
+ * DO NOT define this within a function - it'll invalidate memoization when using useMemoNamedDispatchers.
  */
 const TodoAppDispatcherMap: NamedDispatcherMapObject = {
     dispatchAddTodo: addTodo,
@@ -102,7 +102,7 @@ const TodoAppDispatcherMap: NamedDispatcherMapObject = {
     dispatchSetShowCompleted: setShowCompletedTodos,
     dispatchSetShowMyDayOnly: setShowMyDayOnlyTodos,
     dispatchResetTodos: resetTodos,
-}
+};
 
 /**
  * Custom hooks for dispatchers (bound action creators).

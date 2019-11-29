@@ -11,10 +11,10 @@ This is a sample project capturing my React learnings and experiments. [Demo Sit
 * Using d3 for simple charts
 * And so on.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Happy coding, peace.
 
 ## Available Scripts
-
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 In the project directory, you can run:
 
 ### `npm start`

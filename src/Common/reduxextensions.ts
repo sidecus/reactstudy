@@ -38,7 +38,7 @@ export const actionCreatorFactory = actionCreatorFactoryFunc;
  * @template TActionType: action type (string/string enum)
  */
 export type TActionReducerMap<TState, TActionType extends string> = {
-    readonly [actionType in TActionType]?: ((state: TState, action: IAction<actionType, any>) => TState)[];
+    readonly [actionType in TActionType]: ((state: TState, action: IAction<actionType, any>) => TState)[];
 }
 
 /**

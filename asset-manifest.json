@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.js": "/reactstudy/static/js/main.c3ba46b2.chunk.js",
-    "main.js.map": "/reactstudy/static/js/main.c3ba46b2.chunk.js.map",
+    "main.js": "/reactstudy/static/js/main.f72c7b78.chunk.js",
+    "main.js.map": "/reactstudy/static/js/main.f72c7b78.chunk.js.map",
     "runtime-main.js": "/reactstudy/static/js/runtime-main.41b97717.js",
     "runtime-main.js.map": "/reactstudy/static/js/runtime-main.41b97717.js.map",
-    "static/js/2.15b87fad.chunk.js": "/reactstudy/static/js/2.15b87fad.chunk.js",
-    "static/js/2.15b87fad.chunk.js.map": "/reactstudy/static/js/2.15b87fad.chunk.js.map",
+    "static/js/2.7b356b08.chunk.js": "/reactstudy/static/js/2.7b356b08.chunk.js",
+    "static/js/2.7b356b08.chunk.js.map": "/reactstudy/static/js/2.7b356b08.chunk.js.map",
     "index.html": "/reactstudy/index.html",
-    "precache-manifest.443420bc9df3dcde1d811e99597a9e43.js": "/reactstudy/precache-manifest.443420bc9df3dcde1d811e99597a9e43.js",
+    "precache-manifest.d4494970ee193b1bf9fbd8a2f91a3f4b.js": "/reactstudy/precache-manifest.d4494970ee193b1bf9fbd8a2f91a3f4b.js",
     "service-worker.js": "/reactstudy/service-worker.js",
-    "static/js/2.15b87fad.chunk.js.LICENSE.txt": "/reactstudy/static/js/2.15b87fad.chunk.js.LICENSE.txt",
-    "static/media/logo.svg": "/reactstudy/static/media/logo.ee7cd8ed.svg"
+    "static/js/2.7b356b08.chunk.js.LICENSE.txt": "/reactstudy/static/js/2.7b356b08.chunk.js.LICENSE.txt",
+    "static/media/logo.svg": "/reactstudy/static/media/logo.5d5d9eef.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.41b97717.js",
-    "static/js/2.15b87fad.chunk.js",
-    "static/js/main.c3ba46b2.chunk.js"
+    "static/js/2.7b356b08.chunk.js",
+    "static/js/main.f72c7b78.chunk.js"
   ]
 }

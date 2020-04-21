@@ -2,7 +2,7 @@ import { Dispatch } from 'redux';
 import { batch } from 'react-redux';
 import { ITodo } from './store.redux';
 import { loadTodos } from '../api/todoapi';
-import { actionCreatorFactory, useMemoNamedDispatchers, NamedDispatcherMapObject } from '../../Common/reduxextensions';
+import { createActionCreator, useMemoizedBoundActionCreators } from 'roth.js';
 
 /* action type string enums */
 
@@ -31,42 +31,49 @@ export enum TodoSettingsActions {
 /**
  * AddTodo action creator
  */
-export const addTodo = actionCreatorFactory<typeof TodoListActions.TODO_ADD, ITodo>(TodoListActions.TODO_ADD);
+export const addTodo = createActionCreator<TodoListActions.TODO_ADD, ITodo>(TodoListActions.TODO_ADD);
 
 /**
  * AddBatchTodo action creator
  */
-export const addBatchTodos = actionCreatorFactory<typeof TodoListActions.TODO_AddBatch, ITodo[]>(TodoListActions.TODO_AddBatch);
+export const addBatchTodos = createActionCreator<TodoListActions.TODO_AddBatch, ITodo[]>(TodoListActions.TODO_AddBatch);
 
 /**
  * RemoveTodo action creator
  */
-export const removeTodo = actionCreatorFactory<typeof TodoListActions.TODO_REMOVE, number>(TodoListActions.TODO_REMOVE);
+export const removeTodo = createActionCreator<TodoListActions.TODO_REMOVE, number>(TodoListActions.TODO_REMOVE);
 
 /**
  * RemoveAll action creator
  */
-export const removeAllTodos = actionCreatorFactory<typeof TodoListActions.TODO_REMOVEALL>(TodoListActions.TODO_REMOVEALL);
+export const removeAllTodos = createActionCreator<TodoListActions.TODO_REMOVEALL>(TodoListActions.TODO_REMOVEALL);
 
 /**
  * ToggleMyDay action creator
  */
-export const toggleMyDay = actionCreatorFactory<typeof TodoListActions.TODO_TOGGLEMYDAY, number>(TodoListActions.TODO_TOGGLEMYDAY);
+export const toggleMyDay = createActionCreator<TodoListActions.TODO_TOGGLEMYDAY, number>(TodoListActions.TODO_TOGGLEMYDAY);
 
 /**
  * ToggleCompleted action creator
  */
-export const toggleCompleted = actionCreatorFactory<typeof TodoListActions.TODO_TOGGLECOMPLETED, number>(TodoListActions.TODO_TOGGLECOMPLETED);
+export const toggleCompleted = createActionCreator<TodoListActions.TODO_TOGGLECOMPLETED, number>(TodoListActions.TODO_TOGGLECOMPLETED);
 
 /**
  * ShowCompleted settings action creator and reducer
  */
-export const setShowCompletedTodos = actionCreatorFactory<typeof TodoSettingsActions.SETTINGS_SET_SHOWCOMPLETED, boolean>(TodoSettingsActions.SETTINGS_SET_SHOWCOMPLETED);
+export const setShowCompletedTodos = createActionCreator<TodoSettingsActions.SETTINGS_SET_SHOWCOMPLETED, boolean>(TodoSettingsActions.SETTINGS_SET_SHOWCOMPLETED);
 
 /**
  * SetMyDayOnly action creator and reducer
  */
-export const setShowMyDayOnlyTodos = actionCreatorFactory<typeof TodoSettingsActions.SETTINGS_SET_SHOWMYDAYONLY, boolean>(TodoSettingsActions.SETTINGS_SET_SHOWMYDAYONLY);
+export const setShowMyDayOnlyTodos = createActionCreator<TodoSettingsActions.SETTINGS_SET_SHOWMYDAYONLY, boolean>(TodoSettingsActions.SETTINGS_SET_SHOWMYDAYONLY);
+
+
+export type TodoListActionTypes = ReturnType<typeof addTodo> | ReturnType<typeof addBatchTodos> |
+    ReturnType<typeof removeTodo> | ReturnType<typeof removeAllTodos> |
+    ReturnType<typeof toggleMyDay> | ReturnType<typeof toggleCompleted>;
+
+export type TodoSettingsActionTypes = ReturnType<typeof setShowCompletedTodos> | ReturnType<typeof setShowMyDayOnlyTodos>;
 
 /* thunk action creators */
 
@@ -89,12 +96,7 @@ export const resetTodos = () => {
 };
 
 /* named dispatchers (bound action creators) */
-
-/**
- * Named dispatcher map.
- * DO NOT define this within a function - it'll invalidate memoization when using useMemoNamedDispatchers.
- */
-const TodoAppDispatcherMap: NamedDispatcherMapObject = {
+const namedActionCreators = {
     dispatchAddTodo: addTodo,
     dispatchRemoveTodo: removeTodo,
     dispatchToggleCompleted: toggleCompleted,
@@ -102,10 +104,10 @@ const TodoAppDispatcherMap: NamedDispatcherMapObject = {
     dispatchSetShowCompleted: setShowCompletedTodos,
     dispatchSetShowMyDayOnly: setShowMyDayOnlyTodos,
     dispatchResetTodos: resetTodos,
-};
+}
 
 /**
  * Custom hooks for dispatchers (bound action creators).
- * You can create one of this for each domain area to logically separte the dispatchers.
+ * You can create one of this for each domain area to logically separate the dispatchers.
  */
-export const useTodoAppDispatchers = () => useMemoNamedDispatchers(TodoAppDispatcherMap);
+export const useTodoAppDispatchers = () => useMemoizedBoundActionCreators(namedActionCreators);

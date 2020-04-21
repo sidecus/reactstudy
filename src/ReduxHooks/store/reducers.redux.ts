@@ -1,11 +1,11 @@
-import { IAction } from '../../Common/reduxextensions';
+import { Action, Reducer } from 'roth.js';
 import { ITodo, ITodoAppSettings } from './store.redux';
-import { TodoListActions, TodoSettingsActions } from './actions.redux';
+import { TodoListActions, TodoSettingsActions, addTodo } from './actions.redux';
 
 /**
  * AddTodo reducer
  */
-export const addTodoReducer = (state: ITodo[], action: IAction<TodoListActions.TODO_ADD, ITodo>) => {
+export const addTodoReducer: Reducer<ITodo[], ReturnType<typeof addTodo>> = (state, action) => {
     // assign id for the new todo. if it's the first, set it to 0.
     // otherwise set it to the current max id + 1 to avoid conflicts
     const oldState = state!;
@@ -18,14 +18,14 @@ export const addTodoReducer = (state: ITodo[], action: IAction<TodoListActions.T
 /**
  * AddBatchTodo action creator
  */
-export const addBatchTodoReducer = (state: ITodo[], action: IAction<TodoListActions.TODO_AddBatch, ITodo[]>) => {
+export const addBatchTodoReducer = (state: ITodo[], action: Action<TodoListActions.TODO_AddBatch, ITodo[]>) => {
     return [...action.payload];
 };
 
 /**
  * RemoveTodo and reducer
  */
-export const removeTodoReducer = (state: ITodo[], action: IAction<TodoListActions.TODO_REMOVE, number>) => {
+export const removeTodoReducer = (state: ITodo[], action: Action<TodoListActions.TODO_REMOVE, number>) => {
     // remove the given todo with the id
     const newState = [...state!];
     newState.splice(newState.findIndex(t => t.id === action.payload), 1);
@@ -35,14 +35,14 @@ export const removeTodoReducer = (state: ITodo[], action: IAction<TodoListAction
 /**
  * RemoveAll reducer
  */
-export const removeAllReducer = (state: ITodo[], action: IAction<TodoListActions.TODO_REMOVEALL>) => {
+export const removeAllReducer = (state: ITodo[], action: Action<TodoListActions.TODO_REMOVEALL>) => {
     return [];
 };
 
 /**
  * ToggleMyDay reducer
  */
-export const toggleMyDayReducer = (state: ITodo[], action: IAction<TodoListActions.TODO_TOGGLEMYDAY, number>) => {
+export const toggleMyDayReducer = (state: ITodo[], action: Action<TodoListActions.TODO_TOGGLEMYDAY, number>) => {
     const oldState = state!;
     // toggle the myday status for the given todo if exists
     const index = oldState.findIndex(t => t.id === action.payload);
@@ -58,7 +58,7 @@ export const toggleMyDayReducer = (state: ITodo[], action: IAction<TodoListActio
 /**
  * ToggleCompleted reducer
  */
-export const toggleCompletedReducer = (state: ITodo[], action: IAction<TodoListActions.TODO_TOGGLECOMPLETED, number>) => {
+export const toggleCompletedReducer = (state: ITodo[], action: Action<TodoListActions.TODO_TOGGLECOMPLETED, number>) => {
     const oldState = state!;
     // toggle the complete status for the given todo (if exists)
     const index = oldState.findIndex(t => t.id === action.payload);
@@ -74,13 +74,13 @@ export const toggleCompletedReducer = (state: ITodo[], action: IAction<TodoListA
 /**
  * ShowCompleted settings reducer
  */
-export const setShowCompletedReducer = (state: ITodoAppSettings, action: IAction<TodoSettingsActions.SETTINGS_SET_SHOWCOMPLETED, boolean>) => {
+export const setShowCompletedReducer = (state: ITodoAppSettings, action: Action<TodoSettingsActions.SETTINGS_SET_SHOWCOMPLETED, boolean>) => {
     return {...state!, showCompleted: action.payload};
 };
 
 /**
  * SetMyDayOnly reducer
  */
-export const setMyDayOnlyReducer = (state: ITodoAppSettings, action: IAction<TodoSettingsActions.SETTINGS_SET_SHOWMYDAYONLY, boolean>) => {
+export const setMyDayOnlyReducer = (state: ITodoAppSettings, action: Action<TodoSettingsActions.SETTINGS_SET_SHOWMYDAYONLY, boolean>) => {
     return {...state!, myDayOnly: action.payload};
 };

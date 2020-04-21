@@ -1,4 +1,4 @@
-import { Word as d3Word } from 'd3-cloud';
+import { Word } from 'd3-cloud';
 import { IWord, getWords } from './wordsplitter';
 import { scaleSqrt } from "d3-scale";
 import { useMemo } from 'react';
@@ -17,7 +17,7 @@ export const processWords = (words: IWord[], wordCount: number, minFontSize: num
     });
 };
 
-export type d3Word = d3Word;
+export type d3Word = Word;
 export const useD3Words = (queries: string[], wordCount: number, minFontSize: number, maxFontSize: number) => {
     // Use useMemo hooks to avoid recomputing the words during each render.
     // Split queries and get words from the queries

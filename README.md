@@ -9,7 +9,7 @@ This is a sample project capturing my React learnings and experiments. [Demo Sit
 * Convenient factory methods for redux action creators and reducers
 * Using ```Reselect``` selectors
 * Using d3 for simple charts
-* And so on.
+* A full TODO app with thunk and redux hooks. Redux related code is separated out to [roth.js repo](https://github.com/sidecus/roth.js).
 
 ## Happy coding, peace.
 

@@ -19,6 +19,42 @@ export enum TodoListActions {
 }
 
 /**
+ * AddTodo action creator
+ */
+export const addTodo = createActionCreator<ITodo>(TodoListActions.TODO_ADD);
+export type AddTodoAction = ReturnType<typeof addTodo>
+
+/**
+ * AddBatchTodo action creator
+ */
+export const addBatchTodos = createActionCreator<ITodo[]>(TodoListActions.TODO_AddBatch);
+export type AddBatchTodoAction = ReturnType<typeof addBatchTodos>
+
+/**
+ * RemoveTodo action creator
+ */
+export const removeTodo = createActionCreator<number>(TodoListActions.TODO_REMOVE);
+export type RemoveTodoAction = ReturnType<typeof removeTodo>
+
+/**
+ * RemoveAll action creator
+ */
+export const removeAllTodos = createActionCreator(TodoListActions.TODO_REMOVEALL);
+export type RemoveAllTodosAction = ReturnType<typeof removeAllTodos>
+
+/**
+ * ToggleMyDay action creator
+ */
+export const toggleMyDay = createActionCreator<number>(TodoListActions.TODO_TOGGLEMYDAY);
+export type ToggleMyDayAction = ReturnType<typeof toggleMyDay>
+
+/**
+ * ToggleCompleted action creator
+ */
+export const toggleCompleted = createActionCreator<number>(TodoListActions.TODO_TOGGLECOMPLETED);
+export type ToggleCompletedAction = ReturnType<typeof toggleCompleted>
+
+/**
  * Todo settings action types
  */
 export enum TodoSettingsActions {
@@ -26,54 +62,18 @@ export enum TodoSettingsActions {
     SETTINGS_SET_SHOWMYDAYONLY = 'SetMyDayOnly',
 }
 
-/* basic action creators */
+/**
+ * ShowCompleted settings action creator
+ */
+export const setShowCompletedTodos = createActionCreator<boolean>(TodoSettingsActions.SETTINGS_SET_SHOWCOMPLETED);
+export type SetShowCompletedAction = ReturnType<typeof setShowCompletedTodos>
 
 /**
- * AddTodo action creator
+ * SetMyDayOnly settings action creator
  */
-export const addTodo = createActionCreator<TodoListActions.TODO_ADD, ITodo>(TodoListActions.TODO_ADD);
+export const setShowMyDayOnlyTodos = createActionCreator<boolean>(TodoSettingsActions.SETTINGS_SET_SHOWMYDAYONLY);
+export type SetShowMyDayOnlyAction = ReturnType<typeof setShowMyDayOnlyTodos>
 
-/**
- * AddBatchTodo action creator
- */
-export const addBatchTodos = createActionCreator<TodoListActions.TODO_AddBatch, ITodo[]>(TodoListActions.TODO_AddBatch);
-
-/**
- * RemoveTodo action creator
- */
-export const removeTodo = createActionCreator<TodoListActions.TODO_REMOVE, number>(TodoListActions.TODO_REMOVE);
-
-/**
- * RemoveAll action creator
- */
-export const removeAllTodos = createActionCreator<TodoListActions.TODO_REMOVEALL>(TodoListActions.TODO_REMOVEALL);
-
-/**
- * ToggleMyDay action creator
- */
-export const toggleMyDay = createActionCreator<TodoListActions.TODO_TOGGLEMYDAY, number>(TodoListActions.TODO_TOGGLEMYDAY);
-
-/**
- * ToggleCompleted action creator
- */
-export const toggleCompleted = createActionCreator<TodoListActions.TODO_TOGGLECOMPLETED, number>(TodoListActions.TODO_TOGGLECOMPLETED);
-
-/**
- * ShowCompleted settings action creator and reducer
- */
-export const setShowCompletedTodos = createActionCreator<TodoSettingsActions.SETTINGS_SET_SHOWCOMPLETED, boolean>(TodoSettingsActions.SETTINGS_SET_SHOWCOMPLETED);
-
-/**
- * SetMyDayOnly action creator and reducer
- */
-export const setShowMyDayOnlyTodos = createActionCreator<TodoSettingsActions.SETTINGS_SET_SHOWMYDAYONLY, boolean>(TodoSettingsActions.SETTINGS_SET_SHOWMYDAYONLY);
-
-
-export type TodoListActionTypes = ReturnType<typeof addTodo> | ReturnType<typeof addBatchTodos> |
-    ReturnType<typeof removeTodo> | ReturnType<typeof removeAllTodos> |
-    ReturnType<typeof toggleMyDay> | ReturnType<typeof toggleCompleted>;
-
-export type TodoSettingsActionTypes = ReturnType<typeof setShowCompletedTodos> | ReturnType<typeof setShowMyDayOnlyTodos>;
 
 /* thunk action creators */
 

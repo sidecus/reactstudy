@@ -2,8 +2,17 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { createSlicedReducer } from 'roth.js';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
-import { TodoListActions, TodoSettingsActions, TodoListActionTypes, TodoSettingsActionTypes } from './actions.redux';
-import { addTodoReducer, addBatchTodoReducer, removeTodoReducer, removeAllReducer, toggleMyDayReducer, toggleCompletedReducer, setShowCompletedReducer, setMyDayOnlyReducer } from './reducers.redux';
+import { TodoListActions, TodoSettingsActions } from './actions.redux';
+import {
+    addTodoReducer,
+    addBatchTodoReducer,
+    removeTodoReducer,
+    removeAllReducer,
+    toggleMyDayReducer,
+    toggleCompletedReducer,
+    setShowCompletedReducer,
+    setMyDayOnlyReducer
+} from './reducers.redux';
 
 /**
  * ITodo for a todo item
@@ -37,7 +46,7 @@ const defaultSettings = {
  * @param state todo items state
  * @param action todo action to dispatch
  */
-const todoListReducer = createSlicedReducer<ITodo[], TodoListActionTypes>([] as ITodo[], {
+const todoListReducer = createSlicedReducer([] as ITodo[], {
     [TodoListActions.TODO_ADD]: [addTodoReducer],
     [TodoListActions.TODO_AddBatch]: [addBatchTodoReducer],
     [TodoListActions.TODO_REMOVE]: [removeTodoReducer],
@@ -51,7 +60,7 @@ const todoListReducer = createSlicedReducer<ITodo[], TodoListActionTypes>([] as 
  * @param state settings state
  * @param action settings action
  */
-const settingsReducer = createSlicedReducer<ITodoAppSettings, TodoSettingsActionTypes>(defaultSettings, {
+const settingsReducer = createSlicedReducer(defaultSettings, {
     [TodoSettingsActions.SETTINGS_SET_SHOWCOMPLETED]: [setShowCompletedReducer],
     [TodoSettingsActions.SETTINGS_SET_SHOWMYDAYONLY]: [setMyDayOnlyReducer],
 });

@@ -1,6 +1,9 @@
 import { ITodoAppStore } from "./store.redux";
 import { createSelector } from 'reselect';
 
+// Use reselect.js for memoization and define all selectors outside of the function components.
+// If they are defined within the fuinction component it can potentially defeat the purpose of memoization,
+
 /**
  * todo app todo items selector
  * @param store todo app store

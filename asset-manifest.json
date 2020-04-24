@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.js": "/reactstudy/static/js/main.8d234fb6.chunk.js",
-    "main.js.map": "/reactstudy/static/js/main.8d234fb6.chunk.js.map",
+    "main.js": "/reactstudy/static/js/main.09d9d7a6.chunk.js",
+    "main.js.map": "/reactstudy/static/js/main.09d9d7a6.chunk.js.map",
     "runtime-main.js": "/reactstudy/static/js/runtime-main.41b97717.js",
     "runtime-main.js.map": "/reactstudy/static/js/runtime-main.41b97717.js.map",
     "static/js/2.1fd37f4a.chunk.js": "/reactstudy/static/js/2.1fd37f4a.chunk.js",
     "static/js/2.1fd37f4a.chunk.js.map": "/reactstudy/static/js/2.1fd37f4a.chunk.js.map",
     "index.html": "/reactstudy/index.html",
-    "precache-manifest.373af66c236cfa23f822ee3c7ed214bf.js": "/reactstudy/precache-manifest.373af66c236cfa23f822ee3c7ed214bf.js",
+    "precache-manifest.32d8130187381802ac7ee318e5378dbc.js": "/reactstudy/precache-manifest.32d8130187381802ac7ee318e5378dbc.js",
     "service-worker.js": "/reactstudy/service-worker.js",
     "static/js/2.1fd37f4a.chunk.js.LICENSE.txt": "/reactstudy/static/js/2.1fd37f4a.chunk.js.LICENSE.txt",
     "static/media/logo.svg": "/reactstudy/static/media/logo.5d5d9eef.svg"
@@ -15,6 +15,6 @@
   "entrypoints": [
     "static/js/runtime-main.41b97717.js",
     "static/js/2.1fd37f4a.chunk.js",
-    "static/js/main.8d234fb6.chunk.js"
+    "static/js/main.09d9d7a6.chunk.js"
   ]
 }

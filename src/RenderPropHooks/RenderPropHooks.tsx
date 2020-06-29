@@ -62,7 +62,8 @@ const TitleWithRenderProp = ({toAdd}: {toAdd: number}) => {
 
 // Wraping ToolTipTitleWithRenderProp with React.memo
 const MemoedTitleWithRenderProp = React.memo(TitleWithRenderProp, (prev, next) => {
-    return prev === next;
+    console.log("propsAreEqual is called");
+    return prev.toAdd === next.toAdd;
 });
 
 export const RenderPropHooks = () => {

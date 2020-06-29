@@ -6,6 +6,7 @@ import { FunctionVsClass } from './FunctionVSClass/functionvsclass';
 import { TrumpTweets } from './QueryCloud/trumptweets';
 import { HooksEvents } from './HooksEvents/hooksevents';
 import { ReduxHooksContainer } from './ReduxHooks/reduxhookscontainer';
+import { RenderPropHooks } from './RenderPropHooks/RenderPropHooks';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -21,6 +22,15 @@ const useStyles = makeStyles((theme: Theme) =>
         },
     }),
 );
+
+// for tab content, defer creation after parent rendering since TrumpTweets requires DOM element size
+const TabsArray = [
+    { label: 'Function vs Class', content: () => <FunctionVsClass />},
+    { label: 'Trump Tweets', content: () => <TrumpTweets />},
+    { label: 'Hook Events', content: () => <HooksEvents />},
+    { label: 'ReduxHooks TodoApp', content: () => <ReduxHooksContainer />},
+    { label: 'RenderProp And ContextHooks', content: () => <RenderPropHooks />},
+];
 
 export const AppTabs = () => {
     const [activeTabIndex, setActiveTabIndex] = React.useState(0);
@@ -42,25 +52,11 @@ export const AppTabs = () => {
                     scrollButtons="auto"
                     aria-label="scrollable auto tabs example"
                 >
-                    <Tab label='Function & Class' />
-                    <Tab label='Trump Tweets' />
-                    <Tab label='Hook Events' />
-                    <Tab label='ReduxHooks Todo App' />
+                    {TabsArray.map((t, i) => <Tab label={t.label} key={i}/>)}
                 </Tabs>
             </AppBar>
             <Paper className={classes.panel}>
-                <AppTabPanel value={activeTabIndex} index={0}>
-                    <FunctionVsClass />
-                </AppTabPanel>
-                <AppTabPanel value={activeTabIndex} index={1}>
-                    <TrumpTweets />
-                </AppTabPanel>
-                <AppTabPanel value={activeTabIndex} index={2}>
-                    <HooksEvents />
-                </AppTabPanel>
-                <AppTabPanel value={activeTabIndex} index={3}>
-                    <ReduxHooksContainer />
-                </AppTabPanel>
+                {TabsArray.map((t, i) => <AppTabPanel value={activeTabIndex} key={i} index={i}>{t.content()}</AppTabPanel>)}
             </Paper>
         </div>
     );

@@ -23,12 +23,13 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
+// for tab content, defer creation after parent rendering since TrumpTweets requires DOM element size
 const TabsArray = [
-    { label: 'Function & Class', content: <FunctionVsClass />},
-    { label: 'Trump Tweets', content: <TrumpTweets />},
-    { label: 'Hook Events', content: <HooksEvents />},
-    { label: 'ReduxHooks TodoApp', content: <ReduxHooksContainer />},
-    { label: 'RenderProp And Hooks', content: <RenderPropHooks />},
+    { label: 'Function vs Class', content: () => <FunctionVsClass />},
+    { label: 'Trump Tweets', content: () => <TrumpTweets />},
+    { label: 'Hook Events', content: () => <HooksEvents />},
+    { label: 'ReduxHooks TodoApp', content: () => <ReduxHooksContainer />},
+    { label: 'RenderProp And ContextHooks', content: () => <RenderPropHooks />},
 ];
 
 export const AppTabs = () => {
@@ -55,7 +56,7 @@ export const AppTabs = () => {
                 </Tabs>
             </AppBar>
             <Paper className={classes.panel}>
-                {TabsArray.map((t, i) => <AppTabPanel value={activeTabIndex} key={i} index={i}>{t.content}</AppTabPanel>)}
+                {TabsArray.map((t, i) => <AppTabPanel value={activeTabIndex} key={i} index={i}>{t.content()}</AppTabPanel>)}
             </Paper>
         </div>
     );

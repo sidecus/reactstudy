@@ -5,7 +5,7 @@ import { Theme, createStyles, makeStyles } from '@material-ui/core';
 import { getActiveTodosToShow, getCompletedTodosToShow } from './store/selectors.redux';
 import { TodoList } from './todolist';
 import { TodoListAppBar } from './todolistappbar';
-import { useTodoAppDispatchers } from './store/actions.redux';
+import { useTodoBoundActions } from './store/actions.redux';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -25,12 +25,13 @@ export const TodoReduxApp = () => {
     const completedTodos = useSelector(getCompletedTodosToShow);
     const classes = useStyles();
 
-    const { dispatchResetTodos } = useTodoAppDispatchers();
+    const { resetTodos } = useTodoBoundActions();
 
     // "One time" pre-populate
     useEffect(() => {
-        dispatchResetTodos();
-    }, [dispatchResetTodos]);
+        resetTodos();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     return  (
         <div className={classes.todoapproot}>

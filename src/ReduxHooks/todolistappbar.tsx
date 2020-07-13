@@ -9,7 +9,7 @@ import StarRoundedIcon from '@material-ui/icons/StarRounded';
 import { GreenCheckbox } from './greencheckbox';
 import { ITodo } from './store/store.redux';
 import { getShowCompleted, getShowMyDayOnly } from './store/selectors.redux';
-import { useTodoAppDispatchers } from './store/actions.redux';
+import { useTodoBoundActions } from './store/actions.redux';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -25,28 +25,30 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-const createRandomTodo = () => {
+const createRandomTodo: () => ITodo = () => {
     return {
+        id: -1, // this will be overwritten
         title: "random todo",
         myDay: Math.random() > 0.5,
-    } as ITodo;
+        completed: false
+    };
 };
 
 export const TodoListAppBar = () => {
     const showCompleted = useSelector(getShowCompleted);
     const showMyDayOnly = useSelector(getShowMyDayOnly);
-    const { dispatchResetTodos, dispatchAddTodo, dispatchSetShowCompleted, dispatchSetShowMyDayOnly } = useTodoAppDispatchers();
+    const { resetTodos, addTodo, setShowCompletedTodos: showCompletedTodos, setShowMyDayOnlyTodos: showMyDayOnlyTodos } = useTodoBoundActions();
     const classes = useStyles();
 
     return (
         <>
             <div className={classes.todoactionappbar}>
                 <Button variant='contained' color='primary' className={classes.todoactioncontrol}
-                    onClick={() => dispatchResetTodos()}>
+                    onClick={resetTodos}>
                     Reset App
                 </Button>
                 <Button variant='contained' color='primary' className={classes.todoactioncontrol}
-                    onClick={() => dispatchAddTodo(createRandomTodo())}>
+                    onClick={() => addTodo(createRandomTodo())}>
                     Add New Todo
                 </Button>
             </div>
@@ -55,7 +57,7 @@ export const TodoListAppBar = () => {
                     control={
                         <Checkbox icon={<StarBorderRoundedIcon />} checkedIcon={<StarRoundedIcon />} tabIndex={-1}
                             checked={showMyDayOnly}
-                            onChange={() => dispatchSetShowMyDayOnly(!showMyDayOnly)}
+                            onChange={() => showMyDayOnlyTodos(!showMyDayOnly)}
                         />
                     }
                     label='TodayOnly'
@@ -64,7 +66,7 @@ export const TodoListAppBar = () => {
                     control={
                         <GreenCheckbox tabIndex={-1}
                             checked={showCompleted}
-                            onChange={() => dispatchSetShowCompleted(!showCompleted)}
+                            onChange={() => showCompletedTodos(!showCompleted)}
                         />
                     }
                     label='ShowCompleted'

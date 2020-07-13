@@ -2,7 +2,7 @@ import { Dispatch } from 'redux';
 import { batch } from 'react-redux';
 import { ITodo } from './store.redux';
 import { loadTodos } from '../api/todoapi';
-import { createActionCreator, useMemoizedBoundActionCreators } from 'roth.js';
+import { createActionCreator, useBoundActions } from 'roth.js';
 
 /* action type string enums */
 
@@ -11,7 +11,7 @@ import { createActionCreator, useMemoizedBoundActionCreators } from 'roth.js';
  */
 export enum TodoListActions {
     TODO_ADD = 'AddTodo',
-    TODO_AddBatch = 'AddBatchTodos',
+    TODO_AddBatch = 'SetTodos',
     TODO_REMOVE = 'RemoveTodo',
     TODO_REMOVEALL = 'RemoveAll',
     TODO_TOGGLEMYDAY = 'ToggleMyDay',
@@ -27,8 +27,8 @@ export type AddTodoAction = ReturnType<typeof addTodo>
 /**
  * AddBatchTodo action creator
  */
-export const addBatchTodos = createActionCreator<ITodo[]>(TodoListActions.TODO_AddBatch);
-export type AddBatchTodoAction = ReturnType<typeof addBatchTodos>
+export const setTodos = createActionCreator<ITodo[]>(TodoListActions.TODO_AddBatch);
+export type SetTodosAction = ReturnType<typeof setTodos>
 
 /**
  * RemoveTodo action creator
@@ -90,24 +90,24 @@ export const resetTodos = () => {
         return batch(() => {
             dispatch(setShowCompletedTodos(apiReturn.showCompleted));
             dispatch(setShowMyDayOnlyTodos(apiReturn.showMyDayOnly));
-            dispatch(addBatchTodos(apiReturn.todos));
+            dispatch(setTodos(apiReturn.todos));
         });
     }
 };
 
 /* named dispatchers (bound action creators) */
 const namedActionCreators = {
-    dispatchAddTodo: addTodo,
-    dispatchRemoveTodo: removeTodo,
-    dispatchToggleCompleted: toggleCompleted,
-    dispatchToggleMyDay: toggleMyDay,
-    dispatchSetShowCompleted: setShowCompletedTodos,
-    dispatchSetShowMyDayOnly: setShowMyDayOnlyTodos,
-    dispatchResetTodos: resetTodos,
+    addTodo,
+    removeTodo,
+    toggleCompleted,
+    toggleMyDay,
+    setShowCompletedTodos,
+    setShowMyDayOnlyTodos,
+    resetTodos,
 }
 
 /**
  * Custom hooks for dispatchers (bound action creators).
  * You can create one of this for each domain area to logically separate the dispatchers.
  */
-export const useTodoAppDispatchers = () => useMemoizedBoundActionCreators(namedActionCreators);
+export const useTodoBoundActions = () => useBoundActions(namedActionCreators);

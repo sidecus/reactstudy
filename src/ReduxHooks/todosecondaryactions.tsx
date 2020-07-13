@@ -8,7 +8,7 @@ import StarRoundedIcon from '@material-ui/icons/StarRounded';
 import { GreenCheckbox } from './greencheckbox';
 
 import { ITodo } from './store/store.redux';
-import { useTodoAppDispatchers } from './store/actions.redux';
+import { useTodoBoundActions } from './store/actions.redux';
 
 export interface ITodoActionsProps {
     labelId: string;
@@ -17,7 +17,7 @@ export interface ITodoActionsProps {
 
 // Todo secondary action bar
 export const TodoSecondaryActions = (props: ITodoActionsProps) => {
-    const { dispatchToggleMyDay, dispatchToggleCompleted, dispatchRemoveTodo } = useTodoAppDispatchers();
+    const { toggleMyDay, toggleCompleted, removeTodo } = useTodoBoundActions();
     const { todo, labelId } = props;
 
     return (
@@ -27,7 +27,7 @@ export const TodoSecondaryActions = (props: ITodoActionsProps) => {
                     <Checkbox icon={<StarBorderRoundedIcon />} checkedIcon={<StarRoundedIcon />} tabIndex={-1}
                         inputProps={{ 'aria-labelledby': labelId }}
                         checked={todo.myDay}
-                        onChange={() => dispatchToggleMyDay(todo.id)}
+                        onChange={() => toggleMyDay(todo.id)}
                     />
                 }
                 label={todo.myDay ? 'Today' : 'Later'}
@@ -38,12 +38,12 @@ export const TodoSecondaryActions = (props: ITodoActionsProps) => {
                         checked={todo.completed}
                         tabIndex={-1}
                         inputProps={{ 'aria-labelledby': labelId }}
-                        onChange={() => dispatchToggleCompleted(todo.id)}
+                        onChange={() => toggleCompleted(todo.id)}
                     />
                 }
                 label='Complete'
             />
-            <IconButton edge="end" aria-label="delete" onClick={() => dispatchRemoveTodo(todo.id)}>
+            <IconButton edge="end" aria-label="delete" onClick={() => removeTodo(todo.id)}>
                 <DeleteIcon />
             </IconButton>
         </ListItemSecondaryAction>

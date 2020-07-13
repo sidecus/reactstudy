@@ -97,7 +97,7 @@ export const RenderPropHooks = () => {
                         </Tooltip>
                         <br/>
                         <Tooltip placement='right' title={titleWithRenderProp(numberToAdd)}>
-                            <Button variant='contained' color='primary'>Tricky One - title doesn't rerender, but the nested component does</Button>
+                            <Button variant='contained' color='primary'>Tricky One - nested component rerenders on hover</Button>
                         </Tooltip>
                     </CardContent>
                 </Card>

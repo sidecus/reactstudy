@@ -1,7 +1,7 @@
 import { ITodo, ITodoAppSettings } from './store.redux';
 import {
     AddTodoAction,
-    AddBatchTodoAction,
+    SetTodosAction,
     RemoveTodoAction,
     RemoveAllTodosAction,
     ToggleMyDayAction,
@@ -16,9 +16,9 @@ import {
 export const addTodoReducer = (state: ITodo[], action: AddTodoAction) => {
     // assign id for the new todo. if it's the first, set it to 0.
     // otherwise set it to the current max id + 1 to avoid conflicts
-    const oldState = state!;
+    const oldState = state;
     const newId = oldState.length > 0 ? (Math.max(...oldState.map(t => t.id)) + 1) : 0;
-    const newTodo = {id: newId, due: new Date(), myDay: false, completed: false, ...action.payload};
+    const newTodo = { due: new Date(), ...action.payload, id: newId };
     newTodo.title = `${newTodo.title} ${newTodo.id}`;
     return [...oldState, newTodo];
 };
@@ -26,7 +26,7 @@ export const addTodoReducer = (state: ITodo[], action: AddTodoAction) => {
 /**
  * AddBatchTodo reducer
  */
-export const addBatchTodoReducer = (state: ITodo[], action: AddBatchTodoAction) => {
+export const addBatchTodoReducer = (state: ITodo[], action: SetTodosAction) => {
     return [...action.payload];
 };
 

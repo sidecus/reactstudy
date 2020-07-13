@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.js": "/reactstudy/static/js/main.1db7bc24.chunk.js",
-    "main.js.map": "/reactstudy/static/js/main.1db7bc24.chunk.js.map",
+    "main.js": "/reactstudy/static/js/main.32aa2b2f.chunk.js",
+    "main.js.map": "/reactstudy/static/js/main.32aa2b2f.chunk.js.map",
     "runtime-main.js": "/reactstudy/static/js/runtime-main.41b97717.js",
     "runtime-main.js.map": "/reactstudy/static/js/runtime-main.41b97717.js.map",
-    "static/js/2.0e868c24.chunk.js": "/reactstudy/static/js/2.0e868c24.chunk.js",
-    "static/js/2.0e868c24.chunk.js.map": "/reactstudy/static/js/2.0e868c24.chunk.js.map",
+    "static/js/2.af09d9bb.chunk.js": "/reactstudy/static/js/2.af09d9bb.chunk.js",
+    "static/js/2.af09d9bb.chunk.js.map": "/reactstudy/static/js/2.af09d9bb.chunk.js.map",
     "index.html": "/reactstudy/index.html",
-    "precache-manifest.0f7ef1b5b62dfaac48a131ba55e343c4.js": "/reactstudy/precache-manifest.0f7ef1b5b62dfaac48a131ba55e343c4.js",
+    "precache-manifest.6dfa080d51fc518a6731c15b6d13d7ee.js": "/reactstudy/precache-manifest.6dfa080d51fc518a6731c15b6d13d7ee.js",
     "service-worker.js": "/reactstudy/service-worker.js",
-    "static/js/2.0e868c24.chunk.js.LICENSE.txt": "/reactstudy/static/js/2.0e868c24.chunk.js.LICENSE.txt",
+    "static/js/2.af09d9bb.chunk.js.LICENSE.txt": "/reactstudy/static/js/2.af09d9bb.chunk.js.LICENSE.txt",
     "static/media/logo.svg": "/reactstudy/static/media/logo.5d5d9eef.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.41b97717.js",
-    "static/js/2.0e868c24.chunk.js",
-    "static/js/main.1db7bc24.chunk.js"
+    "static/js/2.af09d9bb.chunk.js",
+    "static/js/main.32aa2b2f.chunk.js"
   ]
 }
